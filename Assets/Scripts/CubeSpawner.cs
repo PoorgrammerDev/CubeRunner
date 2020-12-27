@@ -41,6 +41,9 @@ public class CubeSpawner : MonoBehaviour
         obstacles = new HashSet<GameObject>();
         transform = GetComponent<Transform>();
         
+        //TODO edit spawning script to continually spawn as cubes decrease,
+        //and spawn using a different algorithm that accounts for rows not being entirely blocked (possible to beat) and not too close to each other and definitely not clipping into each other
+
         for (int i = 0; i < amount; i++) {
             float cubeSize = Random.Range(cubeSizeLower, cubeSizeUpper);
             Vector3 position = getSpawnPosition(cubeSize);
