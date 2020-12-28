@@ -3,15 +3,6 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-
-    enum DistanceType {
-        VERY_SHORT = 0,
-        SHORT = 1,
-        MEDIUM = 2,
-        LONG = 3,
-        VERY_LONG = 4,
-    }
-
     private Transform transform;
 
     [SerializeField]
@@ -59,16 +50,15 @@ public class CubeSpawner : MonoBehaviour
         float[][] gaps = getGaps();
         rows.Add(spawnRow(firstRowDistance, gaps)); 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             spawnNextRow();
         }
     }
 
     private void spawnNextRow() {
         float[][] gaps = getGaps();
-        DistanceType distanceType = (DistanceType) ((int) Random.Range((float) DistanceType.VERY_SHORT, (float) DistanceType.VERY_LONG + 1));
         Row previous = rows[rows.Count - 1];
-        rows.Add(spawnRow(previous.getObstacles()[0].transform.position.x + getDistance(previous.getGaps(), gaps, distanceType), gaps));
+        rows.Add(spawnRow(previous.getObstacles()[0].transform.position.x + getDistance(previous.getGaps(), gaps), gaps));
     }
 
 
@@ -113,7 +103,7 @@ public class CubeSpawner : MonoBehaviour
     }
 
 
-    private float getDistance (float[][] previousGaps, float[][] gaps, DistanceType distanceType) {
+    private float getDistance (float[][] previousGaps, float[][] gaps) {
         float minTriangleZSide = float.MinValue;
         
         //finding the shortest possible Z gap dist
@@ -128,8 +118,8 @@ public class CubeSpawner : MonoBehaviour
 
         if (minTriangleZSide == float.MaxValue) throw new System.Exception("Error in gap length calculation.");
         
-        float minDist = (gameValues.getForwardSpeed() * minTriangleZSide) / gameValues.getStrafingSpeed();
-        return Mathf.Max(minDist, 2);
+        float minDist = Mathf.Max((gameValues.getForwardSpeed() * minTriangleZSide) / gameValues.getStrafingSpeed(), 2f);
+        return minDist * Random.Range(1.25f, 3f);
     }
 
     private float[][] getGaps() {
@@ -198,7 +188,7 @@ public class CubeSpawner : MonoBehaviour
                 foreach (GameObject obstacle in rows[i].getObstacles()) {
                     //check if passed player, mark for deletion
                     Transform transform = obstacle.transform;
-                    if (transform.position.x < -5) {
+                    if (transform.position.x < -0.5f) {
                         delete = true;
                         break;
                     }
