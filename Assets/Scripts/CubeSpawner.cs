@@ -9,9 +9,6 @@ public class CubeSpawner : MonoBehaviour
     private GameObject player;
 
     [SerializeField]
-    private GameObject gap;
-
-    [SerializeField]
     private GameObject cubePrefab;
 
     [SerializeField]
@@ -21,10 +18,10 @@ public class CubeSpawner : MonoBehaviour
     private int firstRowDistance = 5;
 
     [SerializeField]
-    private float minimumWidth = 0.5f;
+    private float obstacleMinHeight = 1.5f;
 
     [SerializeField]
-    private float obstacleMinHeight = 2f;
+    private float obstacleMaxHeight = 3f;
 
     [SerializeField]
     private float obstacleThickness = 1f;
@@ -50,7 +47,7 @@ public class CubeSpawner : MonoBehaviour
         float[][] gaps = getGaps();
         rows.Add(spawnRow(firstRowDistance, gaps)); 
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 5; i++) {
             spawnNextRow();
         }
     }
@@ -88,7 +85,7 @@ public class CubeSpawner : MonoBehaviour
     }
 
     private GameObject spawnObstacle (Vector3 position, float size) {
-        float height = Mathf.Max(size, obstacleMinHeight);
+        float height = Mathf.Clamp(size, obstacleMinHeight, obstacleMaxHeight);
         position.y = height / 2f;
 
         GameObject cube = Instantiate(cubePrefab, position, new Quaternion(), transform);
@@ -119,13 +116,13 @@ public class CubeSpawner : MonoBehaviour
         if (minTriangleZSide == float.MaxValue) throw new System.Exception("Error in gap length calculation.");
         
         float minDist = Mathf.Max((gameValues.getForwardSpeed() * minTriangleZSide) / gameValues.getStrafingSpeed(), 2f);
-        return minDist * Random.Range(1.25f, 3f);
+        return minDist * Random.Range(gameValues.getRowDistMultLowerBound(), gameValues.getRowDistMultUpperBound());
     }
 
     private float[][] getGaps() {
         int amount = Random.Range(1, maxGaps + 1);
         
-        float remainingWidth = zBorders;
+        float remainingWidth = zBorders * gameValues.getWidthMultiplier();
         float[][] gaps = new float[amount][];
         for (int i = 0; i < gaps.Length; i++) {
             float[] currentGap = new float[2];
@@ -183,17 +180,13 @@ public class CubeSpawner : MonoBehaviour
     void MoveCubes() {
         if (rows != null) {
             for (int i = 0; i < rows.Count; i++) {
-                bool fading = false;
                 bool delete = false;
                 foreach (GameObject obstacle in rows[i].getObstacles()) {
                     //check if passed player, mark for deletion
                     Transform transform = obstacle.transform;
-                    if (transform.position.x < -0.5f) {
+                    if (transform.position.x < -1f) {
                         delete = true;
                         break;
-                    }
-                    else if (transform.position.x < 0) {
-                        fading = true;
                     }
 
                     Vector3 position = transform.position;
@@ -209,16 +202,21 @@ public class CubeSpawner : MonoBehaviour
                     rows.RemoveAt(i);
                     spawnNextRow();
                 }
-
-                //fading out
-                else if (fading) {
-                    foreach (GameObject obstacle in rows[i].getObstacles()) {
-                        
-                    }
-                }
             }
         }
     }
     
+    public int getMaxGaps() {
+        return maxGaps;
+    }
+
+    public void setMaxGaps(int num) {
+        if (num >= 1) {
+            maxGaps = num;
+        }
+        else {
+            throw new System.Exception("Max Gaps must be at least one.");
+        }
+    }
 
 }
