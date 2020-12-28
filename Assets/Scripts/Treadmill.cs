@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Treadmill : MonoBehaviour
 {
-    [SerializeField]
-    private float speed;
 
     [SerializeField]
-    private float teleportThreshold = -149;
+    private float teleportThreshold = -175;
+
+    [SerializeField]
+    private GameValues gameValues;
 
     private Transform transform;
 
@@ -26,7 +25,7 @@ public class Treadmill : MonoBehaviour
         }
 
         //move backwards
-        position.x -= speed * Time.deltaTime;
+        position.x -= gameValues.getForwardSpeed() * Time.deltaTime;
         transform.position = position;
     }
 }

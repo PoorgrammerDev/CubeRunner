@@ -1,9 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
+
+    enum DistanceType {
+        VERY_SHORT = 0,
+        SHORT = 1,
+        MEDIUM = 2,
+        LONG = 3,
+        VERY_LONG = 4,
+    }
 
     private Transform transform;
 
@@ -11,54 +18,172 @@ public class CubeSpawner : MonoBehaviour
     private GameObject player;
 
     [SerializeField]
+    private GameObject gap;
+
+    [SerializeField]
     private GameObject cubePrefab;
 
     [SerializeField]
-    private int amount = 10;
+    private GameValues gameValues;
 
     [SerializeField]
-    private int spawnDistanceMinimum = 5;
+    private int firstRowDistance = 5;
 
     [SerializeField]
-    private float cubeSizeLower = 0.5f;
+    private float minimumWidth = 0.5f;
 
     [SerializeField]
-    private float cubeSizeUpper = 3f;
-
-    private float x_upper = 90;
-    private float z_bounds = 4;
+    private float obstacleMinHeight = 2f;
 
     [SerializeField]
-    private float moveSpeed;
+    private float obstacleThickness = 1f;
 
-    private HashSet<GameObject> obstacles;
+    [SerializeField]
+    private int maxGaps = 3;
 
-    
+    private float zBorders = 5;
+
+    private List<Row> rows;
 
     // Start is called before the first frame update
     void Start()
     {
-        obstacles = new HashSet<GameObject>();
+        rows = new List<Row>();
         transform = GetComponent<Transform>();
         
-        //TODO edit spawning script to continually spawn as cubes decrease,
-        //and spawn using a different algorithm that accounts for rows not being entirely blocked (possible to beat) and not too close to each other and definitely not clipping into each other
+        initialSpawn();
+    }
 
-        for (int i = 0; i < amount; i++) {
-            float cubeSize = Random.Range(cubeSizeLower, cubeSizeUpper);
-            Vector3 position = getSpawnPosition(cubeSize);
 
-            GameObject newCube = Instantiate(cubePrefab, position, new Quaternion(), transform);
+    private void initialSpawn() {
+        float[][] gaps = getGaps();
+        rows.Add(spawnRow(firstRowDistance, gaps)); 
 
-            Vector3 scale = newCube.transform.localScale;
-            scale.x = cubeSize;
-            scale.y = cubeSize;
-            scale.z = cubeSize;
-            newCube.transform.localScale = scale;
+        for (int i = 0; i < 10; i++) {
+            spawnNextRow();
+        }
+    }
 
-            obstacles.Add(newCube);
+    private void spawnNextRow() {
+        float[][] gaps = getGaps();
+        DistanceType distanceType = (DistanceType) ((int) Random.Range((float) DistanceType.VERY_SHORT, (float) DistanceType.VERY_LONG + 1));
+        Row previous = rows[rows.Count - 1];
+        rows.Add(spawnRow(previous.getObstacles()[0].transform.position.x + getDistance(previous.getGaps(), gaps, distanceType), gaps));
+    }
+
+
+    private Row spawnRow(float xCoordSpawn, float[][] gaps) {
+        //for (int i = 0; i < gaps.Length; i++)
+        //{
+        //    GameObject ye = Instantiate(this.gap, new Vector3(xCoordSpawn, 1, gaps[i][0]), new Quaternion());
+        //    ye.name = "Gap " + i;
+//
+        //    Vector3 scale = ye.transform.localScale;
+        //    scale.z = gaps[i][1];
+        //    ye.transform.localScale = scale;
+        //}
+        
+        GameObject[] obstacles = new GameObject[gaps.Length + 1];
+        for (int i = 0; i < gaps.Length + 1; i++)
+        {
+            float positiveBound = (i > 0) ? gaps[i-1][0] - (gaps[i-1][1] / 2f) : zBorders;
+            float negativeBound = (i < gaps.Length) ? gaps[i][0] + (gaps[i][1] / 2f) : -zBorders;
+
+            float obstacleSize = Mathf.Abs(positiveBound - negativeBound);
+            GameObject obstacle = spawnObstacle(new Vector3(xCoordSpawn, obstacleSize / 2f, (positiveBound + negativeBound) / 2f), obstacleSize);
+            obstacles[i] = obstacle;
         }
 
+        return new Row(obstacles, gaps);
+    }
+
+    private GameObject spawnObstacle (Vector3 position, float size) {
+        float height = Mathf.Max(size, obstacleMinHeight);
+        position.y = height / 2f;
+
+        GameObject cube = Instantiate(cubePrefab, position, new Quaternion(), transform);
+
+        Vector3 scale = cube.transform.localScale;
+        scale.x = obstacleThickness;
+        scale.y = height;
+        scale.z = size;
+
+        cube.transform.localScale = scale;
+        return cube;
+    }
+
+
+    private float getDistance (float[][] previousGaps, float[][] gaps, DistanceType distanceType) {
+        float minTriangleZSide = float.MinValue;
+        
+        //finding the shortest possible Z gap dist
+        for (int i = 0; i < previousGaps.Length; i++) {
+            for (int j = 0; j < gaps.Length; j++) {
+                float triangleZSide = Mathf.Abs(previousGaps[i][0] - gaps[j][0]);
+                if (triangleZSide > minTriangleZSide) {
+                    minTriangleZSide = triangleZSide;
+                }
+            }
+        }
+
+        if (minTriangleZSide == float.MaxValue) throw new System.Exception("Error in gap length calculation.");
+        
+        float minDist = (gameValues.getForwardSpeed() * minTriangleZSide) / gameValues.getStrafingSpeed();
+        return Mathf.Max(minDist, 2);
+    }
+
+    private float[][] getGaps() {
+        int amount = Random.Range(1, maxGaps + 1);
+        
+        float remainingWidth = zBorders;
+        float[][] gaps = new float[amount][];
+        for (int i = 0; i < gaps.Length; i++) {
+            float[] currentGap = new float[2];
+
+            //scale or width
+            currentGap[1] = Random.Range(1.5f, remainingWidth - (gaps.Length - i - 1));
+            remainingWidth -= currentGap[1];
+
+
+            List<List<float>> possibleLandings = new List<List<float>>();
+            for (int j = 0; j < i + 1; j++) {
+                float positiveBound = ((j > 0) ? gaps[j-1][0] - (gaps[j-1][1] / 2f) : zBorders); 
+                float negativeBound = ((j < i) ? gaps[j][0] + (gaps[j][1] / 2f) : -zBorders);
+
+                if (Mathf.Abs(positiveBound - negativeBound) >= currentGap[1]) {
+                    List<float> possibleLanding = new List<float>();
+                    possibleLanding.Add(positiveBound);
+                    possibleLanding.Add(negativeBound);
+
+                    possibleLandings.Add(possibleLanding);
+                }
+            }
+
+            if (possibleLandings.Count > 0) {
+                int rand = Random.Range(0, possibleLandings.Count);
+                List<float> landing = possibleLandings[rand];
+                float adjustedPosBound = landing[0] - (currentGap[1] / 2f);
+                float adjustedNegBound = landing[1] + (currentGap[1] / 2f);
+
+                currentGap[0] = Random.Range(adjustedNegBound, adjustedPosBound);
+                gaps[i] = currentGap;
+            }
+        }
+        return sortGaps(gaps);
+    }
+
+    private float[][] sortGaps (float[][] gaps) {
+        float[] temp;
+        for (int i = 0; i < gaps.Length; i++) {
+            for (int j = i + 1; j < gaps.Length; j++) {
+                if (gaps[i][0] < gaps[j][0]) {
+                    temp = gaps[j];
+                    gaps[j] = gaps[i];
+                    gaps[i] = temp;
+                }
+            }
+        }
+        return gaps;
     }
 
     void Update() {
@@ -66,38 +191,44 @@ public class CubeSpawner : MonoBehaviour
     }
 
     void MoveCubes() {
-        if (obstacles != null) {
-            foreach (GameObject obstacle in obstacles) {
-                //check if passed player
-                Transform transform = obstacle.transform;
-                if (transform.position.x < 0) {
-                    obstacles.Remove(obstacle);
-                    Destroy(obstacle);
-                    continue;
+        if (rows != null) {
+            for (int i = 0; i < rows.Count; i++) {
+                bool fading = false;
+                bool delete = false;
+                foreach (GameObject obstacle in rows[i].getObstacles()) {
+                    //check if passed player, mark for deletion
+                    Transform transform = obstacle.transform;
+                    if (transform.position.x < -5) {
+                        delete = true;
+                        break;
+                    }
+                    else if (transform.position.x < 0) {
+                        fading = true;
+                    }
+
+                    Vector3 position = transform.position;
+                    position.x -= gameValues.getForwardSpeed() * Time.deltaTime;
+                    transform.position = position;
                 }
 
-                //move if not passed
-                Rigidbody rigidbody = obstacle.GetComponent<Rigidbody>();
-                Vector3 velocity = rigidbody.velocity;
-                velocity.x -= moveSpeed * Time.deltaTime * 10;
-                rigidbody.velocity = velocity;
+                //delete row and spawn a new one
+                if (delete) {
+                    foreach (GameObject obstacle in rows[i].getObstacles()) {
+                        Destroy(obstacle);
+                    }
+                    rows.RemoveAt(i);
+                    spawnNextRow();
+                }
+
+                //fading out
+                else if (fading) {
+                    foreach (GameObject obstacle in rows[i].getObstacles()) {
+                        
+                    }
+                }
             }
         }
     }
     
-    Vector3 getSpawnPosition(float size) {
-        float x_lower = player.transform.position.x + spawnDistanceMinimum;
 
-        float x = Random.Range(x_lower, x_upper);
-        float y = size / 2;
-        float z = Random.Range(-z_bounds, z_bounds);
-        
-        return new Vector3(x, y, z);
-    }
-
-/*
-    boolean checkPositionViable(Vector3 vector) {
-        
-    }
-    */
 }

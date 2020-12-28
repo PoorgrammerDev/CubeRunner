@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
 
     [SerializeField]
-    private float strafeSpeed;
+    private GameValues gameValues;
 
     [SerializeField]
     private float gravity;
@@ -24,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 vel = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxis("Horizontal") * strafeSpeed)) * Time.deltaTime;
+        Vector3 vel = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxisRaw("Horizontal") * gameValues.getStrafingSpeed())) * Time.deltaTime;
         vel = ApplyGravity(vel);
 
         characterController.Move(vel);
