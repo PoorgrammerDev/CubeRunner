@@ -36,13 +36,16 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\CubeSpawner.cs" />
-     <Compile Include="Assets\Scripts\GameProgression.cs" />
-     <Compile Include="Assets\Scripts\GameValues.cs" />
-     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\Row.cs" />
-     <Compile Include="Assets\Scripts\Score.cs" />
-     <Compile Include="Assets\Scripts\Treadmill.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\CubeSpawner.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\GameProgression.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PlayerCollision.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Treadmill.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\CubeSpin.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\StartGame.cs" />
+     <Compile Include="Assets\Scripts\Util\GameValues.cs" />
+     <Compile Include="Assets\Scripts\Util\Row.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
