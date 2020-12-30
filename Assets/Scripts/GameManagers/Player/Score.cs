@@ -20,6 +20,8 @@ public class Score : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+        if (!gameValues.isGameActive()) return;
+        
         scoreBuffer += Time.deltaTime * 200;
 
         if (scoreBuffer > scoreBufferThreshold) {
@@ -27,6 +29,6 @@ public class Score : MonoBehaviour
             gameValues.setScore(gameValues.getScore() + 1);
         }
 
-        scoreText.text = "" + (int) gameValues.getScore();
+        scoreText.text = ((int) gameValues.getScore()).ToString();
     }
 }

@@ -9,7 +9,7 @@ public class Treadmill : MonoBehaviour
     [SerializeField]
     private GameValues gameValues;
 
-    private Transform transform;
+    private new Transform transform;
 
     void Start() {
         transform = GetComponent<Transform>();
@@ -17,6 +17,8 @@ public class Treadmill : MonoBehaviour
 
     void Update()
     {
+        if (!gameValues.isGameActive()) return;
+
         Vector3 position = transform.position;
 
         //check if moved backwards enough

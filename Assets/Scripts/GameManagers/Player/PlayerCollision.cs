@@ -4,26 +4,17 @@ using UnityEngine.UI;
 public class PlayerCollision : MonoBehaviour
 {
     [SerializeField]
-    private GameValues gameValues;
-
-    [SerializeField]
-    private GameObject gameOverScreen;
-    
-    [SerializeField]
-    private GameObject runningScore;
-
-    [SerializeField]
-    private Text finalScores;
+    private EndGame gameEndManager;
 
     private void OnTriggerEnter(Collider other) {
         GameObject otherObject = other.gameObject;
         if (otherObject != gameObject) {
-            if (otherObject.CompareTag("Obstacle")) {
+            if (otherObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
                 if (otherObject.transform.position.x > 0) {
                     collideWithObstacle();
                 }
             }
-            else if (otherObject.CompareTag("PowerUp")) {
+            else if (otherObject.CompareTag(TagHolder.POWERUP_TAG)) {
 
             }
         }
@@ -32,15 +23,7 @@ public class PlayerCollision : MonoBehaviour
     private void collideWithObstacle() {
         //TODO add power up exceptions here
 
-        endGame();
+        gameEndManager.endGame();
     }
-
-    public void endGame() {
-        Time.timeScale = 0;
-
-        gameOverScreen.SetActive(true);
-        runningScore.SetActive(false);
-
-        finalScores.text = gameValues.getScore() + "\n" + 0;
-    }
+    
 }

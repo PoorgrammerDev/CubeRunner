@@ -29,12 +29,15 @@ public class StartGame : MonoBehaviour
     [SerializeField]
     private Text countdown;
 
+    [SerializeField]
+    private int countdownNum = 3;
+
     private const int ROAD_FULLY_EXTENDED = 65;
     private const int ROAD_PASSED = -385;
 
     private const float SUN_RISEN = 4.5f;
 
-    private MeshRenderer renderer;
+    private new MeshRenderer renderer;
 
     private Vector3 moveRight = new Vector3(0.05f, 0, 0);
     private Vector3 moveRightUI = new Vector3(9f, 0, 0);
@@ -52,7 +55,7 @@ public class StartGame : MonoBehaviour
     public void Click() {
         renderer.material = glowingMaterial;
 
-        //TODO disables all buttons
+        //isables all buttons
         foreach (Button button in buttons) {
             button.interactable = false;
         }
@@ -68,10 +71,7 @@ public class StartGame : MonoBehaviour
 
         //camera moves up
         Animator mainCamAnim = Camera.main.GetComponent<Animator>();
-        mainCamAnim.Play("StartGame");
-
-        //countdown
-        
+        mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
     }
 
     IEnumerator RemoveOtherObjects () {
@@ -116,8 +116,8 @@ public class StartGame : MonoBehaviour
 
         Transform transform = groundPlane.transform;
         Vector3 moveVector = new Vector3(0, 0, -1f);
-        Vector3 moveVectorSlower = new Vector3(0, 0, -0.5f);
-        Vector3 moveVectorIdle = new Vector3(0, 0, -0.04f);
+        Vector3 moveVectorSlower = new Vector3(0, 0, -0.3f);
+        Vector3 moveVectorIdle = new Vector3(0, 0, -0.075f);
 
         bool sunAlreadyRising = false;
         do {
@@ -158,6 +158,7 @@ public class StartGame : MonoBehaviour
 
     IEnumerator FadeInCountdown() {
         countdown.gameObject.SetActive(true);
+        countdown.text = countdownNum.ToString();
 
         Color color = countdown.color;
         for (float i = 0; i <= 1; i += 0.05f) {
@@ -171,9 +172,9 @@ public class StartGame : MonoBehaviour
     }
 
     IEnumerator StartCountingDown() {
-        for (int i = 5; i >= -1; i--) {
+        for (int i = countdownNum; i >= -1; i--) {
             if (i > 0) {
-                countdown.text = "" + i;
+                countdown.text = i.ToString();
             }
             else {
                 countdown.text = "Get Ready";
@@ -182,7 +183,7 @@ public class StartGame : MonoBehaviour
             yield return new WaitForSecondsRealtime(1);
         }
 
-        SceneManager.LoadScene("Scene", LoadSceneMode.Single);
+        SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
         yield break;
     }
 

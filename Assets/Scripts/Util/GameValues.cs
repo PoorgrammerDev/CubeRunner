@@ -1,6 +1,18 @@
 using UnityEngine;
 public class GameValues : MonoBehaviour {
 
+    //GAME ACTIVE-----------
+    [SerializeField]
+    private bool gameActive = true;
+
+    public bool isGameActive() {
+        return gameActive;
+    }
+
+    public void setGameActive(bool active) {
+        gameActive = active;
+    }
+
     //FORWARD SPEED---------
     private const float MAX_FORWARD_SPEED = 20f;
 

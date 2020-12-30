@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    private Transform transform;
+    private new Transform transform;
 
     [SerializeField]
     private GameObject player;
@@ -197,6 +197,8 @@ public class CubeSpawner : MonoBehaviour
     }
 
     void Update() {
+        if (!gameValues.isGameActive()) return;
+        
         MoveCubes();
     }
 

@@ -13,7 +13,7 @@ public class CubeSpin : MonoBehaviour
     [SerializeField]
     private float spinSpeed = 0.5f;
 
-    private Transform transform;
+    private new Transform transform;
 
     // Start is called before the first frame update
     void Start() {

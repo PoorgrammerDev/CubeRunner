@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 vel = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxisRaw("Horizontal") * gameValues.getStrafingSpeed())) * Time.deltaTime;
+        Vector3 vel = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxisRaw(TagHolder.HORIZONTAL_AXIS) * gameValues.getStrafingSpeed())) * Time.deltaTime;
         vel = ApplyGravity(vel);
 
         characterController.Move(vel);
