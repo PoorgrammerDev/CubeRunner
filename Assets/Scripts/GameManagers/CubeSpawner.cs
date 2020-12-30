@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
@@ -15,7 +16,7 @@ public class CubeSpawner : MonoBehaviour
     private GameValues gameValues;
 
     [SerializeField]
-    private int firstRowDistance = 5;
+    private int firstRowDistance = 10;
 
     [SerializeField]
     private float obstacleMinHeight = 1.5f;
@@ -49,21 +50,24 @@ public class CubeSpawner : MonoBehaviour
 
     private void initialSpawn() {
         float[][] gaps = getGaps();
-        rows.Add(spawnRow(firstRowDistance, gaps)); 
+        rows.Add(spawnRow(firstRowDistance, gaps, true, 0)); 
 
         for (int i = 0; i < 5; i++) {
-            spawnNextRow();
+            spawnNextRow(true, i + 1);
         }
     }
 
     private void spawnNextRow() {
-        float[][] gaps = getGaps();
-        Row previous = rows[rows.Count - 1];
-        rows.Add(spawnRow(previous.getObstacles()[0].transform.position.x + getDistance(previous.getGaps(), gaps), gaps));
+        spawnNextRow(false, -1);
     }
 
+    private void spawnNextRow(bool spawnFromAbove, int aboveMult) {
+        float[][] gaps = getGaps();
+        Row previous = rows[rows.Count - 1];
+        rows.Add(spawnRow(previous.getObstacles()[0].transform.position.x + getDistance(previous.getGaps(), gaps), gaps, spawnFromAbove, aboveMult));
+    }
 
-    private Row spawnRow(float xCoordSpawn, float[][] gaps) {
+    private Row spawnRow(float xCoordSpawn, float[][] gaps, bool spawnFromAbove, int aboveMult) {
         //for (int i = 0; i < gaps.Length; i++)
         //{
         //    GameObject ye = Instantiate(this.gap, new Vector3(xCoordSpawn, 1, gaps[i][0]), new Quaternion());
@@ -81,18 +85,21 @@ public class CubeSpawner : MonoBehaviour
             float negativeBound = (i < gaps.Length) ? gaps[i][0] + (gaps[i][1] / 2f) : -zBorders;
 
             float obstacleSize = Mathf.Abs(positiveBound - negativeBound);
-            GameObject obstacle = spawnObstacle(new Vector3(xCoordSpawn, obstacleSize / 2f, (positiveBound + negativeBound) / 2f), obstacleSize);
+            GameObject obstacle = spawnObstacle(new Vector3(xCoordSpawn, obstacleSize / 2f, (positiveBound + negativeBound) / 2f), obstacleSize, spawnFromAbove, aboveMult);
             obstacles[i] = obstacle;
         }
 
         return new Row(obstacles, gaps);
     }
 
-    private GameObject spawnObstacle (Vector3 position, float size) {
+    private GameObject spawnObstacle (Vector3 position, float size, bool spawnFromAbove, int aboveMult) {
         float height = Mathf.Clamp(size, obstacleMinHeight, obstacleMaxHeight);
-        position.y = height / 2f;
+        position.y = spawnFromAbove ? 15 + (10 * aboveMult) : height / 2f;
 
         GameObject cube = Instantiate(cubePrefab, position, new Quaternion(), transform);
+        if (spawnFromAbove) {
+            StartCoroutine(makeCubesFall(cube, height / 2f));
+        }
 
         Vector3 scale = cube.transform.localScale;
         scale.x = obstacleThickness;
@@ -101,6 +108,18 @@ public class CubeSpawner : MonoBehaviour
 
         cube.transform.localScale = scale;
         return cube;
+    }
+
+    IEnumerator makeCubesFall(GameObject cube, float landedHeight) {
+        Rigidbody rigidbody = cube.GetComponent<Rigidbody>();
+        rigidbody.isKinematic = false;
+
+        while (cube != null && cube.transform.position.y > landedHeight) {
+            yield return null;
+        }
+
+        rigidbody.isKinematic = true;
+        yield break;
     }
 
 
