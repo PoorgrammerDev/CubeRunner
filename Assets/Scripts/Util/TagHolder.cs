@@ -2,6 +2,7 @@
 {
     public const string CAM_ANIM_START_GAME = "StartGame";
     public const string GAME_SCENE = "Scene";
+    public const string MAIN_MENU_SCENE = "MainMenu";
     public const string OBSTACLE_TAG = "Obstacle";
     public const string POWERUP_TAG = "PowerUp";
     public const string HORIZONTAL_AXIS = "Horizontal";

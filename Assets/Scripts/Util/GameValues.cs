@@ -2,7 +2,6 @@ using UnityEngine;
 public class GameValues : MonoBehaviour {
 
     //GAME ACTIVE-----------
-    [SerializeField]
     private bool gameActive = true;
     public bool GameActive { get => gameActive; set => gameActive = value; }
 
@@ -17,8 +16,8 @@ public class GameValues : MonoBehaviour {
 
     private float forwardSpeed = 7f;
     public float ForwardSpeed { get => forwardSpeed; set {
-            if (value > 0 && value < MaxForwardSpeed) {
-                ForwardSpeed = value;
+            if (value > 0 && value < maxForwardSpeed) {
+                forwardSpeed = value;
             }
             else {
                 throw new System.Exception("Forward Speed is out of bounds.");
@@ -45,8 +44,8 @@ public class GameValues : MonoBehaviour {
     private float rowDistMultLowerBound = 1.25f;
     public float RowDistMultLowerBound { get => rowDistMultLowerBound; set {
             if (value > 1) {
-                if (value < RowDistMultUpperBound) {
-                    RowDistMultLowerBound = value;
+                if (value < rowDistMultUpperBound) {
+                    rowDistMultLowerBound = value;
                 }
                 else {
                     throw new System.Exception("Lower bound cannot be more than upper bound.");
@@ -61,8 +60,8 @@ public class GameValues : MonoBehaviour {
     
     private float rowDistMultUpperBound = 1.75f;
     public float RowDistMultUpperBound { get => rowDistMultUpperBound; set {
-            if (value > RowDistMultLowerBound) {
-                RowDistMultLowerBound = value;
+            if (value > rowDistMultLowerBound) {
+                rowDistMultLowerBound = value;
             }
             else {
                 throw new System.Exception("Upper bound cannot be less than lower bound.");
@@ -87,7 +86,6 @@ public class GameValues : MonoBehaviour {
     }
 
     //MINIMUM GAP WIDTH
-    [SerializeField]
     private float minimumGapWidth = 1.5f;
     private float MinimumGapWidth {get => minimumGapWidth; set {
             if (value >= 1) {

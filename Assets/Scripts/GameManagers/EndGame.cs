@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 
 public class EndGame : MonoBehaviour
@@ -24,6 +24,9 @@ public class EndGame : MonoBehaviour
     private SphereCollider explosionCollider;
 
     [SerializeField]
+    private EndGameDataExport dataExport;
+
+    [SerializeField]
     private uint divide = 4;
 
     private uint DEFAULT_DIVIDE = 4;
@@ -40,11 +43,30 @@ public class EndGame : MonoBehaviour
     }
 
     public void endGame() {
+        //Data Export
+        dataExport.FinalScore = gameValues.Score;
+        dataExport.CubePartDivide = divide;
+        dataExport.Difficulty = gameValues.Difficulty;
+
+        //Slow-mo effect
         Time.timeScale = 0.125f;
 
         StartCoroutine(TimeResume(0.125f));
         StartCoroutine(DisableGame());
         smashCube();
+    }
+
+    IEnumerator LoadNewScene() {
+        Camera.main.GetComponent<AudioListener>().enabled = false;
+        SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Additive);
+        Scene gameOver = SceneManager.GetSceneByName(TagHolder.MAIN_MENU_SCENE);
+        SceneManager.MoveGameObjectToScene(dataExport.gameObject, gameOver);
+        yield return null;
+
+        foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects()) {
+            obj.SetActive(false);
+        }
+        SceneManager.UnloadSceneAsync(TagHolder.GAME_SCENE);
     }
 
     IEnumerator TimeResume(float delay) {
@@ -97,18 +119,18 @@ public class EndGame : MonoBehaviour
 
         beam.SetActive(true);
 
-        Transform beamTransform = beam.transform;
         //beam moves to match cube Z
-        Vector3 beamPosition = transform.position;
+        Vector3 beamPosition = beam.transform.position;
         beamPosition.z = activePlayer.transform.position.z;
-        beamTransform.position = beamPosition;
+        beam.transform.position = beamPosition;
 
 
         //beam moves down
-        Vector3 moveDown = new Vector3(0, -0.05f, 0);
-        for (int i = 0; i < ((int) transform.position.x - 5); i++) {
-            beamTransform.Translate(moveDown, Space.World);
-            yield return new WaitForSeconds(1);
+        const float speedScale = 2.5f;
+        Vector3 moveDown = new Vector3(0, -(1f / speedScale), 0);
+        for (int i = 0; i < (beam.transform.position.y * speedScale); i++) {
+            beam.transform.Translate(moveDown, Space.World);
+            yield return null;
         }
 
         //cubes get sucked up
@@ -117,6 +139,14 @@ public class EndGame : MonoBehaviour
             yield return null;
         }
 
+        GameObject finalCubePart = cubeParts[cubeParts.Length - 1];
+        while (finalCubePart != null && finalCubePart.activeInHierarchy && finalCubePart.transform.position.y < 20) {
+            yield return null;
+        }
+
+        //loads new scene
+        StartCoroutine(LoadNewScene());
+        yield break;
     }
 
     IEnumerator suckUpCube(GameObject cube, float partScale, int i) {
