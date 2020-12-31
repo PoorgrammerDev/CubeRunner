@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EndGame : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class EndGame : MonoBehaviour
 
     [SerializeField]
     private GameObject playerPrefab;
+
+    [SerializeField]
+    private Volume postProcessing;
 
     [SerializeField]
     private GameObject beam;
@@ -26,7 +30,7 @@ public class EndGame : MonoBehaviour
 
     private GameObject[] cubeParts;
     private float CUBE_SUCK_CENTER_TIME = 0.0625f;
-    private float CUBE_SUCK_RISE_TIME = 0.125f;
+    private float CUBE_SUCK_RISE_TIME = 0.25f;
     private Quaternion quaternion = new Quaternion();
 
     void Start() {
@@ -36,14 +40,21 @@ public class EndGame : MonoBehaviour
     }
 
     public void endGame() {
-        Time.timeScale = 0.5f;
+        Time.timeScale = 0.125f;
+
+        StartCoroutine(TimeResume(0.125f));
         StartCoroutine(DisableGame());
         smashCube();
     }
 
+    IEnumerator TimeResume(float delay) {
+        yield return new WaitForSeconds(delay);
+        Time.timeScale = 1f;
+    }
+
     IEnumerator DisableGame() {
         yield return new WaitForSeconds(0.1f);
-        gameValues.setGameActive(false);
+        gameValues.GameActive = false;
     }
 
     public void smashCube() {
@@ -100,7 +111,6 @@ public class EndGame : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        Time.timeScale = 1f;
         //cubes get sucked up
         for (int i = 0; i < cubeParts.Length; i++) {
             StartCoroutine(suckUpCube(cubeParts[i], partScale, i));
@@ -123,7 +133,7 @@ public class EndGame : MonoBehaviour
 
         //suck up
         currentPosition = targetPosition;
-        targetPosition.y = 10;
+        targetPosition.y = 20;
         step = 0f;
         while (step < 1) {
             step += Time.deltaTime / CUBE_SUCK_RISE_TIME;

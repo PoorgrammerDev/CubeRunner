@@ -4,140 +4,98 @@ public class GameValues : MonoBehaviour {
     //GAME ACTIVE-----------
     [SerializeField]
     private bool gameActive = true;
+    public bool GameActive { get => gameActive; set => gameActive = value; }
 
-    public bool isGameActive() {
-        return gameActive;
-    }
-
-    public void setGameActive(bool active) {
-        gameActive = active;
-    }
+    //DIFFICULTY------
+    private Difficulty difficulty;
+    public Difficulty Difficulty { get => difficulty; set => difficulty = value; }
+    
 
     //FORWARD SPEED---------
-    private const float MAX_FORWARD_SPEED = 20f;
+    private const float maxForwardSpeed = 20f;
+    public float MaxForwardSpeed => maxForwardSpeed;
 
-    [SerializeField]
-    private float forwardSpeed = 10f;
-
-    public float getForwardSpeed() {
-        return forwardSpeed;
-    }
-
-    public void setForwardSpeed(float speed) {
-        if (speed > 0 && speed < MAX_FORWARD_SPEED) {
-            forwardSpeed = speed;
+    private float forwardSpeed = 7f;
+    public float ForwardSpeed { get => forwardSpeed; set {
+            if (value > 0 && value < MaxForwardSpeed) {
+                ForwardSpeed = value;
+            }
+            else {
+                throw new System.Exception("Forward Speed is out of bounds.");
+            }
         }
-        else {
-            throw new System.Exception("Forward Speed is out of bounds.");
-        }
-    }
-
-    public float getMaxForwardSpeed() {
-        return MAX_FORWARD_SPEED;
     }
 
     //STRAFING SPEED---------
-
-    [SerializeField]
-    private float strafingSpeed = 10f;
-
-    public float getStrafingSpeed() {
-        return strafingSpeed;
-    }
-
-    public void setStrafingSpeed(float speed) {
-        if (speed > 0) {
-            strafingSpeed = speed;
-        }
-        else {
-            throw new System.Exception("Strafing Speed cannot be negative or zero.");
-        }
-    }
-
-    //ROW DISTANCE MULTIPLIER---------
-    [SerializeField]
-    private float rowDistMultLowerBound = 1.1f;
-    
-    [SerializeField]
-    private float rowDistMultUpperBound = 2f;
-
-    public float getRowDistMultLowerBound() {
-        return rowDistMultLowerBound;
-    }
-
-    public void setRowDistMultLowerBound(float num) {
-        if (num > 1) {
-            if (num < rowDistMultUpperBound) {
-                rowDistMultLowerBound = num;
+    private float strafingSpeed = 7f;
+    public float StrafingSpeed { get => strafingSpeed;
+        set {
+            if (value > 0) {
+                strafingSpeed = value;
             }
             else {
-                throw new System.Exception("Lower bound cannot be more than upper bound.");
+                throw new System.Exception("Strafing Speed cannot be negative or zero.");
             }
         }
-        else {
-            throw new System.Exception("Lower bound cannot be less than 1.");
+    }
+
+    
+
+    //ROW DISTANCE MULTIPLIER---------
+    private float rowDistMultLowerBound = 1.25f;
+    public float RowDistMultLowerBound { get => rowDistMultLowerBound; set {
+            if (value > 1) {
+                if (value < RowDistMultUpperBound) {
+                    RowDistMultLowerBound = value;
+                }
+                else {
+                    throw new System.Exception("Lower bound cannot be more than upper bound.");
+                }
+            }
+            else {
+                throw new System.Exception("Lower bound cannot be less than 1.");
+            }
         }
     }
 
-    public float getRowDistMultUpperBound() {
-        return rowDistMultUpperBound;
-    }
-
-    public void setRowDistMultUpperBound(float num) {
-        if (num > rowDistMultLowerBound) {
-            rowDistMultLowerBound = num;
-        }
-        else {
-            throw new System.Exception("Upper bound cannot be less than lower bound.");
+    
+    private float rowDistMultUpperBound = 1.75f;
+    public float RowDistMultUpperBound { get => rowDistMultUpperBound; set {
+            if (value > RowDistMultLowerBound) {
+                RowDistMultLowerBound = value;
+            }
+            else {
+                throw new System.Exception("Upper bound cannot be less than lower bound.");
+            }
         }
     }
 
     //SCORE---------
     private int score = 0;
-    private int highScore;
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
+    public int Score {get => score; set => score = value;}
 
     //GAP WIDTH MULTIPLIER---------
-    [SerializeField]
-    private float widthMultiplier = 1f;
-
-    public float getWidthMultiplier() {
-        return widthMultiplier;
-    }
-
-    public void setWidthMultiplier(float num) {
-        if (num > 0 && num < 3) {
-            widthMultiplier = num;
-        }
-        else {
-            throw new System.Exception("Width Multiplier is out of bounds.");
+    private float widthMultiplier = 1.25f;
+    public float WidthMultiplier {get => widthMultiplier; set {
+            if (value > 0 && value < 3) {
+                widthMultiplier = value;
+            }
+            else {
+                throw new System.Exception("Width Multiplier is out of bounds.");
+            }
         }
     }
 
     //MINIMUM GAP WIDTH
     [SerializeField]
     private float minimumGapWidth = 1.5f;
-
-    public float getMinimumGapWidth () {
-        return minimumGapWidth;
-    }
-
-    public void setMinimumGapWidth (float num) {
-        if (num >= 1) {
-            minimumGapWidth = num;
+    private float MinimumGapWidth {get => minimumGapWidth; set {
+            if (value >= 1) {
+                minimumGapWidth = value;
+            }
+            else {
+                throw new System.Exception("Minimum Gap Width cannot be under one.");
+            }
         }
-        else {
-            throw new System.Exception("Minimum Gap Width cannot be under one.");
-        }
-    }
-
-
-    //THEME---------
-
+    }    
 }

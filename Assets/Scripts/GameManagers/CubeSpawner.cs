@@ -138,20 +138,20 @@ public class CubeSpawner : MonoBehaviour
 
         if (minTriangleZSide == float.MaxValue) throw new System.Exception("Error in gap length calculation.");
         
-        float minDist = Mathf.Max((gameValues.getForwardSpeed() * minTriangleZSide) / gameValues.getStrafingSpeed(), 2f);
-        return minDist * Random.Range(gameValues.getRowDistMultLowerBound(), gameValues.getRowDistMultUpperBound());
+        float minDist = Mathf.Max((gameValues.ForwardSpeed * minTriangleZSide) / gameValues.StrafingSpeed, 2f);
+        return minDist * Random.Range(gameValues.RowDistMultLowerBound, gameValues.RowDistMultUpperBound);
     }
 
     private float[][] getGaps() {
         int amount = Random.Range(1, maxGaps + 1);
         
-        float remainingWidth = zBorders * gameValues.getWidthMultiplier();
+        float remainingWidth = zBorders * gameValues.WidthMultiplier;
         float[][] gaps = new float[amount][];
         for (int i = 0; i < gaps.Length; i++) {
             float[] currentGap = new float[2];
 
             //scale or width
-            currentGap[1] = Random.Range(gameValues.getMinimumGapWidth(), (remainingWidth * 0.75f) - (gaps.Length - i - 1));
+            currentGap[1] = Random.Range(gameValues.WidthMultiplier, (remainingWidth * 0.75f) - (gaps.Length - i - 1));
             remainingWidth -= currentGap[1];
 
 
@@ -197,7 +197,7 @@ public class CubeSpawner : MonoBehaviour
     }
 
     void Update() {
-        if (!gameValues.isGameActive()) return;
+        if (!gameValues.GameActive) return;
         
         MoveCubes();
     }
@@ -215,7 +215,7 @@ public class CubeSpawner : MonoBehaviour
                     }
 
                     Vector3 position = transform.position;
-                    position.x -= gameValues.getForwardSpeed() * Time.deltaTime;
+                    position.x -= gameValues.ForwardSpeed * Time.deltaTime;
                     transform.position = position;
                 }
 

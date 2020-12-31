@@ -24,7 +24,7 @@ public class GameProgression : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        int score = gameValues.getScore();
+        int score = gameValues.Score;
         if ((increaseSpeed && IncreaseSpeed(score)) | (decreaseGapWidth && DecreaseGapWidth(score)) | (decreaseGaps && DecreaseGaps(score))) {
             lastScoreRanAt = score;
         }
@@ -32,10 +32,10 @@ public class GameProgression : MonoBehaviour
 
     bool IncreaseSpeed(int score) {
         if (score != 0 && score > lastScoreRanAt && score % progressionStep == 0) {
-            float forwardSpeed = gameValues.getForwardSpeed();
-            if (++forwardSpeed < gameValues.getMaxForwardSpeed()) {
-                gameValues.setForwardSpeed(forwardSpeed);
-                gameValues.setStrafingSpeed(gameValues.getStrafingSpeed() + 1);
+            float forwardSpeed = gameValues.ForwardSpeed;
+            if (++forwardSpeed < gameValues.MaxForwardSpeed) {
+                gameValues.ForwardSpeed = forwardSpeed;
+                gameValues.StrafingSpeed = (gameValues.StrafingSpeed + 1);
             }
             return true;
         }
@@ -44,10 +44,10 @@ public class GameProgression : MonoBehaviour
 
     bool DecreaseGapWidth(int score) {
         if (score != 0 && score > lastScoreRanAt && score % progressionStep == 0) {
-            float widthMultiplier = gameValues.getWidthMultiplier();
+            float widthMultiplier = gameValues.WidthMultiplier;
             widthMultiplier *= 0.9f;
             if (widthMultiplier > 1) {
-                gameValues.setWidthMultiplier(widthMultiplier);
+                gameValues.WidthMultiplier = widthMultiplier;
             }
             return true;
         }     

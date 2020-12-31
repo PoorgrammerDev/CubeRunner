@@ -17,7 +17,7 @@ public class Treadmill : MonoBehaviour
 
     void Update()
     {
-        if (!gameValues.isGameActive()) return;
+        if (!gameValues.GameActive) return;
 
         Vector3 position = transform.position;
 
@@ -27,7 +27,7 @@ public class Treadmill : MonoBehaviour
         }
 
         //move backwards
-        position.x -= gameValues.getForwardSpeed() * Time.deltaTime;
+        position.x -= gameValues.ForwardSpeed * Time.deltaTime;
         transform.position = position;
     }
 }

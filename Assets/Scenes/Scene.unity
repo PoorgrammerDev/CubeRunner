@@ -516,6 +516,7 @@ MonoBehaviour:
   activePlayer: {fileID: 686139426}
   playerPrefab: {fileID: 3625991710297185765, guid: f9da759b440136b4896dca009b16dc55,
     type: 3}
+  postProcessing: {fileID: 1983630987}
   beam: {fileID: 603815931}
   gameValues: {fileID: 573723474}
   explosionCollider: {fileID: 779004650}
@@ -1332,7 +1333,7 @@ MonoBehaviour:
   increaseSpeed: 1
   decreaseGapWidth: 0
   decreaseGaps: 0
-  progressionStep: 100
+  progressionStep: 25
 --- !u!4 &1656581795
 Transform:
   m_ObjectHideFlags: 0
