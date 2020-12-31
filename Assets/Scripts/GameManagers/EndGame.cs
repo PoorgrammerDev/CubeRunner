@@ -17,6 +17,9 @@ public class EndGame : MonoBehaviour
     private GameValues gameValues;
 
     [SerializeField]
+    private SphereCollider explosionCollider;
+
+    [SerializeField]
     private uint divide = 4;
 
     private uint DEFAULT_DIVIDE = 4;
@@ -33,6 +36,7 @@ public class EndGame : MonoBehaviour
     }
 
     public void endGame() {
+        Time.timeScale = 0.5f;
         StartCoroutine(DisableGame());
         smashCube();
     }
@@ -72,6 +76,7 @@ public class EndGame : MonoBehaviour
             }
         }
 
+        explosionCollider.enabled = true;
         StartCoroutine(beamSuck(partScale));
     }
 
@@ -95,17 +100,13 @@ public class EndGame : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
+        Time.timeScale = 1f;
         //cubes get sucked up
         for (int i = 0; i < cubeParts.Length; i++) {
             StartCoroutine(suckUpCube(cubeParts[i], partScale, i));
             yield return null;
         }
 
-        //freeze cubes
-        foreach(GameObject cubePart in cubeParts) {
-            cubePart.GetComponent<Rigidbody>().isKinematic = true;
-            yield return null;
-        }
     }
 
     IEnumerator suckUpCube(GameObject cube, float partScale, int i) {
@@ -130,6 +131,7 @@ public class EndGame : MonoBehaviour
             yield return null;
         }
 
+        cube.SetActive(false);
         yield break;
     }
 

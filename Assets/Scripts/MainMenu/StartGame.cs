@@ -38,6 +38,7 @@ public class StartGame : MonoBehaviour
     private const float SUN_RISEN = 4.5f;
 
     private new MeshRenderer renderer;
+    private MenuScale menuScale;
 
     private Vector3 moveRight = new Vector3(0.05f, 0, 0);
     private Vector3 moveRightUI = new Vector3(9f, 0, 0);
@@ -48,12 +49,14 @@ public class StartGame : MonoBehaviour
     private const int UI_LAYER = 5;
 
     void Start() {
-        renderer = gameObject.GetComponent<MeshRenderer>();
+        renderer = GetComponent<MeshRenderer>();
         spinManager = GetComponent<CubeSpin>();
+        menuScale = GetComponent<MenuScale>();
     }
 
     public void Click() {
         renderer.material = glowingMaterial;
+        menuScale.setActive(false);
 
         //isables all buttons
         foreach (Button button in buttons) {
@@ -68,6 +71,7 @@ public class StartGame : MonoBehaviour
 
         //road extends out
         StartCoroutine(ExtendRoad());
+        StartCoroutine(CubeMovesCloser());
 
         //camera moves up
         Animator mainCamAnim = Camera.main.GetComponent<Animator>();
@@ -138,6 +142,19 @@ public class StartGame : MonoBehaviour
         } while (transform.position.z > ROAD_PASSED);
 
         groundPlane.SetActive(false);
+        yield break;
+    }
+
+    IEnumerator CubeMovesCloser() {
+        Vector3 position = transform.position;
+
+        float magnitude = 0.01f;
+        Vector3 move = new Vector3(0, 0, -magnitude);
+        for (float i = 0; i < position.z; i+= magnitude) {
+            transform.Translate(move, Space.World);
+            yield return null;
+        }
+
         yield break;
     }
 
