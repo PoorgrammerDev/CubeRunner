@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class CubeGibs : MonoBehaviour
 {
+    private uint DEFAULT_DIVIDE = 4;
     private Quaternion quaternion = new Quaternion();
 
-    public GameObject[] smashCube(GameObject original, GameObject prefab, uint divide) {
+    public GameObject[] smashCube (GameObject original, GameObject prefab, uint divide) {
+        return smashCube(original, prefab, quaternion, divide);
+    }
+
+    public GameObject[] smashCube(GameObject original, GameObject prefab, Quaternion rotation, uint divide) {
+        if (!IsPowerOfTwo(divide)) divide = DEFAULT_DIVIDE;
+
         Vector3 originalPos = original.transform.localPosition;
         float originalScale = original.transform.localScale.z;
         original.GetComponent<BoxCollider>().enabled = false;
@@ -26,7 +33,7 @@ public class CubeGibs : MonoBehaviour
                     float yPos = originalPos.y + ((originalScale / 2f) - (partScale / 2f)) - (y * partScale);
                     float zPos = originalPos.z + ((originalScale / 2f) - (partScale / 2f)) - (z * partScale);
 
-                    cubeParts[count] = spawnCubeGib(prefab, new Vector3(xPos, yPos, zPos), partScale);
+                    cubeParts[count] = spawnCubeGib(prefab, new Vector3(xPos, yPos, zPos), rotation, partScale);
                     count++;
                 }
             }
@@ -34,11 +41,15 @@ public class CubeGibs : MonoBehaviour
         return cubeParts;
     }
 
-    public GameObject spawnCubeGib(GameObject prefab, Vector3 position, float partScale) {
-        GameObject part = Instantiate(prefab, position, quaternion);
+    public GameObject spawnCubeGib(GameObject prefab, Vector3 position, Quaternion rotation, float partScale) {
+        GameObject part = Instantiate(prefab, position, rotation);
         Vector3 partScaleVector = part.transform.localScale;
         partScaleVector.x = partScaleVector.y = partScaleVector.z = partScale;
         part.transform.localScale = partScaleVector;
         return part;
+    }
+
+    bool IsPowerOfTwo(uint x) {
+        return (x != 0) && ((x & (x - 1)) == 0);
     }
 }

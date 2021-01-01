@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\MainMenu\HighScoreDisplay.cs" />
      <Compile Include="Assets\Scripts\MainMenu\MenuScale.cs" />
      <Compile Include="Assets\Scripts\MainMenu\StartGame.cs" />
+     <Compile Include="Assets\Scripts\Util\Beam.cs" />
      <Compile Include="Assets\Scripts\Util\CubeGibs.cs" />
      <Compile Include="Assets\Scripts\Util\Difficulty.cs" />
      <Compile Include="Assets\Scripts\Util\GameValues.cs" />
