@@ -3,6 +3,8 @@
     //Animation States
     public const string CAM_ANIM_START_GAME = "StartGame";
     public const string BEAM_ANIM_ENTER = "EnterStage";
+    public const string BEAM_ANIM_MENU_ENTER = "EnterMenu";
+    public const string BEAM_ANIM_MENU_EXIT = "ExitMenu";
 
     //Scenes
     public const string GAME_SCENE = "Scene";

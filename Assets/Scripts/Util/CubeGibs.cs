@@ -16,9 +16,6 @@ public class CubeGibs : MonoBehaviour
 
         Vector3 originalPos = original.transform.localPosition;
         float originalScale = original.transform.localScale.z;
-        original.GetComponent<BoxCollider>().enabled = false;
-        original.GetComponent<CharacterController>().enabled = false;
-        original.GetComponent<MeshRenderer>().enabled = false;
 
         float partScale = originalScale / (float) divide;
         uint parts = divide * 16;
@@ -42,7 +39,11 @@ public class CubeGibs : MonoBehaviour
     }
 
     public GameObject spawnCubeGib(GameObject prefab, Vector3 position, Quaternion rotation, float partScale) {
-        GameObject part = Instantiate(prefab, position, rotation);
+        return spawnCubeGib(prefab, position, rotation, null, partScale);
+    }
+
+    public GameObject spawnCubeGib(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float partScale) {
+        GameObject part = parent != null ? Instantiate(prefab, position, rotation, parent) : Instantiate(prefab, position, rotation);
         Vector3 partScaleVector = part.transform.localScale;
         partScaleVector.x = partScaleVector.y = partScaleVector.z = partScale;
         part.transform.localScale = partScaleVector;

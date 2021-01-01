@@ -5,6 +5,9 @@ using UnityEngine;
 //ALWAYS attach this script directly onto BEAM
 public class Beam : MonoBehaviour
 {
+    [SerializeField]
+    private EndGame endGame;
+
     private Transform ZAligner;
     private Animator animator;
     private MeshRenderer renderer;
@@ -53,6 +56,8 @@ public class Beam : MonoBehaviour
         while (finalCubePart != null && finalCubePart.activeInHierarchy && finalCubePart.transform.position.y < 20) {
             yield return null;
         }
+
+        StartCoroutine(endGame.LoadNewScene());
     }
 
     IEnumerator SuckUpCube(GameObject cube, float timeToCenter, float timetoTop, float partScale, int i) {

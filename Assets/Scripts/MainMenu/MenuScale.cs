@@ -20,18 +20,22 @@ public class MenuScale : MonoBehaviour
     void Start() {
         transform = gameObject.transform;
 
-        StartCoroutine(UpdateScaling());
+        StartCoroutine(ScheduleUpdate());
     }
 
-    public IEnumerator UpdateScaling() {
+    public IEnumerator ScheduleUpdate() {
         while (active && gameObject.activeInHierarchy) {
-            float scaleFactor = (((float) Screen.width / (float) originalWidth) + ((float) Screen.height / (float) originalHeight)) / 2f;
-            Vector3 position = transform.position;
-            position.z = scaleFactor * magnitude;
-            transform.position = position;
+            UpdateScaling();
             yield return new WaitForSeconds(1);
         }
         yield break;
+    }
+
+    void UpdateScaling() {
+        float scaleFactor = (((float) Screen.width / (float) originalWidth) + ((float) Screen.height / (float) originalHeight)) / 2f;
+        Vector3 position = transform.position;
+        position.z = scaleFactor * magnitude;
+        transform.position = position;
     }
 
     public bool isActive() {

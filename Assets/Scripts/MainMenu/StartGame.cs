@@ -51,7 +51,7 @@ public class StartGame : MonoBehaviour
     void Start() {
         renderer = GetComponent<MeshRenderer>();
         spinManager = GetComponent<CubeSpin>();
-        menuScale = GetComponent<MenuScale>();
+        menuScale = GetComponentInParent<MenuScale>();
     }
 
     public void Click() {

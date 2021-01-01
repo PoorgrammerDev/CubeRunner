@@ -24,6 +24,9 @@ public class PlayerCollision : MonoBehaviour
         //TODO add power up exceptions here
 
         gameEndManager.endGame();
+        GetComponent<BoxCollider>().enabled = false;
+        GetComponent<CharacterController>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
     
 }

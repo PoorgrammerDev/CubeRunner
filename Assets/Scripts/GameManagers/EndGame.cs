@@ -55,7 +55,7 @@ public class EndGame : MonoBehaviour
         Time.timeScale = 0.125f;
 
         //End slow-mo effect
-        StartCoroutine(TimeResume(0.125f));
+        StartCoroutine(TimeResume(0.25f));
 
         //Disable movement, etc.
         StartCoroutine(DisableGame());
@@ -65,10 +65,12 @@ public class EndGame : MonoBehaviour
         explosionCollider.enabled = true;
 
         //Activate beam
-        StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 1, activePlayer.transform.localScale.z / (float) divide, true));
+        StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) divide, true));
+
+
     }
 
-    IEnumerator LoadNewScene() {
+    public IEnumerator LoadNewScene() {
         Camera.main.GetComponent<AudioListener>().enabled = false;
         SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Additive);
         Scene gameOver = SceneManager.GetSceneByName(TagHolder.MAIN_MENU_SCENE);
