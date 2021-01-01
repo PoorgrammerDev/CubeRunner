@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-public class HighScore : MonoBehaviour {
+public class HighScoreManager : MonoBehaviour {
 
     private const int difficulties = 5;
     private int[] highScores = new int[difficulties];
@@ -24,7 +24,7 @@ public class HighScore : MonoBehaviour {
         return highScores[(int) difficulty];
     }
 
-    public void setHighScore(int num, Difficulty difficulty) {
+    public void ContestHighScore(int num, Difficulty difficulty) {
         if (num > highScores[(int) difficulty]) {
             highScores[(int) difficulty] = num;
             PlayerPrefs.SetInt(highScoreKeys[(int) difficulty], num);

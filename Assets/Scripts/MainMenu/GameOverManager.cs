@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject gameOverScreen;
+
+    [SerializeField]
+    private Text scoreNumber;
+
+    [SerializeField]
+    private Text highScoreNumber;
 
     [SerializeField]
     private GameObject mainMenuScreen;   
@@ -21,6 +28,9 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField]
     private CubeGibs cubeGibs;
+
+    [SerializeField]
+    private HighScoreManager highScoreManager;
     private float spawnYPos = -2;
     private Quaternion quaternion = new Quaternion();
 
@@ -36,10 +46,11 @@ public class GameOverManager : MonoBehaviour
             gameOverScreen.SetActive(true);
             spinningCube.SetActive(false);
             beam.SetActive(true);
+
+            scoreNumber.text = endGameDataExport.FinalScore.ToString();
+            highScoreManager.ContestHighScore(endGameDataExport.FinalScore, endGameDataExport.Difficulty);
             StartCoroutine(CubeFormingAnimation());
 
-
-            
         }
         else {
             mainMenuScreen.SetActive(true);
@@ -87,7 +98,7 @@ public class GameOverManager : MonoBehaviour
             cubeConstructionBegan = true;
         }
 
-        cubePart.SetActive(false);
+        Destroy(cubePart);
     }
 
     IEnumerator NewPlayerCubeForm (float scale, float speed) {
@@ -118,5 +129,11 @@ public class GameOverManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         //beam exits
         beam.GetComponent<Animator>().Play(TagHolder.BEAM_ANIM_MENU_EXIT);
+    }
+
+    public void BackToMainMenu() {
+        Destroy(endGameDataExport.gameObject);
+        gameOverScreen.SetActive(false);
+        mainMenuScreen.SetActive(true);
     }
 }
