@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -487,6 +487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 602921036}
   - component: {fileID: 602921035}
+  - component: {fileID: 602921037}
   m_Layer: 0
   m_Name: EndGame
   m_TagString: Untagged
@@ -509,7 +510,6 @@ MonoBehaviour:
   activePlayer: {fileID: 686139426}
   playerPrefab: {fileID: 3625991710297185765, guid: f9da759b440136b4896dca009b16dc55,
     type: 3}
-  postProcessing: {fileID: 1983630987}
   beam: {fileID: 603815931}
   gameValues: {fileID: 573723474}
   explosionCollider: {fileID: 779004650}
@@ -529,6 +529,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &602921037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602921034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8797fd240d26b8b40bfa10c624704b4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &603815931 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6931520782945171226, guid: 85a271b9f4e4c944195031f3fa7aea66,

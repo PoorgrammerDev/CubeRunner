@@ -55,6 +55,7 @@ public class StartGame : MonoBehaviour
     }
 
     public void Click() {
+        Time.timeScale = 1f;
         renderer.material = glowingMaterial;
         menuScale.setActive(false);
 

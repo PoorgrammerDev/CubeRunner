@@ -12,9 +12,6 @@ public class EndGame : MonoBehaviour
     private GameObject playerPrefab;
 
     [SerializeField]
-    private Volume postProcessing;
-
-    [SerializeField]
     private GameObject beam;
 
     [SerializeField]
@@ -31,6 +28,7 @@ public class EndGame : MonoBehaviour
 
     private uint DEFAULT_DIVIDE = 4;
 
+    private CubeGibs cubeGibs;
     private GameObject[] cubeParts;
     private float CUBE_SUCK_CENTER_TIME = 0.0625f;
     private float CUBE_SUCK_RISE_TIME = 0.25f;
@@ -40,6 +38,7 @@ public class EndGame : MonoBehaviour
         if (!IsPowerOfTwo(divide)) {
             divide = DEFAULT_DIVIDE;
         }
+        cubeGibs = GetComponent<CubeGibs>();
     }
 
     public void endGame() {
@@ -51,9 +50,18 @@ public class EndGame : MonoBehaviour
         //Slow-mo effect
         Time.timeScale = 0.125f;
 
+        //End slow-mo effect
         StartCoroutine(TimeResume(0.125f));
+
+        //Disable movement, etc.
         StartCoroutine(DisableGame());
-        smashCube();
+        
+        //smashing cube
+        cubeParts = cubeGibs.smashCube(activePlayer, playerPrefab, divide);
+        explosionCollider.enabled = true;
+
+        //Begin beam sucking
+        StartCoroutine(beamSuck(activePlayer.transform.localScale.z / (float) divide));
     }
 
     IEnumerator LoadNewScene() {
@@ -77,40 +85,6 @@ public class EndGame : MonoBehaviour
     IEnumerator DisableGame() {
         yield return new WaitForSeconds(0.1f);
         gameValues.GameActive = false;
-    }
-
-    public void smashCube() {
-        Vector3 activePlayerPos = activePlayer.transform.localPosition;
-        float activePlayerScale = activePlayer.transform.localScale.z;
-        activePlayer.GetComponent<BoxCollider>().enabled = false;
-        activePlayer.GetComponent<CharacterController>().enabled = false;
-        activePlayer.GetComponent<MeshRenderer>().enabled = false;
-
-        float partScale = activePlayerScale / (float) divide;
-        uint parts = divide * 16;
-        cubeParts = new GameObject[parts];
-
-        int count = 0;
-        for (int x = 0; x < divide; x++) {
-            for (int y = 0; y < divide; y++) {
-                for (int z = 0; z < divide; z++) {
-                    float xPos = activePlayerPos.x + ((activePlayerScale / 2f) - (partScale / 2f)) - (x * partScale);
-                    float yPos = activePlayerPos.y + ((activePlayerScale / 2f) - (partScale / 2f)) - (y * partScale);
-                    float zPos = activePlayerPos.z + ((activePlayerScale / 2f) - (partScale / 2f)) - (z * partScale);
-
-                    GameObject part = Instantiate(playerPrefab, new Vector3(xPos, yPos, zPos), quaternion);
-                    Vector3 partScaleVector = part.transform.localScale;
-                    partScaleVector.x = partScaleVector.y = partScaleVector.z = partScale;
-                    part.transform.localScale = partScaleVector;
-
-                    cubeParts[count] = part;
-                    count++;
-                }
-            }
-        }
-
-        explosionCollider.enabled = true;
-        StartCoroutine(beamSuck(partScale));
     }
 
     IEnumerator beamSuck(float partScale) {
