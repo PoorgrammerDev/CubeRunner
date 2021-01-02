@@ -10,7 +10,7 @@ public class Beam : MonoBehaviour
 
     private Transform ZAligner;
     private Animator animator;
-    private MeshRenderer renderer;
+    private new MeshRenderer renderer;
 
     private const float CUBE_SUCK_CENTER_TIME = 0.0625f;
     private const float CUBE_SUCK_RISE_TIME = 0.25f;

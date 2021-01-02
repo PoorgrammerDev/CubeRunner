@@ -12,12 +12,6 @@ public class StartGame : MonoBehaviour
     private CubeSpin spinManager;
 
     [SerializeField]
-    private Transform[] rightScreenObjects;
-
-    [SerializeField]
-    private Transform[] bottomScreenObjects;
-
-    [SerializeField]
     private Button[] buttons;
 
     [SerializeField]
@@ -26,6 +20,10 @@ public class StartGame : MonoBehaviour
     [SerializeField]
     private GameObject sun;
 
+    [SerializeField]
+    private PanelObjectHolder[] panels;
+    private PanelObjectHolder panel;
+    
     [SerializeField]
     private Text countdown;
 
@@ -40,11 +38,12 @@ public class StartGame : MonoBehaviour
     private new MeshRenderer renderer;
     private MenuScale menuScale;
 
-    private Vector3 moveRight = new Vector3(0.05f, 0, 0);
-    private Vector3 moveRightUI = new Vector3(9f, 0, 0);
-
-    private Vector3 moveDown = new Vector3(0, -0.05f, 0);
-    private Vector3 moveDownUI = new Vector3(0, -3f, 0);
+    enum Direction {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
 
     private const int UI_LAYER = 5;
 
@@ -55,11 +54,19 @@ public class StartGame : MonoBehaviour
     }
 
     public void Click() {
+        //check for active panel
+        foreach (PanelObjectHolder panel in panels) {
+            if (panel.gameObject.activeInHierarchy) {
+                this.panel = panel;
+                break;
+            }
+        }
+
         Time.timeScale = 1f;
         renderer.material = glowingMaterial;
         menuScale.setActive(false);
 
-        //isables all buttons
+        //disables all buttons
         foreach (Button button in buttons) {
             button.interactable = false;
         }
@@ -80,40 +87,58 @@ public class StartGame : MonoBehaviour
     }
 
     IEnumerator RemoveOtherObjects () {
-        float minRight = float.MaxValue;
-        float maxBottom = float.MinValue;
-
+        float minRight, minTop, maxLeft, maxBottom;
         do {
-            minRight = float.MaxValue;
-            maxBottom = float.MinValue;
-            
-            foreach (Transform rightScreenObject in rightScreenObjects) {
-                rightScreenObject.Translate((rightScreenObject.gameObject.layer == UI_LAYER) ? moveRightUI : moveRight, Space.World);
-
-                if (rightScreenObject.localPosition.x < minRight) {
-                    minRight = rightScreenObject.localPosition.x;
-                }
-            }
-
-            foreach (Transform bottomScreenObject in bottomScreenObjects) {
-                bottomScreenObject.Translate((bottomScreenObject.gameObject.layer == UI_LAYER) ? moveDownUI : moveDown, Space.World);
-
-                if (bottomScreenObject.localPosition.y > maxBottom) {
-                    maxBottom = bottomScreenObject.localPosition.y;
-                }
-            }
+            maxLeft = moveObjects(panel.LeftScreenObjects, Direction.LEFT, 0.05f, 18);
+            minRight = moveObjects(panel.RightScreenObjects, Direction.RIGHT, 0.05f, 18);
+            minTop = moveObjects(panel.TopScreenObjects, Direction.UP, 0.05f, 18);
+            maxBottom = moveObjects(panel.BottomScreenObjects, Direction.DOWN, 0.05f, 18);
 
             yield return null;
-        } while (minRight < 2000 || maxBottom > -50);
+        } while (maxLeft > -2000 || minRight < 2000 || maxBottom > -50 || minTop < 50);
 
-        foreach(Transform rightScreenObject in rightScreenObjects) {
-            rightScreenObject.gameObject.SetActive(false);
-        }
-        foreach(Transform bottomScreenObject in bottomScreenObjects) {
-            bottomScreenObject.gameObject.SetActive(false);
-        }
-
+        panel.DeactivateAll();
         yield break;
+    }
+
+    //dear lord this function is so poorly written but right now i can't figure out a better way
+    //TODO clean this mess of a function up
+    float moveObjects(Transform[] screenObjects, Direction direction, float moveSpeed, float UIAmplifier) {
+        bool up = direction.Equals(Direction.UP);
+        bool down = direction.Equals(Direction.DOWN);
+        bool left = direction.Equals(Direction.LEFT);
+        bool right = direction.Equals(Direction.RIGHT);
+
+        float extrema = (down || left) ? float.MinValue : float.MaxValue;
+        //forming correct vector with regard to direction
+        Vector3 moveVector;
+        if (left || right) {
+            moveVector = new Vector3(moveSpeed, 0, 0);
+        }
+        else {
+            moveVector = new Vector3(0, moveSpeed, 0);
+        }
+        if (down || left) moveVector *= -1;
+
+
+        foreach (Transform screenObject in screenObjects) {
+            //moving each object
+            screenObject.Translate((screenObject.gameObject.layer == UI_LAYER) ? (moveVector * UIAmplifier) : moveVector, Space.World);
+
+            if (up && screenObject.localPosition.y < extrema) {
+                extrema = screenObject.localPosition.y;
+            }
+            else if (down && screenObject.localPosition.y > extrema) {
+                extrema = screenObject.localPosition.y;
+            }
+            else if (left && screenObject.localPosition.x > extrema) {
+                extrema = screenObject.localPosition.x;
+            }
+            else if (screenObject.localPosition.x < extrema) {
+                extrema = screenObject.localPosition.x;
+            }
+        }
+        return extrema;
     }
 
     IEnumerator ExtendRoad() {

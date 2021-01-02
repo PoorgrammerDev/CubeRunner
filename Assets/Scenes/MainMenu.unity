@@ -1019,6 +1019,7 @@ GameObject:
   - component: {fileID: 600306654}
   - component: {fileID: 600306656}
   - component: {fileID: 600306655}
+  - component: {fileID: 600306657}
   m_Layer: 5
   m_Name: GameOverScreen
   m_TagString: Untagged
@@ -1046,7 +1047,7 @@ RectTransform:
   - {fileID: 733673521}
   - {fileID: 1837741848}
   m_Father: {fileID: 1189654071}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1090,6 +1091,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600306653}
   m_CullTransparentMesh: 0
+--- !u!114 &600306657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600306653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4fe7ad7276a3b428e43b894d09e08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftScreenObjects:
+  - {fileID: 1533064737}
+  - {fileID: 905427783}
+  rightScreenObjects:
+  - {fileID: 155801716}
+  - {fileID: 589026880}
+  topScreenObjects:
+  - {fileID: 114959118}
+  - {fileID: 1837741848}
+  bottomScreenObjects:
+  - {fileID: 796903476}
+  - {fileID: 1609351014}
 --- !u!1 &630138470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 304766688258740110, guid: f097fa2e372941e41bedbe11f4946130,
@@ -1482,7 +1507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1516,6 +1541,7 @@ GameObject:
   - component: {fileID: 745310535}
   - component: {fileID: 745310537}
   - component: {fileID: 745310536}
+  - component: {fileID: 745310538}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -1541,9 +1567,8 @@ RectTransform:
   - {fileID: 12124417}
   - {fileID: 1423109687}
   - {fileID: 1486308336}
-  - {fileID: 1851043060}
   m_Father: {fileID: 1189654071}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1587,6 +1612,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745310534}
   m_CullTransparentMesh: 0
+--- !u!114 &745310538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745310534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4fe7ad7276a3b428e43b894d09e08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftScreenObjects:
+  - {fileID: 1423109687}
+  - {fileID: 1486308336}
+  rightScreenObjects:
+  - {fileID: 512469901}
+  - {fileID: 184160047}
+  - {fileID: 1685035311}
+  topScreenObjects: []
+  bottomScreenObjects:
+  - {fileID: 408221388}
+  - {fileID: 1609351014}
 --- !u!1 &796903475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,6 +2049,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 1851043060}
   - {fileID: 600306654}
   - {fileID: 745310535}
   m_Father: {fileID: 0}
@@ -2558,7 +2607,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Final Score
+  m_Text: Score
 --- !u!222 &1533064739
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2850,7 +2899,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1743910582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2317ae0d1ba61444e87528c0a6fb72e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 29e23dd3a4bf6ee4b89755bc7e9931de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1743910585 stripped
@@ -3204,8 +3253,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 745310535}
-  m_RootOrder: 7
+  m_Father: {fileID: 1189654071}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3301,19 +3350,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glowingMaterial: {fileID: 2100000, guid: 19c45dcf0fbb5184ea5c7282b6dc0d18, type: 2}
-  rightScreenObjects:
-  - {fileID: 512469901}
-  - {fileID: 184160047}
-  - {fileID: 1685035311}
-  bottomScreenObjects:
-  - {fileID: 408221388}
-  - {fileID: 1609351014}
   buttons:
   - {fileID: 184160050}
   - {fileID: 1685035314}
   - {fileID: 12124418}
   groundPlane: {fileID: 1216019385}
   sun: {fileID: 630138470}
+  panels:
+  - {fileID: 600306657}
+  - {fileID: 745310538}
   countdown: {fileID: 1851043061}
   countdownNum: 3
 --- !u!23 &2119642135

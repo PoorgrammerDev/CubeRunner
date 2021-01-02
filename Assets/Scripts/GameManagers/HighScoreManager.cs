@@ -14,8 +14,7 @@ public class HighScoreManager : MonoBehaviour {
         TagHolder.PREF_HIGH_SCORE_IMPOSSIBLE
     };
 
-    // Start is called before the first frame update
-    void Start() {
+    void Awake() {
         for (int i = 0; i < difficulties; i++) {
             highScores[i] = PlayerPrefs.GetInt(highScoreKeys[i]);
         }
@@ -24,10 +23,12 @@ public class HighScoreManager : MonoBehaviour {
         return highScores[(int) difficulty];
     }
 
-    public void ContestHighScore(int num, Difficulty difficulty) {
+    public bool ContestHighScore(int num, Difficulty difficulty) {
         if (num > highScores[(int) difficulty]) {
             highScores[(int) difficulty] = num;
             PlayerPrefs.SetInt(highScoreKeys[(int) difficulty], num);
+            return true;
         }
+        return false;
     }
 }
