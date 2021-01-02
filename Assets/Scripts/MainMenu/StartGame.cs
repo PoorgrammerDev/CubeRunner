@@ -12,9 +12,6 @@ public class StartGame : MonoBehaviour
     private CubeSpin spinManager;
 
     [SerializeField]
-    private Button[] buttons;
-
-    [SerializeField]
     private GameObject groundPlane;
 
     [SerializeField]
@@ -37,6 +34,7 @@ public class StartGame : MonoBehaviour
 
     private new MeshRenderer renderer;
     private MenuScale menuScale;
+    private Button[] buttons;
 
     enum Direction {
         UP,
@@ -51,6 +49,8 @@ public class StartGame : MonoBehaviour
         renderer = GetComponent<MeshRenderer>();
         spinManager = GetComponent<CubeSpin>();
         menuScale = GetComponentInParent<MenuScale>();
+
+        buttons = GameObject.FindObjectsOfType<Button>();
     }
 
     public void Click() {
@@ -87,6 +87,9 @@ public class StartGame : MonoBehaviour
     }
 
     IEnumerator RemoveOtherObjects () {
+        int horizontalLimit = 1750;
+        int verticalLimit = 5;
+
         float minRight, minTop, maxLeft, maxBottom;
         do {
             maxLeft = moveObjects(panel.LeftScreenObjects, Direction.LEFT, 0.05f, 18);
@@ -95,7 +98,7 @@ public class StartGame : MonoBehaviour
             maxBottom = moveObjects(panel.BottomScreenObjects, Direction.DOWN, 0.05f, 18);
 
             yield return null;
-        } while (maxLeft > -2000 || minRight < 2000 || maxBottom > -50 || minTop < 50);
+        } while (maxLeft > -horizontalLimit || minRight < horizontalLimit || maxBottom > -verticalLimit || minTop < verticalLimit);
 
         panel.DeactivateAll();
         yield break;
