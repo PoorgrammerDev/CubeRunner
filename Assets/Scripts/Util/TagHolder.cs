@@ -20,6 +20,7 @@
     public const string PREF_HIGH_SCORE_HARD = "HighScoreHard";
     public const string PREF_HIGH_SCORE_IMPOSSIBLE = "HighScoreImpossible";
     public const string PREF_HIGH_SCORE_CUSTOM = "HighScoreCustom";
+    public const string PREF_DIFFICULTY = "Difficulty";
 
     //Other
     public const string HORIZONTAL_AXIS = "Horizontal";

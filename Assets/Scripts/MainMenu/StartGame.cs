@@ -92,10 +92,10 @@ public class StartGame : MonoBehaviour
 
         float minRight, minTop, maxLeft, maxBottom;
         do {
-            maxLeft = moveObjects(panel.LeftScreenObjects, Direction.LEFT, 0.05f, 18);
-            minRight = moveObjects(panel.RightScreenObjects, Direction.RIGHT, 0.05f, 18);
-            minTop = moveObjects(panel.TopScreenObjects, Direction.UP, 0.05f, 18);
-            maxBottom = moveObjects(panel.BottomScreenObjects, Direction.DOWN, 0.05f, 18);
+            maxLeft = moveObjects(panel.LeftScreenObjects, Direction.LEFT, 0.05f, 150);
+            minRight = moveObjects(panel.RightScreenObjects, Direction.RIGHT, 0.05f, 150);
+            minTop = moveObjects(panel.TopScreenObjects, Direction.UP, 0.05f, 150);
+            maxBottom = moveObjects(panel.BottomScreenObjects, Direction.DOWN, 0.05f, 150);
 
             yield return null;
         } while (maxLeft > -horizontalLimit || minRight < horizontalLimit || maxBottom > -verticalLimit || minTop < verticalLimit);

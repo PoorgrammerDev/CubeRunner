@@ -1,13 +1,17 @@
 using UnityEngine;
 public class GameValues : MonoBehaviour {
 
+    void Awake() {
+        difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
+    }
+
     //GAME ACTIVE-----------
     private bool gameActive = true;
     public bool GameActive { get => gameActive; set => gameActive = value; }
 
     //DIFFICULTY------
     private Difficulty difficulty;
-    public Difficulty Difficulty { get => difficulty; set => difficulty = value; }
+    public Difficulty Difficulty => difficulty;
     
 
     //FORWARD SPEED---------
