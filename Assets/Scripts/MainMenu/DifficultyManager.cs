@@ -16,11 +16,28 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField]
     private GameObject difficultyScreen;
 
-    private Color selectedItemColor = new Color(1f, 0.831f, 0.098f);
+    [SerializeField]
+    private GameObject customizeButton;
+
+    [SerializeField]
+    private HighScoreDisplay highScoreDisplay;
+
+    [SerializeField]
+    private Difficulty defaultDifficulty;
+
+    private Color[] selectedItemColors = {
+        new Color(0.69f, 0.17f, 0.75f), //custom - purple
+        new Color(0.56f, 0.75f, 0.43f), //easy - green
+        new Color(0.98f, 0.78f, 0.31f), //normal - yellow
+        new Color(0.98f, 0.25f, 0.27f), //hard - red
+    };
+    
     private Color unselectedItemColor = Color.white;
     
     void Awake() {
-        difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
+        difficulty = PlayerPrefs.HasKey(TagHolder.PREF_DIFFICULTY) ?
+        (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY) :
+        defaultDifficulty;
     }
 
     public void SetDifficulty(int value) {
@@ -35,14 +52,24 @@ public class DifficultyManager : MonoBehaviour
             Text text = buttonImage.GetComponentInChildren<Text>();
 
             if (i == (int) difficulty) {
-                text.CrossFadeColor(selectedItemColor, 0.5f, true, false);
-                buttonImage.CrossFadeColor(selectedItemColor, 0.5f, true, false);
+                text.CrossFadeColor(selectedItemColors[i], 0.5f, true, false);
+                buttonImage.CrossFadeColor(selectedItemColors[i], 0.5f, true, false);
+
             }
             else {
                 text.CrossFadeColor(unselectedItemColor, 0.5f, true, false);
                 buttonImage.CrossFadeColor(unselectedItemColor, 0.5f, true, false);
             }
         }
+
+        if (difficulty.Equals(Difficulty.CUSTOM)) {
+            customizeButton.SetActive(true);
+        }
+        else if (customizeButton.activeInHierarchy) {
+            customizeButton.GetComponent<Animator>().Play(TagHolder.CUSTOMIZE_ANIM_EXIT);
+        }
+
+        highScoreDisplay.UpdateScore();
     }
 
     public void ChangeToDifficultyMenu(bool reverse) {
@@ -50,5 +77,9 @@ public class DifficultyManager : MonoBehaviour
         difficultyScreen.SetActive(!reverse);
 
         if (!reverse) UpdateMenu();
+    }
+
+    public Color GetCurrentColor() {
+        return selectedItemColors[(int) difficulty];
     }
 }

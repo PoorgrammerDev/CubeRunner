@@ -5,6 +5,7 @@
     public const string BEAM_ANIM_ENTER = "EnterStage";
     public const string BEAM_ANIM_MENU_ENTER = "EnterMenu";
     public const string BEAM_ANIM_MENU_EXIT = "ExitMenu";
+    public const string CUSTOMIZE_ANIM_EXIT = "FadeOut";
 
     //Scenes
     public const string GAME_SCENE = "Scene";

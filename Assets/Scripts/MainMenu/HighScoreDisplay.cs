@@ -7,12 +7,19 @@ public class HighScoreDisplay : MonoBehaviour
     [SerializeField]
     private HighScoreManager highScore;
 
+    [SerializeField]
+    private DifficultyManager difficultyManager;
+
     private Text numDisplay;
 
     // Start is called before the first frame update
     void Start() {
         numDisplay = GetComponent<Text>();
+        UpdateScore();
+    }
 
-        numDisplay.text = highScore.getHighScore(Difficulty.CUSTOM).ToString(); //TODO change this to difficulty setting 
+    public void UpdateScore() {
+        numDisplay.text = highScore.getHighScore(difficultyManager.Difficulty).ToString();
+        numDisplay.color = difficultyManager.GetCurrentColor();
     }
 }
