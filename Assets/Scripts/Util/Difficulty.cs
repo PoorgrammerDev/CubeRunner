@@ -1,7 +1,6 @@
 public enum Difficulty {
-    CUSTOM = 0,
-    EASY = 1,
-    MEDIUM = 2,
-    HARD = 3,
-    IMPOSSIBLE = 4,
+    EASY = 0,
+    NORMAL = 1,
+    HARD = 2,
+    IMPOSSIBLE = 3,
 }

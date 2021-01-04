@@ -48,7 +48,7 @@ public class GameOverManager : MonoBehaviour
             beam.SetActive(true);
 
             scoreNumber.text = endGameDataExport.FinalScore.ToString();
-            highScoreManager.ContestHighScore(endGameDataExport.FinalScore, endGameDataExport.Difficulty);
+            highScoreManager.ContestHighScore(endGameDataExport.FinalScore);
             StartCoroutine(CubeFormingAnimation());
 
         }

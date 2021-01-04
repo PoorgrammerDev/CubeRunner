@@ -16,11 +16,7 @@
     public const string POWERUP_TAG = "PowerUp";
     
     //PlayerPref Keys
-    public const string PREF_HIGH_SCORE_EASY = "HighScoreEasy";
-    public const string PREF_HIGH_SCORE_MEDIUM = "HighScoreMedium";
-    public const string PREF_HIGH_SCORE_HARD = "HighScoreHard";
-    public const string PREF_HIGH_SCORE_IMPOSSIBLE = "HighScoreImpossible";
-    public const string PREF_HIGH_SCORE_CUSTOM = "HighScoreCustom";
+    public const string PREF_HIGH_SCORE = "HighScore";
     public const string PREF_DIFFICULTY = "Difficulty";
 
     //Other

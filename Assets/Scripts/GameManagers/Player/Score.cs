@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class Score : MonoBehaviour
 {
-    private float scoreBuffer = 0;
-
-    [SerializeField]
-    private int scoreBufferThreshold = 50;
-
     private Text scoreText;
 
     [SerializeField]
@@ -16,19 +12,14 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         scoreText = GetComponent<Text>();
+        StartCoroutine(ScoreTick());
     }
 
-    // Update is called once per frame
-    void Update() {
-        if (!gameValues.GameActive) return;
-        
-        scoreBuffer += Time.deltaTime * 200;
-
-        if (scoreBuffer > scoreBufferThreshold) {
-            scoreBuffer = 0;
-            gameValues.Score++;
+    IEnumerator ScoreTick() {
+        while (gameValues.GameActive) {
+            scoreText.text = (++gameValues.Score).ToString();
+            yield return new WaitForSeconds(2f / gameValues.ScoreTickRate);
         }
-
-        scoreText.text = ((int) gameValues.Score).ToString();
     }
+    
 }

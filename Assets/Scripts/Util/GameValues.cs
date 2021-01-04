@@ -1,8 +1,21 @@
 using UnityEngine;
 public class GameValues : MonoBehaviour {
 
+    [SerializeField]
+    private DifficultyValuesHolder[] difficultyValuesHolders;
     void Awake() {
         difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
+
+        //set values
+        DifficultyValuesHolder difficultyValuesHolder = difficultyValuesHolders[(int) difficulty];
+        maxForwardSpeed = difficultyValuesHolder.MaxForwardSpeed;
+        forwardSpeed = difficultyValuesHolder.ForwardSpeed;
+        strafingSpeed = difficultyValuesHolder.StrafingSpeed;
+        rowDistMultLowerBound = difficultyValuesHolder.RowDistMultLowerBound;
+        rowDistMultUpperBound = difficultyValuesHolder.RowDistMultUpperBound;
+        scoreTickRate = difficultyValuesHolder.ScoreTickRate;
+        widthMultiplier = difficultyValuesHolder.WidthMultiplier;
+        minimumGapWidth = difficultyValuesHolder.MinimumGapWidth;
     }
 
     //GAME ACTIVE-----------
@@ -15,10 +28,10 @@ public class GameValues : MonoBehaviour {
     
 
     //FORWARD SPEED---------
-    private const float maxForwardSpeed = 20f;
+    private float maxForwardSpeed;
     public float MaxForwardSpeed => maxForwardSpeed;
 
-    private float forwardSpeed = 7f;
+    private float forwardSpeed;
     public float ForwardSpeed { get => forwardSpeed; set {
             if (value > 0 && value < maxForwardSpeed) {
                 forwardSpeed = value;
@@ -30,7 +43,7 @@ public class GameValues : MonoBehaviour {
     }
 
     //STRAFING SPEED---------
-    private float strafingSpeed = 7f;
+    private float strafingSpeed;
     public float StrafingSpeed { get => strafingSpeed;
         set {
             if (value > 0) {
@@ -45,7 +58,7 @@ public class GameValues : MonoBehaviour {
     
 
     //ROW DISTANCE MULTIPLIER---------
-    private float rowDistMultLowerBound = 1.25f;
+    private float rowDistMultLowerBound;
     public float RowDistMultLowerBound { get => rowDistMultLowerBound; set {
             if (value > 1) {
                 if (value < rowDistMultUpperBound) {
@@ -62,7 +75,7 @@ public class GameValues : MonoBehaviour {
     }
 
     
-    private float rowDistMultUpperBound = 1.75f;
+    private float rowDistMultUpperBound;
     public float RowDistMultUpperBound { get => rowDistMultUpperBound; set {
             if (value > rowDistMultLowerBound) {
                 rowDistMultLowerBound = value;
@@ -77,8 +90,12 @@ public class GameValues : MonoBehaviour {
     private int score = 0;
     public int Score {get => score; set => score = value;}
 
+    //SCORE TICK RATE---------
+    private int scoreTickRate = 0;
+    public int ScoreTickRate {get => scoreTickRate; set => scoreTickRate = value;}
+
     //GAP WIDTH MULTIPLIER---------
-    private float widthMultiplier = 1.25f;
+    private float widthMultiplier;
     public float WidthMultiplier {get => widthMultiplier; set {
             if (value > 0 && value < 3) {
                 widthMultiplier = value;
@@ -90,7 +107,7 @@ public class GameValues : MonoBehaviour {
     }
 
     //MINIMUM GAP WIDTH
-    private float minimumGapWidth = 1.5f;
+    private float minimumGapWidth;
     private float MinimumGapWidth {get => minimumGapWidth; set {
             if (value >= 1) {
                 minimumGapWidth = value;

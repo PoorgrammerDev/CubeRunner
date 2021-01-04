@@ -7,9 +7,6 @@ public class HighScoreDisplay : MonoBehaviour
     [SerializeField]
     private HighScoreManager highScore;
 
-    [SerializeField]
-    private DifficultyManager difficultyManager;
-
     private Text numDisplay;
 
     // Start is called before the first frame update
@@ -19,7 +16,6 @@ public class HighScoreDisplay : MonoBehaviour
     }
 
     public void UpdateScore() {
-        numDisplay.text = highScore.getHighScore(difficultyManager.Difficulty).ToString();
-        numDisplay.color = difficultyManager.GetCurrentColor();
+        numDisplay.text = highScore.HighScore.ToString();
     }
 }
