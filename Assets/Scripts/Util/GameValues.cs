@@ -22,6 +22,10 @@ public class GameValues : MonoBehaviour {
     private bool gameActive = true;
     public bool GameActive { get => gameActive; set => gameActive = value; }
 
+    //PASSED FIRST OBSTACLE-----------
+    private bool passedFirstObstacle = false;
+    public bool PassedFirstObstacle { get => passedFirstObstacle; set => passedFirstObstacle = value; }
+
     //DIFFICULTY------
     private Difficulty difficulty;
     public Difficulty Difficulty => difficulty;

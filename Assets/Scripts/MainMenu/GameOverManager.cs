@@ -24,6 +24,15 @@ public class GameOverManager : MonoBehaviour
     private GameObject spinningCube; 
 
     [SerializeField]
+    private GameObject playAgainText;
+
+    [SerializeField]
+    private Button playAgainButton;
+
+    [SerializeField]
+    private GameObject BackToMM;
+
+    [SerializeField]
     private GameObject playerPropPrefab; 
 
     [SerializeField]
@@ -31,12 +40,14 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField]
     private HighScoreManager highScoreManager;
+
     private float spawnYPos = -2;
     private Quaternion quaternion = new Quaternion();
 
     private EndGameDataExport endGameDataExport;
 
     private GameObject[] cubeParts;
+
 
     private bool cubeConstructionBegan = false;
 
@@ -127,7 +138,10 @@ public class GameOverManager : MonoBehaviour
         scTransform.localScale = scScale;
 
         yield return new WaitForSeconds(0.5f);
-        //beam exits
+        
+        BackToMM.SetActive(true);
+        playAgainButton.interactable = true;
+        playAgainText.SetActive(true);
         beam.GetComponent<Animator>().Play(TagHolder.BEAM_ANIM_MENU_EXIT);
     }
 

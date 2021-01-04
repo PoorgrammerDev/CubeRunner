@@ -14,9 +14,7 @@ public class CubeSpawner : MonoBehaviour
 
     [SerializeField]
     private GameValues gameValues;
-
-    [SerializeField]
-    private int firstRowDistance = 10;
+    private float firstRowDistance;
 
     [SerializeField]
     private float obstacleMinHeight = 1.5f;
@@ -43,6 +41,7 @@ public class CubeSpawner : MonoBehaviour
         rows = new List<Row>();
         transform = GetComponent<Transform>();
         zBorders = groundPlane.localScale.z * 5;
+        firstRowDistance = 10 + (1.5f * gameValues.ForwardSpeed);
         
         initialSpawn();
     }
@@ -72,7 +71,7 @@ public class CubeSpawner : MonoBehaviour
         //{
         //    GameObject ye = Instantiate(this.gap, new Vector3(xCoordSpawn, 1, gaps[i][0]), new Quaternion());
         //    ye.name = "Gap " + i;
-//
+        //
         //    Vector3 scale = ye.transform.localScale;
         //    scale.z = gaps[i][1];
         //    ye.transform.localScale = scale;
@@ -221,6 +220,10 @@ public class CubeSpawner : MonoBehaviour
 
                 //delete row and spawn a new one
                 if (delete) {
+                    if (!gameValues.PassedFirstObstacle) {
+                        gameValues.PassedFirstObstacle = true;
+                    }
+
                     foreach (GameObject obstacle in rows[i].getObstacles()) {
                         Destroy(obstacle);
                     }

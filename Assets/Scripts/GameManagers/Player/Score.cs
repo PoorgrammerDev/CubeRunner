@@ -17,7 +17,7 @@ public class Score : MonoBehaviour
 
     IEnumerator ScoreTick() {
         while (gameValues.GameActive) {
-            scoreText.text = (++gameValues.Score).ToString();
+            if (gameValues.PassedFirstObstacle) scoreText.text = (++gameValues.Score).ToString();
             yield return new WaitForSeconds(2f / gameValues.ScoreTickRate);
         }
     }

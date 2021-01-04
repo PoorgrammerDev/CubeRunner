@@ -162,8 +162,11 @@ public class StartGame : MonoBehaviour
                 vector = moveVectorSlower;
             }
             else if (!sunAlreadyRising) {
-                StartCoroutine(Sunrise());
+                sun.SetActive(true);
                 sunAlreadyRising = true;
+            }
+            else {
+                StartCoroutine(ToGameScene());
             }
 
             transform.Translate(vector, Space.World);
@@ -187,51 +190,60 @@ public class StartGame : MonoBehaviour
         yield break;
     }
 
-    IEnumerator Sunrise() {
-        sun.SetActive(true);
-
-        Transform transform = sun.transform;
-        Vector3 moveVector = new Vector3(0, 0.01f, 0);
-
-        StartCoroutine(FadeInCountdown());
-        do {
-            transform.Translate(moveVector, Space.World);
-            yield return null;
-        } while (transform.position.y < SUN_RISEN);
-
-        yield break;
-    }
-
-    IEnumerator FadeInCountdown() {
-        countdown.gameObject.SetActive(true);
-        countdown.text = countdownNum.ToString();
-
-        Color color = countdown.color;
-        for (float i = 0; i <= 1; i += 0.05f) {
-            color.a = i;
-            countdown.color = color;
-            yield return null;
-        }
-
-        StartCoroutine(StartCountingDown());
-        yield break;
-    }
-
-    IEnumerator StartCountingDown() {
-        for (int i = countdownNum; i >= -1; i--) {
-            if (i > 0) {
-                countdown.text = i.ToString();
-            }
-            else {
-                countdown.text = "Get Ready";
-            }
-            
-            yield return new WaitForSecondsRealtime(1);
-        }
-
+    IEnumerator ToGameScene() {
+        yield return new WaitForSecondsRealtime(1);
         SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
-        yield break;
     }
+
+    //IEnumerator Sunrise() {
+    //    sun.SetActive(true);
+//
+    //    Transform transform = sun.transform;
+    //    Vector3 moveVector = new Vector3(0, 0.01f, 0);
+//
+    //    StartCoroutine(FadeInCountdown());
+    //    do {
+    //        transform.Translate(moveVector, Space.World);
+    //        yield return null;
+    //    } while (transform.position.y < SUN_RISEN);
+    //}
+
+    //IEnumerator FadeInCountdown() {
+    //    countdown.gameObject.SetActive(true);
+    //    countdown.text = countdownNum.ToString();
+//
+    //    //fade in
+    //    Color color = countdown.color;
+    //    for (float i = 0; i <= 1; i += 0.05f) {
+    //        color.a = i;
+    //        countdown.color = color;
+    //        yield return null;
+    //    }
+//
+    //    StartCoroutine(StartCountingDown());
+    //}
+//
+    //IEnumerator StartCountingDown() {
+    //    for (int i = countdownNum; i > 0; i--) {
+    //        countdown.text = i.ToString();
+    //        yield return new WaitForSecondsRealtime(1);
+    //    }
+//
+    //    countdown.text = "Get Ready";
+    //    yield return new WaitForSecondsRealtime(0.75f);
+//
+    //    //fade out
+    //    Color color = countdown.color;
+    //    for (float i = 1; i >= 0; i -= 0.05f) {
+    //        color.a = i;
+    //        countdown.color = color;
+    //        yield return null;
+    //    }
+//
+    //    countdown.gameObject.SetActive(false);
+    //    yield return new WaitForSecondsRealtime(0.125f);
+    //    SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
+    //}
 
 
 
