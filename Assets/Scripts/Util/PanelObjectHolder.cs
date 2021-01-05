@@ -5,25 +5,12 @@
 /// </summary>
 public class PanelObjectHolder : MonoBehaviour
 {
-    [SerializeField] private Transform[] leftScreenObjects, rightScreenObjects, topScreenObjects, bottomScreenObjects;
-    public Transform[] LeftScreenObjects { get => leftScreenObjects; set => leftScreenObjects = value; }
-    public Transform[] RightScreenObjects { get => rightScreenObjects; set => rightScreenObjects = value; }
-    public Transform[] TopScreenObjects { get => topScreenObjects; set => topScreenObjects = value; }
-    public Transform[] BottomScreenObjects { get => bottomScreenObjects; set => bottomScreenObjects = value; }
+    [SerializeField] private GameObject leftScreenObjects, rightScreenObjects, topScreenObjects, bottomScreenObjects;
 
-    public void DeactivateAll() {
-        foreach (Transform leftScreenObject in leftScreenObjects) {
-            leftScreenObject.gameObject.SetActive(false);
-        }
-        foreach (Transform rightScreenObject in rightScreenObjects) {
-            rightScreenObject.gameObject.SetActive(false);
-        }
-        foreach (Transform topScreenObject in topScreenObjects) {
-            topScreenObject.gameObject.SetActive(false);
-        }
-        foreach (Transform bottomScreenObject in bottomScreenObjects) {
-            bottomScreenObject.gameObject.SetActive(false);
-        }
+    public void MoveOut() {
+        leftScreenObjects.GetComponent<Animator>().Play(TagHolder.UI_ANIM_EXIT_LEFT);
+        rightScreenObjects.GetComponent<Animator>().Play(TagHolder.UI_ANIM_EXIT_RIGHT);
+        topScreenObjects.GetComponent<Animator>().Play(TagHolder.UI_ANIM_EXIT_UP);
+        bottomScreenObjects.GetComponent<Animator>().Play(TagHolder.UI_ANIM_EXIT_DOWN);
     }
-
 }

@@ -9,6 +9,10 @@ public class TagHolder
     public const string BEAM_ANIM_MENU_ENTER = "EnterMenu";
     public const string BEAM_ANIM_MENU_EXIT = "ExitMenu";
     public const string CUSTOMIZE_ANIM_EXIT = "FadeOut";
+    public const string UI_ANIM_EXIT_LEFT = "MoveLeft";
+    public const string UI_ANIM_EXIT_RIGHT = "MoveRight";
+    public const string UI_ANIM_EXIT_UP = "MoveUp";
+    public const string UI_ANIM_EXIT_DOWN = "MoveDown";
 
     //Scenes
     public const string GAME_SCENE = "Scene";

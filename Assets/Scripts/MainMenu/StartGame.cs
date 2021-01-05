@@ -13,8 +13,6 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject groundPlane;
     [SerializeField] private GameObject sun;
     [SerializeField] private PanelObjectHolder[] panels;
-    [SerializeField] private Text countdown;
-    [SerializeField] private int countdownNum = 3;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
@@ -24,17 +22,6 @@ public class StartGame : MonoBehaviour
 
     private const int ROAD_FULLY_EXTENDED = 65;
     private const int ROAD_PASSED = -385;
-
-    private const float SUN_RISEN = 4.5f;
-
-    enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT
-    }
-
-    private const int UI_LAYER = 5;
 
     void Start() {
         renderer = GetComponent<MeshRenderer>();
@@ -63,7 +50,7 @@ public class StartGame : MonoBehaviour
         }
         
         //removes other menu elements from screen
-        StartCoroutine(RemoveOtherObjects());
+        panel.MoveOut();
 
         //cube stop
         spinManager.stopAtStraight();
@@ -75,64 +62,6 @@ public class StartGame : MonoBehaviour
         //camera moves up
         Animator mainCamAnim = Camera.main.GetComponent<Animator>();
         mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
-    }
-
-    IEnumerator RemoveOtherObjects () {
-        int horizontalLimit = 1750;
-        int verticalLimit = 5;
-
-        float minRight, minTop, maxLeft, maxBottom;
-        do {
-            maxLeft = moveObjects(panel.LeftScreenObjects, Direction.LEFT, 0.05f, 150);
-            minRight = moveObjects(panel.RightScreenObjects, Direction.RIGHT, 0.05f, 150);
-            minTop = moveObjects(panel.TopScreenObjects, Direction.UP, 0.05f, 150);
-            maxBottom = moveObjects(panel.BottomScreenObjects, Direction.DOWN, 0.05f, 150);
-
-            yield return null;
-        } while (maxLeft > -horizontalLimit || minRight < horizontalLimit || maxBottom > -verticalLimit || minTop < verticalLimit);
-
-        panel.DeactivateAll();
-        yield break;
-    }
-
-    //dear lord this function is so poorly written but right now i can't figure out a better way
-    //TODO clean this mess of a function up
-    float moveObjects(Transform[] screenObjects, Direction direction, float moveSpeed, float UIAmplifier) {
-        bool up = direction.Equals(Direction.UP);
-        bool down = direction.Equals(Direction.DOWN);
-        bool left = direction.Equals(Direction.LEFT);
-        bool right = direction.Equals(Direction.RIGHT);
-
-        float extrema = (down || left) ? float.MinValue : float.MaxValue;
-        //forming correct vector with regard to direction
-        Vector3 moveVector;
-        if (left || right) {
-            moveVector = new Vector3(moveSpeed, 0, 0);
-        }
-        else {
-            moveVector = new Vector3(0, moveSpeed, 0);
-        }
-        if (down || left) moveVector *= -1;
-
-
-        foreach (Transform screenObject in screenObjects) {
-            //moving each object
-            screenObject.Translate((screenObject.gameObject.layer == UI_LAYER) ? (moveVector * UIAmplifier) : moveVector, Space.World);
-
-            if (up && screenObject.localPosition.y < extrema) {
-                extrema = screenObject.localPosition.y;
-            }
-            else if (down && screenObject.localPosition.y > extrema) {
-                extrema = screenObject.localPosition.y;
-            }
-            else if (left && screenObject.localPosition.x > extrema) {
-                extrema = screenObject.localPosition.x;
-            }
-            else if (screenObject.localPosition.x < extrema) {
-                extrema = screenObject.localPosition.x;
-            }
-        }
-        return extrema;
     }
 
     IEnumerator ExtendRoad() {
