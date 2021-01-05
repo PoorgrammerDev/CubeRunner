@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
+/// <summary>
+/// Handles player collision with objects, like obstacles or power-ups.
+/// </summary>
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField]
-    private EndGame gameEndManager;
+    [SerializeField] private EndGame gameEndManager;
 
     private void OnTriggerEnter(Collider other) {
         GameObject otherObject = other.gameObject;

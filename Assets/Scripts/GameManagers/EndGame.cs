@@ -2,31 +2,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles Ending the Game (Game stage side)
+/// </summary>
 public class EndGame : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject activePlayer;
+    [SerializeField] private GameObject activePlayer;
 
-    [SerializeField]
-    private GameObject playerPrefab;
+    [SerializeField] private GameObject playerPrefab;
 
-    [SerializeField]
-    private Beam beam;
+    [SerializeField] private Beam beam;
 
-    [SerializeField]
-    private GameValues gameValues;
+    [SerializeField] private GameValues gameValues;
 
-    [SerializeField]
-    private SphereCollider explosionCollider;
+    [SerializeField] private SphereCollider explosionCollider;
 
-    [SerializeField]
-    private EndGameDataExport dataExport;
+    [SerializeField] private EndGameDataExport dataExport;
 
-    [SerializeField]
-    private GameObject[] invisibleWalls;
+    [SerializeField] private GameObject[] invisibleWalls;
 
-    [SerializeField]
-    private uint divide = 4;
+    [SerializeField] private uint divide = 4;
 
     private uint DEFAULT_DIVIDE = 4;
 

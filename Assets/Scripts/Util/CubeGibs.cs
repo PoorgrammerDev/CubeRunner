@@ -1,7 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Class to manage cube smashing effect.
+/// </summary>
 public class CubeGibs : MonoBehaviour
 {
     private uint DEFAULT_DIVIDE = 4;

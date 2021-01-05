@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// Util class to hold Screen Objects, for easy transition during Game Start. 
+/// </summary>
 public class PanelObjectHolder : MonoBehaviour
 {
-    [SerializeField]
-    private Transform[] leftScreenObjects, rightScreenObjects, topScreenObjects, bottomScreenObjects;
+    [SerializeField] private Transform[] leftScreenObjects, rightScreenObjects, topScreenObjects, bottomScreenObjects;
     public Transform[] LeftScreenObjects { get => leftScreenObjects; set => leftScreenObjects = value; }
     public Transform[] RightScreenObjects { get => rightScreenObjects; set => rightScreenObjects = value; }
     public Transform[] TopScreenObjects { get => topScreenObjects; set => topScreenObjects = value; }

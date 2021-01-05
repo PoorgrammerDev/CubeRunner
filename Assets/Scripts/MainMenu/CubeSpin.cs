@@ -1,11 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// This class handles the Spinning Cube in the Main Menu.
+/// </summary>
 public class CubeSpin : MonoBehaviour
 {
     [SerializeField]
     private bool active = true;
+    public bool Active {get => active; set => active = value;}
 
     [SerializeField]
     private bool triggerStopAtStraight = false;
@@ -37,14 +39,6 @@ public class CubeSpin : MonoBehaviour
 
             transform.Rotate(new Vector3(0, spinSpeed, 0), Space.Self);
         }
-    }
-
-    public bool isSpinning() {
-        return active;
-    }
-
-    public void setSpinning(bool spin) {
-        active = spin;
     }
 
     public void stopAtStraight() {

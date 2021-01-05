@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Row class represents each row of obstacles during the Game.
+/// </summary>
 public class Row {
     //array of obstacles in row
     private GameObject[] obstacles;

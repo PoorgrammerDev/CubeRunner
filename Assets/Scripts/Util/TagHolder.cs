@@ -1,4 +1,7 @@
-﻿public class TagHolder
+﻿/// <summary>
+/// Util class to hold constant string values.
+/// </summary>
+public class TagHolder
 {
     //Animation States
     public const string CAM_ANIM_START_GAME = "StartGame";

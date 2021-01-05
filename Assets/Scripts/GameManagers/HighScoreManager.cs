@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System;
 
+/// <summary>
+/// Deals with High Score, including saving it to disk using PlayerPrefs
+/// </summary>
 public class HighScoreManager : MonoBehaviour {
     private int highScore;
     public int HighScore => highScore;

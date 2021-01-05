@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-//ALWAYS attach this script directly onto BEAM
+/// <summary>
+/// Attach script directly onto Beam Object. Used for Game Ending effects.
+/// </summary>
 public class Beam : MonoBehaviour
 {
-    [SerializeField]
-    private EndGame endGame;
+    [SerializeField] private EndGame endGame;
 
     private Transform ZAligner;
     private Animator animator;

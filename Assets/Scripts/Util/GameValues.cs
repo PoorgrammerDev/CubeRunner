@@ -1,8 +1,11 @@
 using UnityEngine;
+
+/// <summary>
+/// Class used to hold values integral to game.
+/// </summary>
 public class GameValues : MonoBehaviour {
 
-    [SerializeField]
-    private DifficultyValuesHolder[] difficultyValuesHolders;
+    [SerializeField] private DifficultyValuesHolder[] difficultyValuesHolders;
     void Awake() {
         difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
 

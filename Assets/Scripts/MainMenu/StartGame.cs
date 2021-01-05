@@ -3,38 +3,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Handles Starting Game and the UI Button
+/// </summary>
 public class StartGame : MonoBehaviour
 {
 
-    [SerializeField]
-    private Material glowingMaterial;
+    [SerializeField] private Material glowingMaterial;
+    [SerializeField] private GameObject groundPlane;
+    [SerializeField] private GameObject sun;
+    [SerializeField] private PanelObjectHolder[] panels;
+    [SerializeField] private Text countdown;
+    [SerializeField] private int countdownNum = 3;
 
     private CubeSpin spinManager;
-
-    [SerializeField]
-    private GameObject groundPlane;
-
-    [SerializeField]
-    private GameObject sun;
-
-    [SerializeField]
-    private PanelObjectHolder[] panels;
     private PanelObjectHolder panel;
-    
-    [SerializeField]
-    private Text countdown;
-
-    [SerializeField]
-    private int countdownNum = 3;
+    private new MeshRenderer renderer;
+    private MenuScale menuScale;
+    private Button[] buttons;
 
     private const int ROAD_FULLY_EXTENDED = 65;
     private const int ROAD_PASSED = -385;
 
     private const float SUN_RISEN = 4.5f;
-
-    private new MeshRenderer renderer;
-    private MenuScale menuScale;
-    private Button[] buttons;
 
     enum Direction {
         UP,
@@ -194,57 +185,4 @@ public class StartGame : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
         SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
     }
-
-    //IEnumerator Sunrise() {
-    //    sun.SetActive(true);
-//
-    //    Transform transform = sun.transform;
-    //    Vector3 moveVector = new Vector3(0, 0.01f, 0);
-//
-    //    StartCoroutine(FadeInCountdown());
-    //    do {
-    //        transform.Translate(moveVector, Space.World);
-    //        yield return null;
-    //    } while (transform.position.y < SUN_RISEN);
-    //}
-
-    //IEnumerator FadeInCountdown() {
-    //    countdown.gameObject.SetActive(true);
-    //    countdown.text = countdownNum.ToString();
-//
-    //    //fade in
-    //    Color color = countdown.color;
-    //    for (float i = 0; i <= 1; i += 0.05f) {
-    //        color.a = i;
-    //        countdown.color = color;
-    //        yield return null;
-    //    }
-//
-    //    StartCoroutine(StartCountingDown());
-    //}
-//
-    //IEnumerator StartCountingDown() {
-    //    for (int i = countdownNum; i > 0; i--) {
-    //        countdown.text = i.ToString();
-    //        yield return new WaitForSecondsRealtime(1);
-    //    }
-//
-    //    countdown.text = "Get Ready";
-    //    yield return new WaitForSecondsRealtime(0.75f);
-//
-    //    //fade out
-    //    Color color = countdown.color;
-    //    for (float i = 1; i >= 0; i -= 0.05f) {
-    //        color.a = i;
-    //        countdown.color = color;
-    //        yield return null;
-    //    }
-//
-    //    countdown.gameObject.SetActive(false);
-    //    yield return new WaitForSecondsRealtime(0.125f);
-    //    SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
-    //}
-
-
-
 }

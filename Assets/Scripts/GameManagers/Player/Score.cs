@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Managing Score incrementing and its display
+/// </summary>
 public class Score : MonoBehaviour
 {
     private Text scoreText;

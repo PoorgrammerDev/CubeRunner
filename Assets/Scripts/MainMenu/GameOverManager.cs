@@ -1,55 +1,38 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the Game Over screen on the Main Menu, including all the effects on there.
+/// </summary>
 public class GameOverManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject gameOverScreen;
+    [SerializeField] private GameObject gameOverScreen;
 
-    [SerializeField]
-    private Text scoreNumber;
+    [SerializeField] private GameObject mainMenuScreen;
 
-    [SerializeField]
-    private Text highScoreNumber;
+    [SerializeField] private Text scoreNumber;
 
-    [SerializeField]
-    private GameObject mainMenuScreen;   
+    [SerializeField] private Text highScoreNumber;
 
-    [SerializeField]
-    private GameObject beam; 
+    [SerializeField] private GameObject beam; 
 
-    [SerializeField]
-    private GameObject spinningCube; 
+    [SerializeField] private GameObject spinningCube; 
 
-    [SerializeField]
-    private GameObject playAgainText;
+    [SerializeField] private GameObject playerPropPrefab; 
 
-    [SerializeField]
-    private Button playAgainButton;
+    [SerializeField] private GameObject[] delayedEnable;
 
-    [SerializeField]
-    private GameObject BackToMM;
+    [SerializeField] private CubeGibs cubeGibs;
 
-    [SerializeField]
-    private GameObject playerPropPrefab; 
-
-    [SerializeField]
-    private CubeGibs cubeGibs;
-
-    [SerializeField]
-    private HighScoreManager highScoreManager;
-
-    private float spawnYPos = -2;
-    private Quaternion quaternion = new Quaternion();
+    [SerializeField] private HighScoreManager highScoreManager;
 
     private EndGameDataExport endGameDataExport;
 
     private GameObject[] cubeParts;
 
-
-    private bool cubeConstructionBegan = false;
+    private Quaternion quaternion = new Quaternion();
+    private float spawnYPos = -2;
 
     void Awake() {
         endGameDataExport = FindObjectOfType<EndGameDataExport>();
@@ -76,7 +59,6 @@ public class GameOverManager : MonoBehaviour
         //delay
         yield return new WaitForSeconds(1f);
 
-
         //spawn cube bits
         float partScale = 1f / (float) endGameDataExport.CubePartDivide;
         int parts = (int) endGameDataExport.CubePartDivide * 16;
@@ -86,14 +68,15 @@ public class GameOverManager : MonoBehaviour
             cubeParts[i].GetComponent<Rigidbody>().isKinematic = true;
         }
 
+        //cube begins forming
+        StartCoroutine(NewPlayerCubeForm(1, 1f / (2.5f * 16f * endGameDataExport.CubePartDivide)));
+
         //make cube bits flow into base
         Vector3 moveUp = new Vector3(0, 0.4f, 0);
         foreach (GameObject cubePart in cubeParts) {
             StartCoroutine(cubeRise(cubePart, moveUp));
             yield return null;
         }
-
-        
     }
 
     IEnumerator cubeRise(GameObject cubePart, Vector3 riseVector) {
@@ -101,12 +84,6 @@ public class GameOverManager : MonoBehaviour
         while (cubePartTransform.localPosition.y < -1.5f) {
             cubePartTransform.Translate(riseVector, Space.World);
             yield return null;
-        }
-
-        if (!cubeConstructionBegan) {
-            //float mult = Mathf.Pow((1f / 9f), riseVector.y - 1); TODO cannot find a good formula for this, just going to set a value for now
-            StartCoroutine(NewPlayerCubeForm(1, 1f / (2.5f * 16f * endGameDataExport.CubePartDivide)));
-            cubeConstructionBegan = true;
         }
 
         Destroy(cubePart);
@@ -139,9 +116,11 @@ public class GameOverManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         
-        BackToMM.SetActive(true);
-        playAgainButton.interactable = true;
-        playAgainText.SetActive(true);
+        //enable the delayed objects
+        foreach (GameObject delayed in delayedEnable) {
+            delayed.SetActive(true);
+        }
+        //beam exit
         beam.GetComponent<Animator>().Play(TagHolder.BEAM_ANIM_MENU_EXIT);
     }
 

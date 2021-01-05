@@ -2,34 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Handles calculating and deploying new obstacles
+/// </summary>
 public class CubeSpawner : MonoBehaviour
 {
     private new Transform transform;
 
-    [SerializeField]
-    private GameObject player;
+    [SerializeField] private GameObject player;
 
-    [SerializeField]
-    private GameObject cubePrefab;
+    [SerializeField] private GameObject cubePrefab;
 
-    [SerializeField]
-    private GameValues gameValues;
+    [SerializeField] private GameValues gameValues;
+
+    [SerializeField] private float obstacleMinHeight = 1.5f;
+
+    [SerializeField] private float obstacleMaxHeight = 3f;
+
+    [SerializeField] private float obstacleThickness = 1f;
+
+    [SerializeField] private int maxGaps = 3;
+
+    [SerializeField] private Transform groundPlane;
     private float firstRowDistance;
-
-    [SerializeField]
-    private float obstacleMinHeight = 1.5f;
-
-    [SerializeField]
-    private float obstacleMaxHeight = 3f;
-
-    [SerializeField]
-    private float obstacleThickness = 1f;
-
-    [SerializeField]
-    private int maxGaps = 3;
-
-    [SerializeField]
-    private Transform groundPlane;
 
     private float zBorders;
 

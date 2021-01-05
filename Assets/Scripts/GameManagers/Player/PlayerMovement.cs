@@ -1,19 +1,19 @@
 using UnityEngine;
 
+/// <summary>
+/// Player Movement (strafing left and right)
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     private CharacterController characterController;
 
-    [SerializeField]
-    private GameValues gameValues;
+    [SerializeField] private GameValues gameValues;
 
-    [SerializeField]
-    private float gravity;
+    //[SerializeField] private float gravity;
 
-    [SerializeField]
-    private float jumpForce;
+    //[SerializeField] private float jumpForce;
 
-    private float verticalVelocity;
+    //private float verticalVelocity;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();
@@ -24,26 +24,26 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!gameValues.GameActive || characterController == null || !characterController.enabled) return;
 
-        Vector3 vel = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxisRaw(TagHolder.HORIZONTAL_AXIS) * gameValues.StrafingSpeed)) * Time.deltaTime;
-        vel = ApplyGravity(vel);
+        Vector3 velocity = transform.TransformDirection(new Vector3(0f, 0f, -Input.GetAxisRaw(TagHolder.HORIZONTAL_AXIS) * gameValues.StrafingSpeed)) * Time.deltaTime;
+        //velocity = ApplyGravity(vel);
 
-        characterController.Move(vel);
+        characterController.Move(velocity);
     }
 
-    Vector3 ApplyGravity(Vector3 velocity) {
-        if (characterController.isGrounded) {
-            velocity = Jump(velocity);
-        }
+    //Vector3 ApplyGravity(Vector3 velocity) {
+    //    if (characterController.isGrounded) {
+    //        velocity = Jump(velocity);
+    //    }
+//
+    //    verticalVelocity -= gravity * Time.deltaTime;
+    //    velocity.y = verticalVelocity * Time.deltaTime;
+    //    return velocity;
+    //}
 
-        verticalVelocity -= gravity * Time.deltaTime;
-        velocity.y = verticalVelocity * Time.deltaTime;
-        return velocity;
-    }
-
-    Vector3 Jump(Vector3 velocity) {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            verticalVelocity = jumpForce;
-        }
-        return velocity;
-    }
+    //Vector3 Jump(Vector3 velocity) {
+    //    if (Input.GetKeyDown(KeyCode.Space)) {
+    //        verticalVelocity = jumpForce;
+    //    }
+    //    return velocity;
+    //}
 }

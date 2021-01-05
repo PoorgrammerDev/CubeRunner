@@ -1,24 +1,21 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Handles intra-Game progression (stage getting faster as it goes, etc.)
+/// </summary>
 public class GameProgression : MonoBehaviour
 {
-    [SerializeField]
-    private GameValues gameValues;
+    [SerializeField] private GameValues gameValues;
 
-    [SerializeField]
-    private CubeSpawner cubeSpawner;
+    [SerializeField] private CubeSpawner cubeSpawner;
 
-    [SerializeField]
-    bool increaseSpeed;
+    [SerializeField] private bool increaseSpeed;
 
-    [SerializeField]
-    bool decreaseGapWidth;
+    [SerializeField] private bool decreaseGapWidth;
     
-    [SerializeField]
-    bool decreaseGaps;
+    [SerializeField] private bool decreaseGaps;
 
-    [SerializeField]
-    private int progressionStep = 100;
+    [SerializeField] private int progressionStep = 100;
 
     private int lastScoreRanAt = 0;
 

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-//THIS SCRIPT IS MEANT TO BE PLACED DIRECTLY ON TEXT OBJECT
+/// <summary>
+/// Class is meant to be placed directly on UI Text. Updates its value to match the correct High Score.
+/// </summary>
 public class HighScoreDisplay : MonoBehaviour
 {
-    [SerializeField]
-    private HighScoreManager highScore;
+    [SerializeField] private HighScoreManager highScore;
 
     private Text numDisplay;
 

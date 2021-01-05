@@ -1,25 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls the scale of GameObjects in the menu (that can't scale automatically with the Canvas).
+/// </summary>
 public class MenuScale : MonoBehaviour
 {
+    [SerializeField] private int originalWidth = 1920;
+
+    [SerializeField] private int originalHeight = 1080;
+
+    [SerializeField] private float magnitude = 0.5f;
+
     private new Transform transform;
-    
-    [SerializeField]
-    private int originalWidth = 1920;
-
-    [SerializeField]
-    private int originalHeight = 1080;
-
-    [SerializeField]
-    private float magnitude = 0.5f;
-
     private bool active = true;
 
     // Start is called before the first frame update
     void Start() {
         transform = gameObject.transform;
-
         StartCoroutine(ScheduleUpdate());
     }
 

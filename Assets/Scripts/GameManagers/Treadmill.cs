@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Makes the ground seem infinite
+/// </summary>
 public class Treadmill : MonoBehaviour
 {
 
-    [SerializeField]
-    private float teleportThreshold = -175;
+    [SerializeField] private float teleportThreshold = -175;
 
-    [SerializeField]
-    private GameValues gameValues;
+    [SerializeField] private GameValues gameValues;
 
     private new Transform transform;
 

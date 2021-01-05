@@ -3010,7 +3010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0c6f7e25854f184f93a956ecbbd2452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  defaultDifficulty: 1
   difficultyButtons:
   - {fileID: 455872171}
   - {fileID: 1060884617}
@@ -3018,7 +3018,12 @@ MonoBehaviour:
   - {fileID: 1271526088}
   mainMenuScreen: {fileID: 745310534}
   difficultyScreen: {fileID: 2118517843}
-  defaultDifficulty: 1
+  selectedItemColors:
+  - {r: 0.56, g: 0.75, b: 0.43, a: 1}
+  - {r: 0.98, g: 0.78, b: 0.31, a: 1}
+  - {r: 0.98, g: 0.25, b: 0.27, a: 1}
+  - {r: 0.69, g: 0.17, b: 0.75, a: 1}
+  unselectedItemColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &697574822
 Transform:
   m_ObjectHideFlags: 0
@@ -3130,7 +3135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &733673521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3188,7 +3193,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 733673523}
   m_OnClick:
     m_PersistentCalls:
@@ -6086,16 +6091,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 600306653}
+  mainMenuScreen: {fileID: 745310534}
   scoreNumber: {fileID: 905427785}
   highScoreNumber: {fileID: 589026882}
-  mainMenuScreen: {fileID: 745310534}
   beam: {fileID: 1743910582}
   spinningCube: {fileID: 2119642130}
-  playAgainText: {fileID: 796903475}
-  playAgainButton: {fileID: 733673522}
-  BackToMM: {fileID: 1837741847}
   playerPropPrefab: {fileID: 3625991710297185765, guid: f9da759b440136b4896dca009b16dc55,
     type: 3}
+  delayedEnable:
+  - {fileID: 733673520}
+  - {fileID: 796903475}
+  - {fileID: 1837741847}
   cubeGibs: {fileID: 1807634618}
   highScoreManager: {fileID: 819410456}
 --- !u!4 &1452712030
