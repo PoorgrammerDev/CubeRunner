@@ -37,12 +37,10 @@ public class CubeSpawner : MonoBehaviour
         transform = GetComponent<Transform>();
         zBorders = groundPlane.localScale.z * 5;
         firstRowDistance = 10 + (1.5f * gameValues.ForwardSpeed);
-        
-        initialSpawn();
     }
 
 
-    private void initialSpawn() {
+    public void initialSpawn() {
         float[][] gaps = getGaps();
         rows.Add(spawnRow(firstRowDistance, gaps, true, 0)); 
 

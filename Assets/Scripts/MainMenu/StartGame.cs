@@ -4,14 +4,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Handles Starting Game and the UI Button
+/// Handles Starting Game (Main Menu scene-side) and the UI Button
 /// </summary>
 public class StartGame : MonoBehaviour
 {
 
     [SerializeField] private Material glowingMaterial;
-    [SerializeField] private GameObject groundPlane;
-    [SerializeField] private GameObject sun;
     [SerializeField] private PanelObjectHolder[] panels;
 
     private CubeSpin spinManager;
@@ -20,8 +18,8 @@ public class StartGame : MonoBehaviour
     private MenuScale menuScale;
     private Button[] buttons;
 
-    private const int ROAD_FULLY_EXTENDED = 65;
-    private const int ROAD_PASSED = -385;
+    private bool readyToSwitchScenes = false;
+    public bool ReadyToSwitchScenes {set => readyToSwitchScenes = value;}
 
     void Start() {
         renderer = GetComponent<MeshRenderer>();
@@ -48,6 +46,9 @@ public class StartGame : MonoBehaviour
         foreach (Button button in buttons) {
             button.interactable = false;
         }
+
+        //begins loading new scene in background
+        StartCoroutine(LoadScene());
         
         //removes other menu elements from screen
         panel.MoveOut();
@@ -55,46 +56,14 @@ public class StartGame : MonoBehaviour
         //cube stop
         spinManager.stopAtStraight();
 
-        //road extends out
-        StartCoroutine(ExtendRoad());
+        //cube moves closer
         StartCoroutine(CubeMovesCloser());
 
         //camera moves up
         Animator mainCamAnim = Camera.main.GetComponent<Animator>();
         mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
-    }
 
-    IEnumerator ExtendRoad() {
-        groundPlane.SetActive(true);
-
-        Transform transform = groundPlane.transform;
-        Vector3 moveVector = new Vector3(0, 0, -1f);
-        Vector3 moveVectorSlower = new Vector3(0, 0, -0.3f);
-        Vector3 moveVectorIdle = new Vector3(0, 0, -0.075f);
-
-        bool sunAlreadyRising = false;
-        do {
-            Vector3 vector = moveVectorIdle;
-            if (transform.position.z > (ROAD_FULLY_EXTENDED + 100)) {
-                vector = moveVector;
-            }
-            else if (transform.position.z > ROAD_FULLY_EXTENDED) {
-                vector = moveVectorSlower;
-            }
-            else if (!sunAlreadyRising) {
-                sun.SetActive(true);
-                sunAlreadyRising = true;
-            }
-            else {
-                StartCoroutine(ToGameScene());
-            }
-
-            transform.Translate(vector, Space.World);
-            yield return null;
-        } while (transform.position.z > ROAD_PASSED);
-
-        groundPlane.SetActive(false);
-        yield break;
+        //scene switching is handled by the animation event on the camera
     }
 
     IEnumerator CubeMovesCloser() {
@@ -109,9 +78,16 @@ public class StartGame : MonoBehaviour
 
         yield break;
     }
+    
+    IEnumerator LoadScene() {
+        AsyncOperation asyncOp = SceneManager.LoadSceneAsync(TagHolder.GAME_SCENE, LoadSceneMode.Single);
+        asyncOp.allowSceneActivation = false;
 
-    IEnumerator ToGameScene() {
-        yield return new WaitForSecondsRealtime(1);
-        SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
+        while (!asyncOp.isDone) {
+            if (readyToSwitchScenes && asyncOp.progress >= 0.9f) {
+                asyncOp.allowSceneActivation = true;
+            }
+            yield return null;
+        }
     }
 }

@@ -22,8 +22,10 @@ public class GameValues : MonoBehaviour {
     }
 
     //GAME ACTIVE-----------
-    private bool gameActive = true;
-    public bool GameActive { get => gameActive; set => gameActive = value; }
+
+    [SerializeField]
+    private bool gameActive = false;
+    public bool GameActive { get => gameActive; set => gameActive = value;}
 
     //PASSED FIRST OBSTACLE-----------
     private bool passedFirstObstacle = false;

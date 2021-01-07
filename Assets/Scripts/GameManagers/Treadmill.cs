@@ -5,20 +5,15 @@
 /// </summary>
 public class Treadmill : MonoBehaviour
 {
-
     [SerializeField] private float teleportThreshold = -175;
 
     [SerializeField] private GameValues gameValues;
 
-    private new Transform transform;
-
-    void Start() {
-        transform = GetComponent<Transform>();
-    }
+    [SerializeField] private bool active;
 
     void Update()
     {
-        if (!gameValues.GameActive) return;
+        if (!active) return;
 
         Vector3 position = transform.position;
 
