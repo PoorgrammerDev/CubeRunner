@@ -11,10 +11,11 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private Transform groundPlane;
     [SerializeField] private int rowCount = 10;
+    [SerializeField] private float widthScale = 1;
 
     private float firstRowDistance;
     private int lanes;
-    private Row[] rows;
+    private GameObject[] rows;
 
     private Transform cubePoolObject;
     private Stack<GameObject> cubePool;
@@ -25,39 +26,41 @@ public class CubeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         cubePoolObject = transform.GetChild(0);
-        lanes = (int) (groundPlane.localScale.z * 10);
-        rows = new Row[rowCount];
+        lanes = (int) ((groundPlane.localScale.z * 10f) / widthScale);
+        rows = new GameObject[rowCount];
         firstRowDistance = 10 + (1.5f * gameValues.ForwardSpeed);
 
         CreateObjects();
-        SpawnRow(rows[0], 10);
+        //SpawnRow(rows[0], 10);
     }
 
     //instantiate objects at the start
     void CreateObjects() {
-        for (int i = 0; i < rowCount; i++) {
-            rows[i] = new GameObject("Row", typeof(Row)).GetComponent<Row>();
-            rows[i].transform.SetParent(transform);
-        }
-
         int initPoolSize = (lanes / 2) * rowCount;
         cubePool = new Stack<GameObject>(initPoolSize);
         for (int i = 0; i < initPoolSize; i++) {
             cubePool.Push(Instantiate(cubePrefab, spawnPosition, quaternion, cubePoolObject));
         }
+
+
+        for (int i = 0; i < rowCount; i++) {
+            rows[i] = new GameObject("Row");
+            rows[i].transform.SetParent(transform);
+
+            SpawnRow(rows[i], 10 + (10 * i));
+        }
     }
 
     //gets a cube from pool, or makes a new one if empty
     GameObject getCube() {
-        GameObject cube = cubePool.Pop();
-        if (cube != null) {
-            return cube;
+        if (cubePool.Count > 0) {
+            return cubePool.Pop();
         }
         return Instantiate(cubePrefab, spawnPosition, quaternion, cubePoolObject);
     }
 
-    void SpawnRow(Row row, float xCoordSpawn) {
-        row.obstaclePlacement = getPlacementArray();
+    void SpawnRow(GameObject row, float xCoordSpawn) {
+        bool[] placement = getPlacementArray();
 
         //move row to desired X coordinate
         Vector3 rowPosition = row.transform.position;
@@ -65,15 +68,24 @@ public class CubeSpawner : MonoBehaviour
         row.transform.position = rowPosition;
 
         for (int i = 0; i < lanes; i++) {
-            if (!row.obstaclePlacement[i]) {
+            if (!placement[i]) {
                 //get cube, set row as parent
                 GameObject cube = getCube();
                 cube.transform.SetParent(row.transform, false);
+
+                float height = Random.Range(0.75f, 2.5f);
                 
                 //change cube position
                 Vector3 cubePos = cube.transform.position;
-                cubePos.z = ((float) lanes / 2f) - i - 0.5f;
+                cubePos.y = height / 2f;
+                cubePos.z = (((lanes) / 2f) - i - 0.5f) * widthScale;
                 cube.transform.position = cubePos;
+
+                //change cube scale
+                Vector3 cubeScale = cube.transform.localScale;
+                cubeScale.y = height;
+                cubeScale.z = widthScale;
+                cube.transform.localScale = cubeScale;
             }
         }
     }
@@ -94,6 +106,14 @@ public class CubeSpawner : MonoBehaviour
             }
         }
         return placement;
+    }
+
+    void Update() {
+
+    }
+
+    void MoveRows() {
+        
     }
 
 

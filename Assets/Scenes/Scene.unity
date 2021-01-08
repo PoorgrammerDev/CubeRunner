@@ -155,6 +155,7 @@ MonoBehaviour:
   gameValues: {fileID: 573723474}
   groundPlane: {fileID: 355389867}
   rowCount: 10
+  widthScale: 1.5
 --- !u!4 &7314369
 Transform:
   m_ObjectHideFlags: 0
