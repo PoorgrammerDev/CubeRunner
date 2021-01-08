@@ -5,11 +5,18 @@
 /// </summary>
 public class Treadmill : MonoBehaviour
 {
+    [SerializeField] public bool active;
+
+    [SerializeField] private float speed = 1;
+    public float Speed {get => speed; set {
+            if (value > 0) {
+                speed = value;
+            }
+        }
+    }
+
     [SerializeField] private float teleportThreshold = -175;
-
     [SerializeField] private GameValues gameValues;
-
-    [SerializeField] private bool active;
 
     void Update()
     {
@@ -23,7 +30,7 @@ public class Treadmill : MonoBehaviour
         }
 
         //move backwards
-        position.x -= gameValues.ForwardSpeed * Time.deltaTime;
+        position.x -= gameValues.ForwardSpeed * speed * Time.deltaTime;
         transform.position = position;
     }
 }

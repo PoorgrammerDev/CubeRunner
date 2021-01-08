@@ -12,6 +12,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
 
     [SerializeField] private Beam beam;
+    [SerializeField] private Treadmill treadmill;
 
     [SerializeField] private GameValues gameValues;
 
@@ -86,6 +87,7 @@ public class EndGame : MonoBehaviour
     IEnumerator DisableGame() {
         yield return new WaitForSeconds(0.1f);
         gameValues.GameActive = false;
+        treadmill.active = false;
     }
 
     bool IsPowerOfTwo(uint x) {
