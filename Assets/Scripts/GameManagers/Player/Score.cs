@@ -7,21 +7,23 @@ using System.Collections;
 /// </summary>
 public class Score : MonoBehaviour
 {
+    [SerializeField] private GameValues gameValues;
+    
     private Text scoreText;
-
-    [SerializeField]
-    private GameValues gameValues;
+    private WaitForSeconds wait;
 
     // Start is called before the first frame update
     void Start() {
         scoreText = GetComponent<Text>();
+        wait = new WaitForSeconds(2f / gameValues.ScoreTickRate);
+
         StartCoroutine(ScoreTick());
     }
 
     IEnumerator ScoreTick() {
         while (gameValues.GameActive) {
             if (gameValues.PassedFirstObstacle) scoreText.text = (++gameValues.Score).ToString();
-            yield return new WaitForSeconds(2f / gameValues.ScoreTickRate);
+            yield return wait;
         }
     }
     

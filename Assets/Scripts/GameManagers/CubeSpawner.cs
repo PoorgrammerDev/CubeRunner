@@ -71,8 +71,7 @@ public class CubeSpawner : MonoBehaviour
         //}
         
         GameObject[] obstacles = new GameObject[gaps.Length + 1];
-        for (int i = 0; i < gaps.Length + 1; i++)
-        {
+        for (int i = 0; i < gaps.Length + 1; i++) {
             float positiveBound = (i > 0) ? gaps[i-1][0] - (gaps[i-1][1] / 2f) : zBorders;
             float negativeBound = (i < gaps.Length) ? gaps[i][0] + (gaps[i][1] / 2f) : -zBorders;
 

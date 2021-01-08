@@ -10,6 +10,7 @@ public class StartGame : MonoBehaviour
 {
 
     [SerializeField] private Material glowingMaterial;
+    [SerializeField] private GameObject platform;
     [SerializeField] private PanelObjectHolder[] panels;
 
     private CubeSpin spinManager;
@@ -52,6 +53,9 @@ public class StartGame : MonoBehaviour
         
         //removes other menu elements from screen
         panel.MoveOut();
+
+        //removes platform
+        platform.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);
 
         //cube stop
         spinManager.stopAtStraight();
