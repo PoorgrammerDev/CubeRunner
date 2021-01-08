@@ -3,25 +3,12 @@ using UnityEngine;
 /// <summary>
 /// Row class represents each row of obstacles during the Game.
 /// </summary>
-public class Row {
+public class Row : MonoBehaviour {
     //array of obstacles in row
-    private GameObject[] obstacles;
+    public GameObject[] obstacleObjects;
 
-    //gaps for the player to go through
-    //numbered pairs (z coord, width)
-    private float[][] gaps;
-
-    public Row (GameObject[] obstacles, float[][] gaps) {
-        this.obstacles = obstacles;
-        this.gaps = gaps;
-    }
-
-    public GameObject[] getObstacles() {
-        return obstacles;
-    }
-
-    public float[][] getGaps() {
-        return gaps;
-    }
-
+    //boolean array for gaps / obstacles
+    //TRUE represents GAP
+    //FALSE represents OBSTACLE
+    public bool[] obstaclePlacement;
 }

@@ -22,7 +22,7 @@ public class GameProgression : MonoBehaviour
     // Update is called once per frame
     void Update() {
         int score = gameValues.Score;
-        if ((increaseSpeed && IncreaseSpeed(score)) | (decreaseGapWidth && DecreaseGapWidth(score)) | (decreaseGaps && DecreaseGaps(score))) {
+        if ((increaseSpeed && IncreaseSpeed(score)) | (decreaseGapWidth && DecreaseGapWidth(score)) | (decreaseGaps /*&& DecreaseGaps(score)*/)) {
             lastScoreRanAt = score;
         }
     }
@@ -51,14 +51,14 @@ public class GameProgression : MonoBehaviour
         return false;   
     }
     
-    bool DecreaseGaps(int score) {
-        if (score != 0 && score > lastScoreRanAt && score % (progressionStep * 2) == 0) {
-            int maxGaps = cubeSpawner.getMaxGaps();
-            if (maxGaps > 1) {
-                cubeSpawner.setMaxGaps(maxGaps - 1);
-            }
-            return true;
-        }  
-        return false;      
-    }
+    //bool DecreaseGaps(int score) {
+    //    if (score != 0 && score > lastScoreRanAt && score % (progressionStep * 2) == 0) {
+    //        int maxGaps = cubeSpawner.getMaxGaps();
+    //        if (maxGaps > 1) {
+    //            cubeSpawner.setMaxGaps(maxGaps - 1);
+    //        }
+    //        return true;
+    //    }  
+    //    return false;      
+    //}
 }
