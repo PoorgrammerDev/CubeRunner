@@ -18,7 +18,7 @@ public class CubeSpawner : MonoBehaviour
 
     private Transform cubePoolObject;
     private Stack<GameObject> cubePool;
-    private Stack<Row> rows;
+    private LinkedList<Row> rows;
 
     private Vector3 spawnPosition = new Vector3(0, 0.5f, 0);
     private Quaternion quaternion = new Quaternion();
@@ -27,7 +27,7 @@ public class CubeSpawner : MonoBehaviour
     void Start() {
         cubePoolObject = transform.GetChild(0);
         lanes = (int) ((groundPlane.localScale.z * 10f) / widthScale);
-        rows = new Stack<Row>();
+        rows = new LinkedList<Row>();
         firstRowDistance = 10 + (1.5f * gameValues.ForwardSpeed);
 
         InstantiateObstacles();
@@ -55,18 +55,17 @@ public class CubeSpawner : MonoBehaviour
         if (cubePool.Count > 0) {
             return cubePool.Pop();
         }
+        print("Making new cube");
         return Instantiate(cubePrefab, spawnPosition, quaternion, cubePoolObject);
     }
 
     //This method creates a completely new row object and adds it to the queue.
     //This is not to be confused with InitiateRow which takes an already made but inactive row and puts it in the game field.
     Row CreateNewRow(float xCoordSpawn) {
-        Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
+        Row row = new GameObject("Row " + Random.Range(0, 999999), typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
         InitiateRow(row, xCoordSpawn);
-        rows.Push(row);
-
         return row;
     }
 
@@ -87,13 +86,14 @@ public class CubeSpawner : MonoBehaviour
                 GameObject cube = getCube();
                 cube.transform.SetParent(row.transform, false);
 
-                float height = Random.Range(0.75f, 2.5f);
+                float height = Random.Range(1.5f, 3f);
                 
                 //change cube position
-                Vector3 cubePos = cube.transform.position;
+                Vector3 cubePos = cube.transform.localPosition;
+                cubePos.x = 0;
                 cubePos.y = height / 2f;
                 cubePos.z = (((lanes) / 2f) - i - 0.5f) * widthScale;
-                cube.transform.position = cubePos;
+                cube.transform.localPosition = cubePos;
 
                 //change cube scale
                 Vector3 cubeScale = cube.transform.localScale;
@@ -102,6 +102,7 @@ public class CubeSpawner : MonoBehaviour
                 cube.transform.localScale = cubeScale;
             }
         }
+        rows.AddLast(row);
     }
 
     //randomly generates the gaps
@@ -131,17 +132,24 @@ public class CubeSpawner : MonoBehaviour
 
     //moves the rows
     void MoveRows() {
+        bool removeFlag = false;
         foreach (Row row in rows) {
             //check if passed player, recycle
             Transform transform = row.transform;
             if (transform.position.x < -1f) {
-                RecycleRow(row);
+                removeFlag = true;
                 continue;
             }
             
             Vector3 position = transform.position;
             position.x -= gameValues.ForwardSpeed * Time.deltaTime;
             transform.position = position;
+        }
+
+        if (removeFlag) {
+            Row first = rows.First.Value;
+            rows.RemoveFirst();
+            RecycleRow(first);
         }
     }
 
@@ -151,14 +159,15 @@ public class CubeSpawner : MonoBehaviour
             child.SetParent(cubePoolObject);
             cubePool.Push(child.gameObject);
         }
-        InitiateRow(row, GetNextXCoord(row));
-        print(rows.ToString());
+
+        row.structures = null;
+        InitiateRow(row, -1);
     }
 
     float GetNextXCoord (Row row) {
         float minTriangleZSide = float.MinValue;
         
-        Row previous = rows.Peek();
+        Row previous = rows.Last.Value;
         //finding the shortest possible Z gap dist
         for (int i = 0; i < previous.structures.Length; i++) {
             for (int j = 0; j < row.structures.Length; j++) {
@@ -176,6 +185,7 @@ public class CubeSpawner : MonoBehaviour
         
         float minDist = Mathf.Max((gameValues.ForwardSpeed * minTriangleZSide) / gameValues.StrafingSpeed, 2f);
         float distance = minDist * Random.Range(gameValues.RowDistMultLowerBound, gameValues.RowDistMultUpperBound);
+
         return (previous.transform.position.x + distance);
     }
 
