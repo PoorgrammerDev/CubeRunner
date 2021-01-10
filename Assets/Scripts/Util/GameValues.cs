@@ -17,7 +17,6 @@ public class GameValues : MonoBehaviour {
         rowDistMultLowerBound = difficultyValuesHolder.RowDistMultLowerBound;
         rowDistMultUpperBound = difficultyValuesHolder.RowDistMultUpperBound;
         scoreTickRate = difficultyValuesHolder.ScoreTickRate;
-        widthMultiplier = difficultyValuesHolder.WidthMultiplier;
         gapIncreaseChance = difficultyValuesHolder.GapIncreaseChance;
     }
 
@@ -106,17 +105,5 @@ public class GameValues : MonoBehaviour {
     //GAP INCREASE CHANCE---------
     private float gapIncreaseChance;
     public float GapIncreaseChance { get => gapIncreaseChance; set => gapIncreaseChance = value; }
-
-    //GAP WIDTH MULTIPLIER---------
-    private float widthMultiplier;
-    public float WidthMultiplier {get => widthMultiplier; set {
-            if (value > 0 && value < 3) {
-                widthMultiplier = value;
-            }
-            else {
-                throw new System.Exception("Width Multiplier is out of bounds.");
-            }
-        }
-    }
     
 }

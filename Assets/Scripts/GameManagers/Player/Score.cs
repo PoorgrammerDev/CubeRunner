@@ -8,6 +8,7 @@ using System.Collections;
 public class Score : MonoBehaviour
 {
     [SerializeField] private GameValues gameValues;
+    [SerializeField] private GameProgression gameProgression;
     
     private Text scoreText;
     private WaitForSeconds wait;
@@ -22,7 +23,10 @@ public class Score : MonoBehaviour
 
     IEnumerator ScoreTick() {
         while (gameValues.GameActive) {
-            if (gameValues.PassedFirstObstacle) scoreText.text = (++gameValues.Score).ToString();
+            if (gameValues.PassedFirstObstacle) {
+                scoreText.text = (++gameValues.Score).ToString();
+                gameProgression.CheckForProgression();
+            }
             yield return wait;
         }
     }

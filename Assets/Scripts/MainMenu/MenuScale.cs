@@ -12,19 +12,19 @@ public class MenuScale : MonoBehaviour
 
     [SerializeField] private float magnitude = 0.5f;
 
-    private new Transform transform;
+    private WaitForSeconds wait = new WaitForSeconds(1);
     private bool active = true;
+    public bool Active { get => active; set => active = value; }
 
     // Start is called before the first frame update
     void Start() {
-        transform = gameObject.transform;
         StartCoroutine(ScheduleUpdate());
     }
 
     public IEnumerator ScheduleUpdate() {
         while (active && gameObject.activeInHierarchy) {
             UpdateScaling();
-            yield return new WaitForSeconds(1);
+            yield return wait;
         }
         yield break;
     }
@@ -34,13 +34,5 @@ public class MenuScale : MonoBehaviour
         Vector3 position = transform.position;
         position.z = scaleFactor * magnitude;
         transform.position = position;
-    }
-
-    public bool isActive() {
-        return active;
-    }
-
-    public void setActive(bool active) {
-        this.active = active;
     }
 }

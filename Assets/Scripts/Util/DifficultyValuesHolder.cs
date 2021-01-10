@@ -34,8 +34,4 @@ public class DifficultyValuesHolder : MonoBehaviour
     //GAP INCREASE CHANCE---------
     [SerializeField] private float gapIncreaseChance;
     public float GapIncreaseChance { get => gapIncreaseChance; set => gapIncreaseChance = value; }
-
-    //GAP WIDTH MULTIPLIER---------
-    [SerializeField] private float widthMultiplier;
-    public float WidthMultiplier => widthMultiplier;
 }

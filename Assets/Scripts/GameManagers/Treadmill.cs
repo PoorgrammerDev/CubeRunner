@@ -18,8 +18,7 @@ public class Treadmill : MonoBehaviour
     [SerializeField] private float teleportThreshold = -175;
     [SerializeField] private GameValues gameValues;
 
-    void Update()
-    {
+    void Update() {
         if (!active) return;
 
         Vector3 position = transform.position;

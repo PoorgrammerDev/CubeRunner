@@ -5,22 +5,11 @@
 /// </summary>
 public class CubeSpin : MonoBehaviour
 {
-    [SerializeField]
-    private bool active = true;
+    [SerializeField] private bool active = true;
     public bool Active {get => active; set => active = value;}
 
-    [SerializeField]
-    private bool triggerStopAtStraight = false;
-
-    [SerializeField]
-    private float spinSpeed = 0.5f;
-
-    private new Transform transform;
-
-    // Start is called before the first frame update
-    void Start() {
-        transform = GetComponent<Transform>();
-    }
+    [SerializeField] private bool triggerStopAtStraight = false;
+    [SerializeField] private float spinSpeed = 0.5f;
 
     // Update is called once per frame
     void Update() {

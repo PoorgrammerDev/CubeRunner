@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -446,7 +446,6 @@ MonoBehaviour:
   rowDistMultUpperBound: 1.5
   scoreTickRate: 3
   gapIncreaseChance: 0.5
-  widthMultiplier: 1.2
 --- !u!1 &434842547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1060,7 +1059,6 @@ MonoBehaviour:
   rowDistMultUpperBound: 1.4
   scoreTickRate: 5
   gapIncreaseChance: 0.25
-  widthMultiplier: 1.1
 --- !u!1 &1344376375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,6 +1297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
+  gameProgression: {fileID: 1656581794}
 --- !u!95 &1509260474
 Animator:
   serializedVersion: 3
@@ -1466,7 +1465,6 @@ MonoBehaviour:
   rowDistMultUpperBound: 1.65
   scoreTickRate: 1
   gapIncreaseChance: 0.75
-  widthMultiplier: 1.5
 --- !u!1 &1767667618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1608,6 @@ MonoBehaviour:
   rowDistMultUpperBound: 1.5
   scoreTickRate: 2
   gapIncreaseChance: 0.66
-  widthMultiplier: 1.25
 --- !u!1 &1824354299
 GameObject:
   m_ObjectHideFlags: 0

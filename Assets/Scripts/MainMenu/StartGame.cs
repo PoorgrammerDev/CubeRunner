@@ -41,7 +41,7 @@ public class StartGame : MonoBehaviour
 
         Time.timeScale = 1f;
         renderer.material = glowingMaterial;
-        menuScale.setActive(false);
+        menuScale.Active = false;
 
         //disables all buttons
         foreach (Button button in buttons) {
