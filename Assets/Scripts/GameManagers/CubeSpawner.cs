@@ -28,7 +28,7 @@ public class CubeSpawner : MonoBehaviour
         cubePoolObject = transform.GetChild(0);
         lanes = (int) ((groundPlane.localScale.z * 10f) / widthScale);
         rows = new LinkedList<Row>();
-        firstRowDistance = 10 + (1.5f * gameValues.ForwardSpeed);
+        firstRowDistance = 15 + (1.5f * gameValues.ForwardSpeed);
 
         InstantiateObstacles();
     }
@@ -44,9 +44,9 @@ public class CubeSpawner : MonoBehaviour
 
     //spawns in the rows and begins the game
     public void InitialSpawn() {
-        CreateNewRow(firstRowDistance);
+        CreateNewRow(firstRowDistance, 0);
         for (int i = 0; i < rowCount; i++) {
-            CreateNewRow(-1);
+            CreateNewRow(-1, (i + 1));
         }
     }
 
@@ -60,17 +60,17 @@ public class CubeSpawner : MonoBehaviour
 
     //This method creates a completely new row object and adds it to the queue.
     //This is not to be confused with InitiateRow which takes an already made but inactive row and puts it in the game field.
-    Row CreateNewRow(float xCoordSpawn) {
+    Row CreateNewRow(float xCoordSpawn, int initialSpawnNum) {
         Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
-        InitiateRow(row, xCoordSpawn);
+        InitiateRow(row, xCoordSpawn, initialSpawnNum);
         return row;
     }
 
     //This method takes an already made but inactive row and "activates" it, putting it into the game field.
     //This is not to be confused with CreateNewRow which adds an extra row to the total.
-    void InitiateRow(Row row, float xCoordSpawn) {
+    void InitiateRow(Row row, float xCoordSpawn, int initialSpawn) {
         row.structures = getPlacementArray();
 
         if (xCoordSpawn == -1) xCoordSpawn = GetNextXCoord(row);
@@ -91,7 +91,7 @@ public class CubeSpawner : MonoBehaviour
                 //change cube position
                 Vector3 cubePos = cube.transform.localPosition;
                 cubePos.x = 0;
-                cubePos.y = height / 2f;
+                cubePos.y = (initialSpawn != -1) ? (15 + (10 * initialSpawn)) + Random.Range(-5, 5) : (height / 2f);
                 cubePos.z = (((lanes) / 2f) - i - 0.5f) * widthScale;
 
                 cube.transform.localPosition = cubePos;
@@ -101,6 +101,10 @@ public class CubeSpawner : MonoBehaviour
                 cubeScale.y = height;
                 cubeScale.z = widthScale;
                 cube.transform.localScale = cubeScale;
+
+                if (initialSpawn != -1) {
+                    StartCoroutine(row.MakeCubesFall(cube, height / 2f));
+                }
             }
         }
         rows.AddLast(row);
@@ -168,7 +172,7 @@ public class CubeSpawner : MonoBehaviour
         }
 
         row.structures = null;
-        InitiateRow(row, -1);
+        InitiateRow(row, -1, -1);
     }
 
     float GetNextXCoord (Row row) {
