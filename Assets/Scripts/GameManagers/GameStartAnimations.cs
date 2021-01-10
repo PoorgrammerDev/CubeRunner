@@ -42,7 +42,7 @@ public class GameStartAnimations : MonoBehaviour
 
         //start the game
         yield return new WaitForSeconds(1);
-        cubeSpawner.initialSpawn();
+        cubeSpawner.InitialSpawn();
         gameValues.GameActive = true;
         HUD.SetActive(true);
     }

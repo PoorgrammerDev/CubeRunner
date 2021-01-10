@@ -18,7 +18,7 @@ public class GameValues : MonoBehaviour {
         rowDistMultUpperBound = difficultyValuesHolder.RowDistMultUpperBound;
         scoreTickRate = difficultyValuesHolder.ScoreTickRate;
         widthMultiplier = difficultyValuesHolder.WidthMultiplier;
-        minimumGapWidth = difficultyValuesHolder.MinimumGapWidth;
+        gapIncreaseChance = difficultyValuesHolder.GapIncreaseChance;
     }
 
     //GAME ACTIVE-----------
@@ -100,8 +100,12 @@ public class GameValues : MonoBehaviour {
     public int Score {get => score; set => score = value;}
 
     //SCORE TICK RATE---------
-    private int scoreTickRate = 0;
+    private int scoreTickRate;
     public int ScoreTickRate {get => scoreTickRate; set => scoreTickRate = value;}
+
+    //GAP INCREASE CHANCE---------
+    private float gapIncreaseChance;
+    public float GapIncreaseChance { get => gapIncreaseChance; set => gapIncreaseChance = value; }
 
     //GAP WIDTH MULTIPLIER---------
     private float widthMultiplier;
@@ -114,16 +118,5 @@ public class GameValues : MonoBehaviour {
             }
         }
     }
-
-    //MINIMUM GAP WIDTH
-    private float minimumGapWidth;
-    private float MinimumGapWidth {get => minimumGapWidth; set {
-            if (value >= 1) {
-                minimumGapWidth = value;
-            }
-            else {
-                throw new System.Exception("Minimum Gap Width cannot be under one.");
-            }
-        }
-    }    
+    
 }
