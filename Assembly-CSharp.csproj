@@ -46,6 +46,7 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\PowerUpSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Treadmill.cs" />
      <Compile Include="Assets\Scripts\MainMenu\CamSceneSwitch.cs" />
      <Compile Include="Assets\Scripts\MainMenu\CubeSpin.cs" />
@@ -61,6 +62,8 @@
      <Compile Include="Assets\Scripts\Util\DifficultyValuesHolder.cs" />
      <Compile Include="Assets\Scripts\Util\GameValues.cs" />
      <Compile Include="Assets\Scripts\Util\PanelObjectHolder.cs" />
+     <Compile Include="Assets\Scripts\Util\PowerUp.cs" />
+     <Compile Include="Assets\Scripts\Util\PowerUpType.cs" />
      <Compile Include="Assets\Scripts\Util\Row.cs" />
      <Compile Include="Assets\Scripts\Util\TagHolder.cs" />
     <Reference Include="UnityEngine">

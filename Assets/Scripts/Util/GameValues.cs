@@ -18,6 +18,8 @@ public class GameValues : MonoBehaviour {
         rowDistMultUpperBound = difficultyValuesHolder.RowDistMultUpperBound;
         scoreTickRate = difficultyValuesHolder.ScoreTickRate;
         gapIncreaseChance = difficultyValuesHolder.GapIncreaseChance;
+        widthScale = difficultyValuesHolder.WidthScale;
+        powerUpSpawnChance = difficultyValuesHolder.PowerUpSpawnChance;
     }
 
     //GAME ACTIVE-----------
@@ -105,5 +107,13 @@ public class GameValues : MonoBehaviour {
     //GAP INCREASE CHANCE---------
     private float gapIncreaseChance;
     public float GapIncreaseChance { get => gapIncreaseChance; set => gapIncreaseChance = value; }
+
+    //GAP WIDTH SCALE
+    private float widthScale;
+    public float WidthScale { get => widthScale; set => widthScale = value; }
+    
+    //POWER UP SPAWN CHANCE
+    private float powerUpSpawnChance;
+    public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
     
 }

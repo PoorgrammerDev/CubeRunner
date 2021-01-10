@@ -4,7 +4,11 @@ using System.Collections;
 public class Row : MonoBehaviour {
 
     //boolean array for row structure
+    //TRUE for GAP
+    //FALSE for OBSTACLE
     public bool[] structures;
+
+    public PowerUp powerUp;
 
     public IEnumerator MakeCubesFall(GameObject cube, float landedHeight) {
         Rigidbody rigidbody = cube.GetComponent<Rigidbody>();
@@ -16,6 +20,10 @@ public class Row : MonoBehaviour {
 
         rigidbody.isKinematic = true;
         yield break;
+    }
+
+    public bool HasPowerUp () {
+        return powerUp != null;
     }
 
 }

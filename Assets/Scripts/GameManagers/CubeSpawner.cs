@@ -8,10 +8,10 @@ using UnityEngine;
 public class CubeSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject cubePrefab;
+    [SerializeField] private PowerUpSpawner powerUpSpawner;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private Transform groundPlane;
     [SerializeField] private int rowCount = 10;
-    [SerializeField] private float widthScale = 1;
 
     private float firstRowDistance;
     private int lanes;
@@ -26,7 +26,7 @@ public class CubeSpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         cubePoolObject = transform.GetChild(0);
-        lanes = (int) ((groundPlane.localScale.z * 10f) / widthScale);
+        lanes = (int) ((groundPlane.localScale.z * 10f) / gameValues.WidthScale);
         rows = new LinkedList<Row>();
         firstRowDistance = 15 + (1.5f * gameValues.ForwardSpeed);
 
@@ -92,14 +92,14 @@ public class CubeSpawner : MonoBehaviour
                 Vector3 cubePos = cube.transform.localPosition;
                 cubePos.x = 0;
                 cubePos.y = (initialSpawn != -1) ? (15 + (10 * initialSpawn)) + Random.Range(-5, 5) : (height / 2f);
-                cubePos.z = (((lanes) / 2f) - i - 0.5f) * widthScale;
+                cubePos.z = (((lanes) / 2f) - i - 0.5f) * gameValues.WidthScale;
 
                 cube.transform.localPosition = cubePos;
 
                 //change cube scale
                 Vector3 cubeScale = cube.transform.localScale;
                 cubeScale.y = height;
-                cubeScale.z = widthScale;
+                cubeScale.z = gameValues.WidthScale;
                 cube.transform.localScale = cubeScale;
 
                 if (initialSpawn != -1) {
@@ -107,6 +107,17 @@ public class CubeSpawner : MonoBehaviour
                 }
             }
         }
+
+        //Power ups
+        if (powerUpSpawner.IsReady() && Random.value < gameValues.PowerUpSpawnChance) {
+            int slot = -1;
+            do {
+                slot = Random.Range(0, lanes);
+            } while (!row.structures[slot]);
+
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
+        }
+
         rows.AddLast(row);
     }
 
@@ -159,12 +170,25 @@ public class CubeSpawner : MonoBehaviour
             if (!gameValues.PassedFirstObstacle) {
                 gameValues.PassedFirstObstacle = true;
             }
+
+            if (!powerUpSpawner.IsDeployed()) {
+                powerUpSpawner.TickCooldown();
+            }
         }
     }
 
     //Method run on Row after it passes the Player. Recycles it and puts it onto the end,
     void RecycleRow(Row row) {
         Transform rowTransform = row.transform;
+
+        //If row has Power up, detaches it and deactivates it
+        if (row.HasPowerUp()) {
+            PowerUp powerUp = row.powerUp;
+            powerUp.transform.parent = null;
+            powerUp.gameObject.SetActive(false);
+        }
+
+        //return all cubes to the pool
         while (rowTransform.childCount > 0) {
             Transform child = rowTransform.GetChild(rowTransform.childCount - 1);
             child.SetParent(cubePoolObject);
@@ -182,8 +206,8 @@ public class CubeSpawner : MonoBehaviour
         //finding the shortest possible Z gap dist
         for (int i = 0; i < previous.structures.Length; i++) {
             for (int j = 0; j < row.structures.Length; j++) {
-                float previousStructureZ = (((lanes) / 2f) - i - 0.5f) * widthScale;
-                float currentStructureZ = (((lanes) / 2f) - j - 0.5f) * widthScale;
+                float previousStructureZ = (((lanes) / 2f) - i - 0.5f) * gameValues.WidthScale;
+                float currentStructureZ = (((lanes) / 2f) - j - 0.5f) * gameValues.WidthScale;
 
                 float triangleZSide = Mathf.Abs(previousStructureZ - currentStructureZ);
                 if (triangleZSide > minTriangleZSide) {
