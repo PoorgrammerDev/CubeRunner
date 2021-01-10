@@ -442,11 +442,11 @@ MonoBehaviour:
   maxForwardSpeed: 25
   forwardSpeed: 8.5
   strafingSpeed: 8.5
-  rowDistMultLowerBound: 1.2
-  rowDistMultUpperBound: 1.6
+  rowDistMultLowerBound: 1.25
+  rowDistMultUpperBound: 1.5
   scoreTickRate: 3
+  gapIncreaseChance: 0.5
   widthMultiplier: 1.2
-  minimumGapWidth: 1.25
 --- !u!1 &434842547
 GameObject:
   m_ObjectHideFlags: 0
@@ -777,7 +777,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 1
-  m_Radius: 0.5
+  m_Radius: 0.45
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1053,14 +1053,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 3
-  maxForwardSpeed: 999
+  maxForwardSpeed: 50
   forwardSpeed: 10
   strafingSpeed: 10
-  rowDistMultLowerBound: 1.15
-  rowDistMultUpperBound: 1.3
+  rowDistMultLowerBound: 1.2
+  rowDistMultUpperBound: 1.4
   scoreTickRate: 5
+  gapIncreaseChance: 0.25
   widthMultiplier: 1.1
-  minimumGapWidth: 1.15
 --- !u!1 &1344376375
 GameObject:
   m_ObjectHideFlags: 0
@@ -1460,13 +1460,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   maxForwardSpeed: 15
-  forwardSpeed: 6
-  strafingSpeed: 6
-  rowDistMultLowerBound: 1.5
-  rowDistMultUpperBound: 2
+  forwardSpeed: 6.5
+  strafingSpeed: 6.5
+  rowDistMultLowerBound: 1.45
+  rowDistMultUpperBound: 1.65
   scoreTickRate: 1
+  gapIncreaseChance: 0.75
   widthMultiplier: 1.5
-  minimumGapWidth: 1.75
 --- !u!1 &1767667618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1607,10 +1607,10 @@ MonoBehaviour:
   forwardSpeed: 7
   strafingSpeed: 7
   rowDistMultLowerBound: 1.25
-  rowDistMultUpperBound: 1.75
+  rowDistMultUpperBound: 1.5
   scoreTickRate: 2
+  gapIncreaseChance: 0.66
   widthMultiplier: 1.25
-  minimumGapWidth: 1.5
 --- !u!1 &1824354299
 GameObject:
   m_ObjectHideFlags: 0

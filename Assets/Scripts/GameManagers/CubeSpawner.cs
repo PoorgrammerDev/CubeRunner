@@ -55,14 +55,13 @@ public class CubeSpawner : MonoBehaviour
         if (cubePool.Count > 0) {
             return cubePool.Pop();
         }
-        print("Making new cube");
         return Instantiate(cubePrefab, spawnPosition, quaternion, cubePoolObject);
     }
 
     //This method creates a completely new row object and adds it to the queue.
     //This is not to be confused with InitiateRow which takes an already made but inactive row and puts it in the game field.
     Row CreateNewRow(float xCoordSpawn) {
-        Row row = new GameObject("Row " + Random.Range(0, 999999), typeof(Row)).GetComponent<Row>();
+        Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
         InitiateRow(row, xCoordSpawn);
@@ -73,6 +72,7 @@ public class CubeSpawner : MonoBehaviour
     //This is not to be confused with CreateNewRow which adds an extra row to the total.
     void InitiateRow(Row row, float xCoordSpawn) {
         row.structures = getPlacementArray();
+
         if (xCoordSpawn == -1) xCoordSpawn = GetNextXCoord(row);
 
         //move row to desired X coordinate
@@ -93,6 +93,7 @@ public class CubeSpawner : MonoBehaviour
                 cubePos.x = 0;
                 cubePos.y = height / 2f;
                 cubePos.z = (((lanes) / 2f) - i - 0.5f) * widthScale;
+
                 cube.transform.localPosition = cubePos;
 
                 //change cube scale
@@ -109,7 +110,7 @@ public class CubeSpawner : MonoBehaviour
     bool[] getPlacementArray() {
         //generate boolean array
         bool[] placement = new bool[lanes];
-        int gaps = Random.Range(1, lanes);
+        int gaps = GetGapAmount(1);
 
         //randomly fill gaps
         for (int i = 0; i < gaps; i++) {
@@ -150,12 +151,18 @@ public class CubeSpawner : MonoBehaviour
             Row first = rows.First.Value;
             rows.RemoveFirst();
             RecycleRow(first);
+
+            if (!gameValues.PassedFirstObstacle) {
+                gameValues.PassedFirstObstacle = true;
+            }
         }
     }
 
     //Method run on Row after it passes the Player. Recycles it and puts it onto the end,
     void RecycleRow(Row row) {
-        foreach (Transform child in row.transform) {
+        Transform rowTransform = row.transform;
+        while (rowTransform.childCount > 0) {
+            Transform child = rowTransform.GetChild(rowTransform.childCount - 1);
             child.SetParent(cubePoolObject);
             cubePool.Push(child.gameObject);
         }
@@ -187,6 +194,15 @@ public class CubeSpawner : MonoBehaviour
         float distance = minDist * Random.Range(gameValues.RowDistMultLowerBound, gameValues.RowDistMultUpperBound);
 
         return (previous.transform.position.x + distance);
+    }
+
+    int GetGapAmount(int currentNumber) {
+        if (currentNumber < lanes && Random.value < gameValues.GapIncreaseChance) {
+            return GetGapAmount(++currentNumber);
+        }
+        else {
+            return currentNumber;
+        }
     }
 
 }
