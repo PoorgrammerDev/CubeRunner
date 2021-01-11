@@ -1515,7 +1515,7 @@ GameObject:
   - component: {fileID: 240966120}
   - component: {fileID: 240966119}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackToMMButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3061,7 +3061,7 @@ GameObject:
   - component: {fileID: 684753465}
   - component: {fileID: 684753464}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackToMMButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8538,6 +8538,18 @@ MonoBehaviour:
   panels:
   - {fileID: 600306657}
   - {fileID: 745310538}
+  buttons:
+  - {fileID: 733673522}
+  - {fileID: 684753464}
+  - {fileID: 12124418}
+  - {fileID: 184160050}
+  - {fileID: 1647089818}
+  - {fileID: 1127623543}
+  - {fileID: 455872173}
+  - {fileID: 1060884619}
+  - {fileID: 249350056}
+  - {fileID: 1271526090}
+  - {fileID: 240966119}
 --- !u!23 &2119642135
 MeshRenderer:
   m_ObjectHideFlags: 0

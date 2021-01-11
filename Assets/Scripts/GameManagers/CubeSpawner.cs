@@ -184,8 +184,9 @@ public class CubeSpawner : MonoBehaviour
         //If row has Power up, detaches it and deactivates it
         if (row.HasPowerUp()) {
             PowerUp powerUp = row.powerUp;
-            powerUp.transform.parent = null;
+            powerUp.transform.parent = powerUpSpawner.transform;
             powerUp.gameObject.SetActive(false);
+            row.powerUp = null;
         }
 
         //return all cubes to the pool

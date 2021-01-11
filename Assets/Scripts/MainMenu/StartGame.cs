@@ -12,12 +12,12 @@ public class StartGame : MonoBehaviour
     [SerializeField] private Material glowingMaterial;
     [SerializeField] private GameObject platform;
     [SerializeField] private PanelObjectHolder[] panels;
+    [SerializeField] private Button[] buttons;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
     private new MeshRenderer renderer;
     private MenuScale menuScale;
-    private Button[] buttons;
 
     private bool readyToSwitchScenes = false;
     public bool ReadyToSwitchScenes {set => readyToSwitchScenes = value;}
@@ -26,8 +26,6 @@ public class StartGame : MonoBehaviour
         renderer = GetComponent<MeshRenderer>();
         spinManager = GetComponent<CubeSpin>();
         menuScale = GetComponentInParent<MenuScale>();
-
-        buttons = GameObject.FindObjectsOfType<Button>();
     }
 
     public void Click() {

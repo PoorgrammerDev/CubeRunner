@@ -1,6 +1,6 @@
 using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
-    private PowerUpType type;
-    public PowerUpType Type { get => type; set => type = value; }
+    [SerializeField] private PowerUpType type;
+    public PowerUpType Type => type;
 }

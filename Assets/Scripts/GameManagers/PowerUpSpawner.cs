@@ -9,8 +9,9 @@ public class PowerUpSpawner : MonoBehaviour
 {
 
     [SerializeField] private GameValues gameValues;
-    [SerializeField] private PowerUp powerUpObject;
     [SerializeField] private int cooldown;
+    [SerializeField] private PowerUp[] powerUpObjects;
+    
 
     private int cooldownTracker = 0;
 
@@ -19,9 +20,12 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     public bool SpawnPowerUp (Row row, int slot, int lanes, PowerUpType powerUpType) {
+        print (powerUpType);
         if (IsReady()) {
             bool[] rowStructs = row.structures;
             if (rowStructs[slot]) { //checks that the position indicated is a gap
+                PowerUp powerUpObject = powerUpObjects[(int) powerUpType];
+
                 //re-parent
                 row.powerUp = powerUpObject;
                 powerUpObject.transform.SetParent(row.transform, false);
@@ -31,7 +35,6 @@ public class PowerUpSpawner : MonoBehaviour
                 position.z = (((lanes) / 2f) - slot - 0.5f) * gameValues.WidthScale;
                 powerUpObject.transform.localPosition = position;
                 
-                powerUpObject.Type = powerUpType;
                 powerUpObject.gameObject.SetActive(true);
 
                 //set cooldown
@@ -47,7 +50,12 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     public bool IsDeployed() {
-        return (powerUpObject.gameObject.activeInHierarchy);
+        foreach (PowerUp powerUpObject in powerUpObjects) {
+            if (powerUpObject.gameObject.activeInHierarchy) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void TickCooldown() {
