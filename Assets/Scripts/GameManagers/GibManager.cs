@@ -43,19 +43,14 @@ public class GibManager : MonoBehaviour
         }
 
         if (explode) {
-            StartCoroutine(Explode(holder, originalScale.y));
+            StartCoroutine(Explode(holder, originalPosition, originalScale.y));
         }
 
         return activeGibs;
     }
 
-    IEnumerator Explode(GameObject holder, float originalHeight) {
-        Vector3 position = holder.transform.position;
-        position.y += originalHeight / 2f;
-
-        GameObject explosion = Instantiate(explosionSphere, position, defaultRotation);
-
-        explosion.GetComponent<Collider>().enabled = true;
+    IEnumerator Explode(GameObject holder, Vector3 originalPosition, float originalHeight) {
+        GameObject explosion = Instantiate(explosionSphere, originalPosition, defaultRotation, holder.transform);
         yield return new WaitForSeconds(0.5f);
         Destroy(explosion);
     }
