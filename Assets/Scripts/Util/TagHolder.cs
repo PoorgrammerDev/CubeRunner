@@ -21,6 +21,7 @@ public class TagHolder
     //Object Tags
     public const string OBSTACLE_TAG = "Obstacle";
     public const string POWERUP_TAG = "PowerUp";
+    public const string GIBS_TAG = "Gibs";
     
     //PlayerPref Keys
     public const string PREF_HIGH_SCORE = "HighScore";

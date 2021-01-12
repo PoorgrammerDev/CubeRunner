@@ -24,6 +24,8 @@ public class EndGame : MonoBehaviour
 
     [SerializeField] private uint divide = 4;
 
+    public uint Divide => divide;
+
     private uint DEFAULT_DIVIDE = 4;
 
     private CubeGibs cubeGibs;
