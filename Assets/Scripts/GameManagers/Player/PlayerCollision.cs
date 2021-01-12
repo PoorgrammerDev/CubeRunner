@@ -6,10 +6,10 @@ using System.Collections;
 /// </summary>
 public class PlayerCollision : MonoBehaviour
 {
+    [SerializeField] private GameValues gameValues;
     [SerializeField] private EndGame gameEndManager;
     [SerializeField] private PowerUpSpawner powerUpSpawner;
-    [SerializeField] private ObstacleGibHolder obstacleGibHolder;
-    [SerializeField] private CubeGibs cubeGibs;
+    [SerializeField] private GibManager obstacleGibManager;
     [SerializeField] private GameObject obstaclePrefab;
     private PlayerPowerUp playerPowerUp;
     private new Collider collider;
@@ -51,15 +51,10 @@ public class PlayerCollision : MonoBehaviour
             GameObject obstacle = other.gameObject;
 
             //smashing obstacle
-            obstacleGibHolder.enabled = true;
-            GameObject[] gibs = cubeGibs.smashCube(obstacle, obstaclePrefab, new Quaternion(), obstacleGibHolder.transform, gameEndManager.Divide);
-            obstacle.GetComponent<MeshRenderer>().enabled = false;
+            GameObject[] activeGibs = obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
+            
 
-            //explosion force
-            foreach (GameObject gib in gibs) {
-                gib.GetComponent<Rigidbody>().AddExplosionForce(2, transform.position, 5, 1, ForceMode.Impulse);
-            }
-            StartCoroutine(CheckForPassedGibs(gibs));
+            obstacle.GetComponent<MeshRenderer>().enabled = false;
 
             playerPowerUp.RemovePowerUp();
             return;
@@ -69,28 +64,6 @@ public class PlayerCollision : MonoBehaviour
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
-    }
-
-    IEnumerator CheckForPassedGibs(GameObject[] gibs) {
-        float maxX = float.MinValue;
-        WaitForSeconds wait = new WaitForSeconds(1);
-        do {
-            foreach (GameObject gib in gibs) {
-                if (gib.transform.position.x > maxX) {
-                    maxX = gib.transform.position.x;
-                }
-            }
-            yield return wait;
-        } while (maxX > 0);
-        
-        for (int i = gibs.Length - 1; i > 0; i--) {
-            Destroy(gibs[i]);
-        }
-
-        obstacleGibHolder.enabled = false;
-        Vector3 pos = obstacleGibHolder.transform.position;
-        pos.x = 0;
-        obstacleGibHolder.transform.position = pos;
     }
     
 }

@@ -16,32 +16,17 @@ public class EndGame : MonoBehaviour
 
     [SerializeField] private GameValues gameValues;
 
-    [SerializeField] private SphereCollider explosionCollider;
-
     [SerializeField] private EndGameDataExport dataExport;
 
     [SerializeField] private GameObject[] invisibleWalls;
 
-    [SerializeField] private uint divide = 4;
+    [SerializeField] private GibManager playerGibManager;
 
-    public uint Divide => divide;
-
-    private uint DEFAULT_DIVIDE = 4;
-
-    private CubeGibs cubeGibs;
     private GameObject[] cubeParts;
-
-    void Start() {
-        if (!IsPowerOfTwo(divide)) {
-            divide = DEFAULT_DIVIDE;
-        }
-        cubeGibs = GetComponent<CubeGibs>();
-    }
-
     public void endGame() {
         //Data Export
         dataExport.FinalScore = gameValues.Score;
-        dataExport.CubePartDivide = divide;
+        dataExport.CubePartDivide = gameValues.Divide;
         dataExport.Difficulty = gameValues.Difficulty;
 
         //disable invisible borders
@@ -59,11 +44,10 @@ public class EndGame : MonoBehaviour
         StartCoroutine(DisableGame());
         
         //smashing cube
-        cubeParts = cubeGibs.smashCube(activePlayer, playerPrefab, divide);
-        explosionCollider.enabled = true;
+        cubeParts = playerGibManager.Activate(activePlayer.transform.position, activePlayer.transform.localScale, false, true);
 
         //Activate beam
-        StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) divide, true));
+        StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) gameValues.Divide, true));
 
 
     }

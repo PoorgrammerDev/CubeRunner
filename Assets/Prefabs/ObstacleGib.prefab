@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5032567067452388612}
   - component: {fileID: 8834712190389167732}
   - component: {fileID: -6896666663246196528}
+  - component: {fileID: -6563059782138178579}
   m_Layer: 0
   m_Name: ObstacleGib
   m_TagString: Gibs
@@ -110,3 +111,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &-6563059782138178579
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7961269666094133384}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e6f2d16350a21e4b8eed18cbd1f3a88, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

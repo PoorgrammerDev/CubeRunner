@@ -23,7 +23,7 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] private GameObject[] delayedEnable;
 
-    [SerializeField] private CubeGibs cubeGibs;
+    [SerializeField] private CubeGibsUtil cubeGibs;
 
     [SerializeField] private HighScoreManager highScoreManager;
 
@@ -64,7 +64,7 @@ public class GameOverManager : MonoBehaviour
         int parts = (int) endGameDataExport.CubePartDivide * 16;
         cubeParts = new GameObject[parts];
         for (int i = 0; i < parts; i++) {
-            cubeParts[i] = cubeGibs.spawnCubeGib(playerPropPrefab, new Vector3(0, spawnYPos - (0.5f * i), cubeGibs.transform.position.z), quaternion, cubeGibs.transform, partScale);
+            cubeParts[i] = cubeGibs.DeployGib(playerPropPrefab, new Vector3(0, spawnYPos - (0.5f * i), cubeGibs.transform.position.z), cubeGibs.transform, partScale, partScale, partScale, true); //spawnCubeGib(playerPropPrefab, new Vector3(0, spawnYPos - (0.5f * i), cubeGibs.transform.position.z), quaternion, cubeGibs.transform, partScale);
             cubeParts[i].GetComponent<Rigidbody>().isKinematic = true;
         }
 

@@ -115,5 +115,9 @@ public class GameValues : MonoBehaviour {
     //POWER UP SPAWN CHANCE
     private float powerUpSpawnChance;
     public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
+
+    //CUBE GIBS [NOT DEPENDENT ON DIFFICULTY]
+    [SerializeField] private uint divide = 4;
+    public uint Divide => divide;
     
 }
