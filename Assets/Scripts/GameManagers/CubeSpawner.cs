@@ -115,7 +115,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Hardened); //TODO remove this
         }
 
         rows.AddLast(row);
@@ -183,10 +183,7 @@ public class CubeSpawner : MonoBehaviour
 
         //If row has Power up, detaches it and deactivates it
         if (row.HasPowerUp()) {
-            PowerUp powerUp = row.powerUp;
-            powerUp.transform.parent = powerUpSpawner.transform;
-            powerUp.gameObject.SetActive(false);
-            row.powerUp = null;
+            powerUpSpawner.DespawnPowerUp(row);
         }
 
         //return all cubes to the pool

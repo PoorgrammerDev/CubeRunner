@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\GameManagers\HighScoreManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerMovement.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PlayerPowerUp.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\GameManagers\PowerUpSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Treadmill.cs" />

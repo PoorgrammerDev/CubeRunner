@@ -20,7 +20,6 @@ public class PowerUpSpawner : MonoBehaviour
     }
 
     public bool SpawnPowerUp (Row row, int slot, int lanes, PowerUpType powerUpType) {
-        print (powerUpType);
         if (IsReady()) {
             bool[] rowStructs = row.structures;
             if (rowStructs[slot]) { //checks that the position indicated is a gap
@@ -41,6 +40,17 @@ public class PowerUpSpawner : MonoBehaviour
                 cooldownTracker = cooldown;
                 return true;
             }
+        }
+        return false;
+    }
+
+    public bool DespawnPowerUp (Row row) {
+        if (row.HasPowerUp()) {
+            PowerUp powerUp = row.powerUp;
+            powerUp.transform.parent = transform;
+            powerUp.gameObject.SetActive(false);
+            row.powerUp = null;
+            return true;
         }
         return false;
     }
