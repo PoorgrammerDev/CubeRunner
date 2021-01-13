@@ -31,7 +31,6 @@ public class GameOverManager : MonoBehaviour
 
     private GameObject[] cubeParts;
 
-    private Quaternion quaternion = new Quaternion();
     private float spawnYPos = -2;
 
     void Awake() {

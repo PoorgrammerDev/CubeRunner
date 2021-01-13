@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -893,6 +893,7 @@ MonoBehaviour:
   - {fileID: 434842547}
   - {fileID: 367493392}
   playerGibManager: {fileID: 767751333}
+  playerPowerUp: {fileID: 686139434}
 --- !u!4 &602921036
 Transform:
   m_ObjectHideFlags: 0
@@ -1112,9 +1113,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3612ae9fa1bd3f349b5d8bb3c3f2ee97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasPowerUp: 0
-  powerUpType: 0
+  gameValues: {fileID: 573723474}
+  volume: {fileID: 1983630987}
+  state: 0
+  type: 0
+  blaster: {fileID: 0}
   hardened: {fileID: 1604880397}
+  timeDilationDuration: 3
+  timeDilationScale: 0.5
 --- !u!1 &742643046
 GameObject:
   m_ObjectHideFlags: 0

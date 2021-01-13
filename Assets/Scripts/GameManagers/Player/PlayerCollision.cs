@@ -32,8 +32,9 @@ public class PlayerCollision : MonoBehaviour
                 if (otherObject.TryGetComponent<PowerUp>(out powerUpObject)) {
                     Row row;
                     if (powerUpObject.transform.parent.TryGetComponent<Row>(out row)) {
-                        powerUpSpawner.DespawnPowerUp(row);
-                        playerPowerUp.AddPowerUp(powerUpObject.Type);
+                        if (playerPowerUp.AddPowerUp(powerUpObject.Type)) { 
+                            powerUpSpawner.DespawnPowerUp(row);
+                        }
                     }
                 }
             }

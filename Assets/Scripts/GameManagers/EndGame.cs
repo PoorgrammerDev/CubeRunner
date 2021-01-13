@@ -21,9 +21,14 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GameObject[] invisibleWalls;
 
     [SerializeField] private GibManager playerGibManager;
+    [SerializeField] private PlayerPowerUp playerPowerUp;
 
     private GameObject[] cubeParts;
     public void endGame() {
+        if (playerPowerUp.GetActivePowerUp().HasValue && playerPowerUp.GetActivePowerUp().Value == PowerUpType.TimeDilation) {
+            playerPowerUp.ResetTDEffects(true);
+        }
+
         //Data Export
         dataExport.FinalScore = gameValues.Score;
         dataExport.CubePartDivide = gameValues.Divide;
