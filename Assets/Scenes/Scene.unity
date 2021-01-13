@@ -1119,10 +1119,13 @@ MonoBehaviour:
   type: 0
   blaster: {fileID: 0}
   hardened: {fileID: 1604880397}
+  gibManager: {fileID: 47766900}
   timeDilationDuration: 3
   timeDilationScale: 0.5
   compressionDuration: 15
   compressionSize: 0.5
+  blasterShots: 3
+  blasterRange: 10
 --- !u!1 &742643046
 GameObject:
   m_ObjectHideFlags: 0

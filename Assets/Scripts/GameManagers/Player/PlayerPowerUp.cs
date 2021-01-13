@@ -18,6 +18,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private PowerUpType type;
     [SerializeField] private GameObject blaster;
     [SerializeField] private GameObject hardened;
+    [SerializeField] private GibManager gibManager;
 
     [Header("Time Dilation")]
     [SerializeField] private float timeDilationDuration;
@@ -28,6 +29,12 @@ public class PlayerPowerUp : MonoBehaviour
     [Header("Compression")]
     [SerializeField] private float compressionDuration;
     [SerializeField] private float compressionSize;
+
+    [Header("Blaster")]
+    [SerializeField] private int blasterShots;
+    [SerializeField] private int blasterRange;
+    private Vector3 blasterShootDirection = new Vector3(1, 0, 0);
+    private int blasterShotsLeft;
 
     void Start() {
         volume.sharedProfile.TryGet<ChromaticAberration>(out chromAb);
@@ -45,8 +52,12 @@ public class PlayerPowerUp : MonoBehaviour
             this.type = type;
             state = PowerUpState.Standby;
 
+            //special actions when picking up PUP
             if (type == PowerUpType.Hardened) {
                 hardened.SetActive(true);
+            }
+            else if (type == PowerUpType.Blaster) {
+                blasterShotsLeft = blasterShots;
             }
             return true;
         }
@@ -57,6 +68,7 @@ public class PlayerPowerUp : MonoBehaviour
         if (state != PowerUpState.Empty) {
             state = PowerUpState.Empty;
 
+            //special actions when removing PUP
             if (type == PowerUpType.Hardened) {
                 hardened.SetActive(false);
             }
@@ -81,6 +93,9 @@ public class PlayerPowerUp : MonoBehaviour
                 }
                 else if (type == PowerUpType.Compress) {
                     StartCoroutine(RunCompression());
+                }
+                else if (type == PowerUpType.Blaster) {
+                    ShootBlaster();
                 }
             }
         }
@@ -184,5 +199,33 @@ public class PlayerPowerUp : MonoBehaviour
         position.y = originalY;
         transform.position = position;
         RemovePowerUp();
+    }
+
+    //BLASTER-------------------------------------------
+    void ShootBlaster() {
+        if (blasterShotsLeft > 0) {
+            blasterShotsLeft--;
+            
+            //front posiiton of cube
+            Vector3 position = transform.position;
+            position.x += 0.51f;
+            
+            //shoot out and break obstacle if hit
+            RaycastHit hit;
+            if (Physics.Raycast(position, blasterShootDirection, out hit, blasterRange)) {
+                Transform hitObject = hit.transform;
+                if (hitObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
+                    hitObject.GetComponent<Renderer>().enabled = false;
+                    hitObject.GetComponent<Collider>().enabled = false;
+
+                    gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
+                }
+            }
+        }
+
+        //if ammo is empty, remove
+        if (blasterShotsLeft <= 0) {
+            RemovePowerUp();
+        }
     }
 }
