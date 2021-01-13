@@ -25,6 +25,9 @@ public class PlayerPowerUp : MonoBehaviour
     ChromaticAberration chromAb;
     ColorAdjustments colorAdj;
 
+    [Header("Compression")]
+    [SerializeField] private float compressionDuration;
+    [SerializeField] private float compressionSize;
 
     void Start() {
         volume.sharedProfile.TryGet<ChromaticAberration>(out chromAb);
@@ -75,6 +78,9 @@ public class PlayerPowerUp : MonoBehaviour
                 PowerUpType type = this.type;
                 if (type == PowerUpType.TimeDilation) {
                     StartCoroutine(RunTimeDilation());
+                }
+                else if (type == PowerUpType.Compress) {
+                    StartCoroutine(RunCompression());
                 }
             }
         }
@@ -128,5 +134,55 @@ public class PlayerPowerUp : MonoBehaviour
         colorAdj.active = false;
     }
 
-    //
+    //COMPRESSION---------------------------------------
+
+    IEnumerator RunCompression() {
+        state = PowerUpState.Active;
+        Vector3 scale = transform.localScale;
+        Vector3 position = transform.position;
+
+        //save original scale
+        float originalScale = scale.z;
+        float originalY = position.y;
+        float newY = (compressionSize / 2f) + 0.1f;
+
+        //shrink scale to shrunk size
+        float t = 0f;
+        while (t < 1) {
+            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
+            transform.localScale = scale;
+
+            position = transform.position;
+            position.y = Mathf.Lerp(originalY, newY, t);
+            transform.position = position;
+
+            t += 4 * Time.deltaTime;
+            yield return null;
+        }
+
+        //wait
+        yield return new WaitForSeconds(compressionDuration);
+
+        //return to original size
+        while (t > 0) {
+            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
+            transform.localScale = scale;
+
+            position = transform.position;
+            position.y = Mathf.Lerp(originalY, newY, t);
+            transform.position = position;
+
+            t -= 4 * Time.deltaTime;
+            yield return null;
+        }
+
+        //hard clamp values
+        scale.x = scale.y = scale.z = originalScale;
+        transform.localScale = scale;
+        
+        position = transform.position;
+        position.y = originalY;
+        transform.position = position;
+        RemovePowerUp();
+    }
 }
