@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 /// <summary>
 /// Managing Score incrementing and its display
@@ -10,12 +11,12 @@ public class Score : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private GameProgression gameProgression;
     
-    private Text scoreText;
+    private TextMeshProUGUI scoreText;
     private WaitForSeconds wait;
 
     // Start is called before the first frame update
     void Start() {
-        scoreText = GetComponent<Text>();
+        scoreText = GetComponent<TextMeshProUGUI>();
         wait = new WaitForSeconds(2f / gameValues.ScoreTickRate);
 
         StartCoroutine(ScoreTick());
