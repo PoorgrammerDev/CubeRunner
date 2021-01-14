@@ -47,7 +47,11 @@
      <Compile Include="Assets\Scripts\GameManagers\ObstacleGibHolder.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerMovement.cs" />
-     <Compile Include="Assets\Scripts\GameManagers\Player\PlayerPowerUp.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Blaster.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Compression.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Hardened.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\PlayerPowerUp.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\TimeDilation.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\GameManagers\PowerUpSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Treadmill.cs" />
@@ -59,6 +63,7 @@
      <Compile Include="Assets\Scripts\MainMenu\MenuScale.cs" />
      <Compile Include="Assets\Scripts\MainMenu\StartGame.cs" />
      <Compile Include="Assets\Scripts\Util\AnimationDisappear.cs" />
+     <Compile Include="Assets\Scripts\Util\BarMove.cs" />
      <Compile Include="Assets\Scripts\Util\Beam.cs" />
      <Compile Include="Assets\Scripts\Util\CubeGibsUtil.cs" />
      <Compile Include="Assets\Scripts\Util\Difficulty.cs" />

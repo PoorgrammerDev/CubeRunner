@@ -116,7 +116,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Hardened);
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Blaster);
         }
 
         rows.AddLast(row);

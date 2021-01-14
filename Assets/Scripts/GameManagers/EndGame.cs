@@ -22,11 +22,12 @@ public class EndGame : MonoBehaviour
 
     [SerializeField] private GibManager playerGibManager;
     [SerializeField] private PlayerPowerUp playerPowerUp;
+    [SerializeField] private TimeDilation timeDilation;
 
     private GameObject[] cubeParts;
     public void endGame() {
         if (playerPowerUp.GetActivePowerUp().HasValue && playerPowerUp.GetActivePowerUp().Value == PowerUpType.TimeDilation) {
-            playerPowerUp.ResetTDEffects(true);
+            timeDilation.ResetTDEffects(true);
         }
 
         //Data Export
