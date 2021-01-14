@@ -18,10 +18,10 @@ public class GibManager : MonoBehaviour
         cubeGibsUtil = transform.parent.GetComponent<CubeGibsUtil>();
 
         //filling pool with objects
-        AddPartsToPool(gameValues.Divide * 16);
+        AddPartsToPool((int) (gameValues.Divide * 16));
     }
 
-    void AddPartsToPool (uint num) {
+    void AddPartsToPool (int num) {
         for (int i = 0; i < num; i++) {
             pool.Push(Instantiate(prefab, defaultPosition, defaultRotation, poolObject));
         }
@@ -31,14 +31,14 @@ public class GibManager : MonoBehaviour
         GameObject holder = new GameObject("Gib Holder");
         holder.transform.parent = transform;
 
-        uint missingParts = (uint) ((gameValues.Divide * 16) - pool.Count);
+        int missingParts = (int) ((gameValues.Divide * 16) - pool.Count);
         if (missingParts > 0) {
             AddPartsToPool(missingParts);
         }
 
         GameObject[] activeGibs = cubeGibsUtil.SmashCube(pool, originalPosition, originalScale, holder.transform, gameValues.Divide);
         if (continueGame) { 
-            StartCoroutine(GibsFade(holder, activeGibs));
+            StartCoroutine(GibsRemoveTimer(holder, activeGibs));
             StartCoroutine(MoveHolder(holder));
         }
 
@@ -64,10 +64,7 @@ public class GibManager : MonoBehaviour
         }
     }
 
-    IEnumerator GibsFade(GameObject holder, GameObject[] activeGibs) {
-        //initial delay
-        yield return new WaitForSeconds(1);
-
+    IEnumerator GibsRemoveTimer(GameObject holder, GameObject[] activeGibs) {
         //begin fading
         foreach (GameObject gib in activeGibs) {
             gib.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);

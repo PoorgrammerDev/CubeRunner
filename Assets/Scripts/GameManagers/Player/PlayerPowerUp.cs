@@ -16,30 +16,41 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Volume volume;
     [SerializeField] private PowerUpState state;
     [SerializeField] private PowerUpType type;
-    [SerializeField] private GameObject blaster;
-    [SerializeField] private GameObject hardened;
     [SerializeField] private GibManager gibManager;
+    
+    [Header("Hardened")]
+    [SerializeField] private GameObject hardened;
 
     [Header("Time Dilation")]
     [SerializeField] private float timeDilationDuration;
     [SerializeField] private float timeDilationScale;
     ChromaticAberration chromAb;
     ColorAdjustments colorAdj;
+    private WaitForSecondsRealtime TDCoroutineWait;
 
     [Header("Compression")]
     [SerializeField] private float compressionDuration;
     [SerializeField] private float compressionSize;
+    private WaitForSeconds CompressCoroutineWait;
 
     [Header("Blaster")]
+    [SerializeField] private LineRenderer blasterTracer;
     [SerializeField] private int blasterShots;
     [SerializeField] private int blasterRange;
+    [SerializeField] private float blasterCooldown;
     private Vector3 blasterShootDirection = new Vector3(1, 0, 0);
+    private WaitForSeconds oneSecond;
     private int blasterShotsLeft;
+    private float blasterCooldownTracker;
 
     void Start() {
         volume.sharedProfile.TryGet<ChromaticAberration>(out chromAb);
         volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdj);
         ResetTDEffects(false);
+
+        TDCoroutineWait = new WaitForSecondsRealtime(timeDilationDuration);
+        CompressCoroutineWait = new WaitForSeconds(compressionDuration);
+        oneSecond = new WaitForSeconds(1);
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -58,6 +69,8 @@ public class PlayerPowerUp : MonoBehaviour
             }
             else if (type == PowerUpType.Blaster) {
                 blasterShotsLeft = blasterShots;
+                blasterCooldownTracker = 0;
+                StartCoroutine(BlasterCooldown());
             }
             return true;
         }
@@ -87,7 +100,8 @@ public class PlayerPowerUp : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F)) {
             if (state == PowerUpState.Standby) {
-                PowerUpType type = this.type;
+                PowerUpType? type = GetActivePowerUp();
+
                 if (type == PowerUpType.TimeDilation) {
                     StartCoroutine(RunTimeDilation());
                 }
@@ -123,7 +137,7 @@ public class PlayerPowerUp : MonoBehaviour
         t = 0;
 
         //wait
-        yield return new WaitForSeconds(timeDilationDuration);
+        yield return TDCoroutineWait;
 
         //speed back up and get rid of effects
         while (t < 1) {
@@ -176,7 +190,7 @@ public class PlayerPowerUp : MonoBehaviour
         }
 
         //wait
-        yield return new WaitForSeconds(compressionDuration);
+        yield return CompressCoroutineWait;
 
         //return to original size
         while (t > 0) {
@@ -203,29 +217,58 @@ public class PlayerPowerUp : MonoBehaviour
 
     //BLASTER-------------------------------------------
     void ShootBlaster() {
+        if (blasterCooldownTracker > 0) return;
+
+
         if (blasterShotsLeft > 0) {
+            blasterCooldownTracker = blasterCooldown;
             blasterShotsLeft--;
             
             //front posiiton of cube
             Vector3 position = transform.position;
             position.x += 0.51f;
             
+
+            float x = blasterRange;
             //shoot out and break obstacle if hit
             RaycastHit hit;
             if (Physics.Raycast(position, blasterShootDirection, out hit, blasterRange)) {
                 Transform hitObject = hit.transform;
                 if (hitObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
-                    hitObject.GetComponent<Renderer>().enabled = false;
-                    hitObject.GetComponent<Collider>().enabled = false;
+                    x = hitObject.position.x;
+                    hitObject.gameObject.SetActive(false);
 
                     gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
                 }
             }
+
+            //visual effect
+
+            //align blaster position
+            Vector3 tracerPos = blasterTracer.GetPosition(0);
+            tracerPos.z = transform.position.z;
+            blasterTracer.SetPosition(0, tracerPos);
+
+            tracerPos = blasterTracer.GetPosition(1);
+            tracerPos.x = x;
+            tracerPos.z = transform.position.z;
+            blasterTracer.SetPosition(1, tracerPos);
+
+            blasterTracer.gameObject.SetActive(true);
         }
 
         //if ammo is empty, remove
-        if (blasterShotsLeft <= 0) {
+        if (blasterShotsLeft == 0) {
             RemovePowerUp();
+        }
+    }
+
+    IEnumerator BlasterCooldown() {
+        while (GetActivePowerUp() == PowerUpType.Blaster) {
+            if (blasterCooldownTracker > 0) {
+                blasterCooldownTracker--;
+            }
+            yield return oneSecond;
         }
     }
 }

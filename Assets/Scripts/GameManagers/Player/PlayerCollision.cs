@@ -28,6 +28,8 @@ public class PlayerCollision : MonoBehaviour
                 }
             }
             else if (otherObject.CompareTag(TagHolder.POWERUP_TAG)) {
+                Physics.IgnoreCollision(collider, other, true);
+                
                 PowerUp powerUpObject;
                 if (otherObject.TryGetComponent<PowerUp>(out powerUpObject)) {
                     Row row;
@@ -47,16 +49,10 @@ public class PlayerCollision : MonoBehaviour
     private void collideWithObstacle(Collider other) {
         //HARDENED POWER-UP OVERRIDE OBSTACLE HITTING
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.Hardened) {
-            other.enabled = false;
-
-            GameObject obstacle = other.gameObject;
-
             //smashing obstacle
             GameObject[] activeGibs = obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
             
-
-            obstacle.GetComponent<MeshRenderer>().enabled = false;
-
+            other.gameObject.SetActive(false);
             playerPowerUp.RemovePowerUp();
             return;
         }

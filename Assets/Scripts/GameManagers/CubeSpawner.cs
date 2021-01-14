@@ -85,8 +85,7 @@ public class CubeSpawner : MonoBehaviour
                 //get cube, set row as parent
                 GameObject cube = getCube();
                 cube.transform.SetParent(row.transform, false);
-                cube.GetComponent<Renderer>().enabled = true;
-                cube.GetComponent<Collider>().enabled = true;
+                cube.SetActive(true);
 
                 float height = Random.Range(1.5f, 3f);
                 
@@ -117,7 +116,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Blaster); //TODO remove specific powerup
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
         }
 
         rows.AddLast(row);

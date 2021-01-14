@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 36634792283494057}
   - component: {fileID: 2829112527262765957}
   - component: {fileID: 5094267990040140602}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerCubeProp
-  m_TagString: Untagged
+  m_TagString: Gibs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

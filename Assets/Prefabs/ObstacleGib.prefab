@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8834712190389167732}
   - component: {fileID: -6896666663246196528}
   - component: {fileID: -6563059782138178579}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ObstacleGib
   m_TagString: Gibs
   m_Icon: {fileID: 0}
