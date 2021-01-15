@@ -4,10 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class TimeDilation : MonoBehaviour {
-    [SerializeField] private Color color;
-    public Color Color => color;
-
+public class TimeDilation : AbstractPowerUp {
     [SerializeField] private Volume volume;
     [SerializeField] private float timeDilationDuration;
     [SerializeField] private float timeDilationScale;

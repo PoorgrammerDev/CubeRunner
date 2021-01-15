@@ -1,10 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Blaster : MonoBehaviour {
-    [SerializeField] private Color color;
-    public Color Color => color;
-
+public class Blaster : AbstractPowerUp {
     [SerializeField] private BarMove barMove;
     [SerializeField] private GibManager gibManager;
     [SerializeField] private LineRenderer blasterTracer;

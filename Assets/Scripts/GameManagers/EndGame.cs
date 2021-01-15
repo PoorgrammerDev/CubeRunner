@@ -26,7 +26,7 @@ public class EndGame : MonoBehaviour
 
     private GameObject[] cubeParts;
     public void endGame() {
-        if (playerPowerUp.GetActivePowerUp().HasValue && playerPowerUp.GetActivePowerUp().Value == PowerUpType.TimeDilation) {
+        if (playerPowerUp.GetActivePowerUp() == PowerUpType.TimeDilation) {
             timeDilation.ResetTDEffects(true);
         }
 

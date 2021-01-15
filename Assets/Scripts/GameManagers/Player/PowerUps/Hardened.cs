@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hardened : MonoBehaviour
+public class Hardened : AbstractPowerUp
 {
-    [SerializeField] private Color color;
-    public Color Color => color;
     public GameObject shieldObject;
 }

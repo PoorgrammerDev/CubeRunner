@@ -16,6 +16,8 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private PowerUpType type;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
+    private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
+    private AbstractPowerUp ActivePowerUpClass;
     private Blaster blaster;
     private TimeDilation timeDilation;
     private Compression compression;
@@ -35,6 +37,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private float colorFadeTime;
     [SerializeField] private Color defaultColor;
     [SerializeField] private Image outline;
+    [SerializeField] private Image PUPIconBG;
     [SerializeField] private Image PUPIcon;
 
     [SerializeField] private Slider topBar;
@@ -52,6 +55,12 @@ public class PlayerPowerUp : MonoBehaviour
         compression = GetComponent<Compression>();
         hardened = GetComponent<Hardened>();
 
+        PowerUpTypeToClass = new Dictionary<PowerUpType, AbstractPowerUp>();
+        PowerUpTypeToClass.Add(PowerUpType.Blaster, blaster);
+        PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
+        PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
+        PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
+
         tick = new WaitForSeconds(tickDuration);
         tickRT = new WaitForSecondsRealtime(tickDuration);
     }
@@ -66,6 +75,7 @@ public class PlayerPowerUp : MonoBehaviour
                     if (type == PowerUpType.Blaster) {
                         blaster.RefillAmmo();
                         StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4));
+                        return true;
                     }
 
                     return false;
@@ -73,26 +83,27 @@ public class PlayerPowerUp : MonoBehaviour
                 RemovePowerUp();
             }
 
-            this.type = type;
-            state = PowerUpState.Standby;
-            StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4)); //fill up top bar
+            if (PowerUpTypeToClass.TryGetValue(type, out ActivePowerUpClass)) {
+                this.type = type;
+                state = PowerUpState.Standby;
+                StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4)); //fill up top bar
 
-            //special actions when picking up PUP ---
-            if (type == PowerUpType.Hardened) {
-                ChangeUIColor(hardened.Color, colorFadeTime);
-                hardened.shieldObject.SetActive(true);
+                //bar color
+                ChangeUIColor(ActivePowerUpClass.Color, colorFadeTime);
+
+                //change icon
+                PUPIcon.enabled = true;
+                PUPIcon.sprite = ActivePowerUpClass.Sprite;
+
+                //special actions when picking up PUP ---
+                if (type == PowerUpType.Hardened) {
+                    hardened.shieldObject.SetActive(true);
+                }
+                else if (type == PowerUpType.Blaster) {
+                    blaster.Pickup();
+                }
+                return true;
             }
-            else if (type == PowerUpType.Blaster) {
-                ChangeUIColor(blaster.Color, colorFadeTime);
-                blaster.Pickup();
-            }
-            else if (type == PowerUpType.TimeDilation) {
-                ChangeUIColor(timeDilation.Color, colorFadeTime);
-            }
-            else if (type == PowerUpType.Compress) {
-                ChangeUIColor(compression.Color, colorFadeTime);
-            }
-            return true;
         }
         return false;
     }
@@ -105,6 +116,9 @@ public class PlayerPowerUp : MonoBehaviour
             ChangeUIColor(defaultColor, colorFadeTime);
             StartCoroutine(barMove.MoveBarAsync(topBar, 0, 4));
             StartCoroutine(barMove.MoveBarAsync(bottomBar, 0, 4));
+
+            //remove icon
+            PUPIcon.enabled = false;
 
             //special actions when removing PUP
             if (type == PowerUpType.Hardened) {
@@ -142,7 +156,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     void ChangeUIColor (Color color, float duration) {
         outline.CrossFadeColor(color, duration, true, false);
-        PUPIcon.CrossFadeColor(color, duration, true, false);
+        PUPIconBG.CrossFadeColor(color, duration, true, false);
         topBarFill.CrossFadeColor(color, duration, true, false);
         bottomBarFill.CrossFadeColor(color, duration, true, false);
     }

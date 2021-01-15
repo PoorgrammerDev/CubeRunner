@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Compression : MonoBehaviour {
-    [SerializeField] private Color color;
-    public Color Color => color;
-
+public class Compression : AbstractPowerUp {
     [SerializeField] private float compressionDuration;
     [SerializeField] private float compressionSize;
     private PlayerPowerUp powerUpManager;
