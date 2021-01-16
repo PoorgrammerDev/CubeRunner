@@ -14,7 +14,7 @@ public class CubeGibsUtil : MonoBehaviour
         if (!IsPowerOfTwo(divide)) divide = DEFAULT_DIVIDE;
 
         //ensure enough parts to build
-        uint partsAmt = divide * 16;
+        uint partsAmt = divide * divide * divide;
         if (parts.Count < partsAmt) throw new System.Exception("Not enough Parts!");
 
         //resolve scale

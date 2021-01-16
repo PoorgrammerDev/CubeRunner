@@ -50,14 +50,16 @@ public class PlayerCollision : MonoBehaviour
         //HARDENED POWER-UP OVERRIDE OBSTACLE HITTING
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.Hardened) {
             //smashing obstacle
-            GameObject[] activeGibs = obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
+            if (gameValues.Divide != 0) {
+                obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
+            }
             
             other.gameObject.SetActive(false);
             playerPowerUp.RemovePowerUp();
             return;
         }
 
-        gameEndManager.endGame(true);
+        gameEndManager.endGame(gameValues.Divide != 0);
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;

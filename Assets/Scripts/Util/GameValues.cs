@@ -9,6 +9,9 @@ public class GameValues : MonoBehaviour {
     void Awake() {
         difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
 
+        //divide value
+        divide = divideValues[PlayerPrefs.GetInt(TagHolder.PREF_PARTICLES, 2)];
+
         //set values
         DifficultyValuesHolder difficultyValuesHolder = difficultyValuesHolders[(int) difficulty];
         maxForwardSpeed = difficultyValuesHolder.MaxForwardSpeed;
@@ -117,7 +120,8 @@ public class GameValues : MonoBehaviour {
     public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
 
     //CUBE GIBS [NOT DEPENDENT ON DIFFICULTY]
-    [SerializeField] private uint divide = 4;
-    public uint Divide => divide;
+    [SerializeField] private uint[] divideValues;
+    private uint divide;
+    public uint Divide {get => divide; set => divide = divideValues[value];}
     
 }

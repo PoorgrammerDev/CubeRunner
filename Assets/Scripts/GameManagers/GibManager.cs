@@ -18,7 +18,7 @@ public class GibManager : MonoBehaviour
         cubeGibsUtil = transform.parent.GetComponent<CubeGibsUtil>();
 
         //filling pool with objects
-        AddPartsToPool((int) (gameValues.Divide * 16));
+        AddPartsToPool((int) (gameValues.Divide * gameValues.Divide * gameValues.Divide));
     }
 
     void AddPartsToPool (int num) {
@@ -31,7 +31,7 @@ public class GibManager : MonoBehaviour
         GameObject holder = new GameObject("Gib Holder");
         holder.transform.parent = transform;
 
-        int missingParts = (int) ((gameValues.Divide * 16) - pool.Count);
+        int missingParts = (int) ((gameValues.Divide * gameValues.Divide * gameValues.Divide) - pool.Count);
         if (missingParts > 0) {
             AddPartsToPool(missingParts);
         }

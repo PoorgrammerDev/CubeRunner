@@ -31,14 +31,20 @@ public class TagHolder
     //PlayerPref Keys
     public const string PREF_HIGH_SCORE = "HighScore";
     public const string PREF_DIFFICULTY = "Difficulty";
+    public const string PREF_SFX_VOLUME = "SFX_VOLUME";
+    public const string PREF_MUSIC_VOLUME = "MUSIC_VOLUME";
+    public const string PREF_COLORBLIND_MODE = "COLORBLIND_MODE";
+    public const string PREF_PARTICLES = "PARTICLES";
 
     //Other
     public const string HORIZONTAL_AXIS = "Horizontal";
     
-    //public const string  = "";
-    //public const string  = "";
-    //public const string  = "";
-    //public const string  = "";
+    //EXTERNAL LINKS
+    public const string LINK_GITHUB = "https://github.com/SlappyPotato";
+    public const string LINK_LINKEDIN = "";
+    public const string LINK_WEBSITE = "";
+    public const string LINK_INSTAGRAM = "";
+
     //public const string  = "";
     //public const string  = "";
     //public const string  = "";

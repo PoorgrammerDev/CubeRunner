@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class Blaster : AbstractPowerUp {
+    [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
     [SerializeField] private GibManager gibManager;
     [SerializeField] private LineRenderer blasterTracer;
@@ -53,7 +54,9 @@ public class Blaster : AbstractPowerUp {
                         x = hitObject.position.x;
                         hitObject.gameObject.SetActive(false);
 
-                        gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
+                        if (gameValues.Divide != 0) {
+                            gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
+                        }
                     }
                 }
 
