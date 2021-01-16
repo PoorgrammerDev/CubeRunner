@@ -34,6 +34,7 @@ public class PlayerPowerUp : MonoBehaviour
     public WaitForSecondsRealtime TickRT => tickRT;
 
     [Header("UI")]
+    [SerializeField] private Animator PowerUpHUDAnimator;
     [SerializeField] private float colorFadeTime;
     [SerializeField] private Color defaultColor;
     [SerializeField] private Image outline;
@@ -86,6 +87,11 @@ public class PlayerPowerUp : MonoBehaviour
             if (PowerUpTypeToClass.TryGetValue(type, out ActivePowerUpClass)) {
                 this.type = type;
                 state = PowerUpState.Standby;
+
+                //open bar
+                PowerUpHUDAnimator.ResetTrigger(TagHolder.PUP_HUD_CLOSE_TRIGGER);
+                PowerUpHUDAnimator.SetTrigger(TagHolder.PUP_HUD_OPEN_TRIGGER);
+
                 StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4)); //fill up top bar
 
                 //bar color
@@ -111,6 +117,10 @@ public class PlayerPowerUp : MonoBehaviour
     public void RemovePowerUp() {
         if (state != PowerUpState.Empty) {
             state = PowerUpState.Empty;
+
+            //close bar
+            PowerUpHUDAnimator.ResetTrigger(TagHolder.PUP_HUD_OPEN_TRIGGER);
+            PowerUpHUDAnimator.SetTrigger(TagHolder.PUP_HUD_CLOSE_TRIGGER);
 
             //update bar
             ChangeUIColor(defaultColor, colorFadeTime);

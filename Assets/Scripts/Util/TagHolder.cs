@@ -14,6 +14,10 @@ public class TagHolder
     public const string UI_ANIM_EXIT_UP = "MoveUp";
     public const string UI_ANIM_EXIT_DOWN = "MoveDown";
 
+    //Animation Triggers
+    public const string PUP_HUD_OPEN_TRIGGER = "Open";
+    public const string PUP_HUD_CLOSE_TRIGGER = "Close";
+
     //Scenes
     public const string GAME_SCENE = "Scene";
     public const string MAIN_MENU_SCENE = "MainMenu";
