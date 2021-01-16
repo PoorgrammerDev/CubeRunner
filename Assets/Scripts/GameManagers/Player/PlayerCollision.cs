@@ -57,7 +57,7 @@ public class PlayerCollision : MonoBehaviour
             return;
         }
 
-        gameEndManager.endGame();
+        gameEndManager.endGame(true);
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;

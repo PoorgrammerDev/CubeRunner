@@ -104,7 +104,7 @@ public class CubeSpawner : MonoBehaviour
                 cube.transform.localScale = cubeScale;
 
                 if (initialSpawn != -1) {
-                    StartCoroutine(row.MakeCubesFall(cube, height / 2f));
+                    StartCoroutine(row.MakeCubesFall(cube.transform, height / 2f, initialSpawn));
                 }
             }
         }

@@ -26,7 +26,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private Animator HUD;
 
     private GameObject[] cubeParts;
-    public void endGame() {
+    public void endGame(bool effects) {
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.TimeDilation) {
             timeDilation.ResetTDEffects(true);
         }
@@ -36,28 +36,33 @@ public class EndGame : MonoBehaviour
         dataExport.CubePartDivide = gameValues.Divide;
         dataExport.Difficulty = gameValues.Difficulty;
 
-        //disable invisible borders
-        foreach (GameObject invisibleWall in invisibleWalls) {
-            invisibleWall.SetActive(false);
-        }
-
-        //Slow-mo effect
-        Time.timeScale = 0.125f;
-
-        //End slow-mo effect
-        StartCoroutine(TimeResume(0.25f));
-
-        //Disable movement, etc.
-        StartCoroutine(DisableGame());
-        
-        //smashing cube
-        cubeParts = playerGibManager.Activate(activePlayer.transform.position, activePlayer.transform.localScale, false, true);
-
-        //Activate beam
-        StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) gameValues.Divide, true));
-
         //remove hud
         HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+        
+        //Disable movement, etc.
+        StartCoroutine(DisableGame());
+
+        if (effects) {
+            //disable invisible borders
+            foreach (GameObject invisibleWall in invisibleWalls) {
+                invisibleWall.SetActive(false);
+            }
+
+            //Slow-mo effect
+            Time.timeScale = 0.125f;
+
+            //End slow-mo effect
+            StartCoroutine(TimeResume(0.25f));
+
+            //smashing cube
+            cubeParts = playerGibManager.Activate(activePlayer.transform.position, activePlayer.transform.localScale, false, true);
+
+            //Activate beam
+            StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) gameValues.Divide, true));
+        }
+        else {
+            StartCoroutine(LoadNewScene());
+        }
     }
 
     public IEnumerator LoadNewScene() {

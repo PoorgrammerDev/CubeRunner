@@ -10,16 +10,19 @@ public class Row : MonoBehaviour {
 
     public PowerUp powerUp;
 
-    public IEnumerator MakeCubesFall(GameObject cube, float landedHeight) {
-        Rigidbody rigidbody = cube.GetComponent<Rigidbody>();
-        rigidbody.isKinematic = false;
+    public IEnumerator MakeCubesFall(Transform cube, float landedHeight, int initialSpawn) {
+        float t = 0f;
+        Vector3 position = cube.position;
+        float initialY = position.y;
 
-        while (cube != null && cube.transform.position.y > landedHeight) {
+        while (t <= 1) {
+            t += (1.5f / (initialSpawn + 1)) * Time.deltaTime;
+            position = cube.position;
+            position.y = Mathf.Lerp(initialY, landedHeight, t);
+            cube.position = position;
+
             yield return null;
         }
-
-        rigidbody.isKinematic = true;
-        yield break;
     }
 
     public bool HasPowerUp () {

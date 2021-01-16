@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\GameManagers\GibManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\HighScoreManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\ObstacleGibHolder.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\PauseManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerCollision.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\AbstractPowerUp.cs" />
