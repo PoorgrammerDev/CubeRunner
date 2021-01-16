@@ -11,6 +11,8 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private PowerUpSpawner powerUpSpawner;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private Transform groundPlane;
+    [SerializeField] private Material transparentMaterial;
+    [SerializeField] private Material opaqueMaterial;
     [SerializeField] private int rowCount = 10;
 
     private float firstRowDistance;
@@ -104,7 +106,7 @@ public class CubeSpawner : MonoBehaviour
                 cube.transform.localScale = cubeScale;
 
                 if (initialSpawn != -1) {
-                    StartCoroutine(row.MakeCubesFall(cube.transform, height / 2f, initialSpawn));
+                    StartCoroutine(row.MakeCubesFall(cube.transform, transparentMaterial, opaqueMaterial, height / 2f, initialSpawn));
                 }
             }
         }

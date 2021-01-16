@@ -155,6 +155,8 @@ MonoBehaviour:
   powerUpSpawner: {fileID: 1774738379}
   gameValues: {fileID: 573723474}
   groundPlane: {fileID: 355389867}
+  transparentMaterial: {fileID: 2100000, guid: 4cfcc3ad423b4dc42855fe33c56e0021, type: 2}
+  opaqueMaterial: {fileID: 2100000, guid: e37bc486efdaf594a8919c2eb491586d, type: 2}
   rowCount: 10
 --- !u!4 &7314369
 Transform:
