@@ -23,6 +23,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GibManager playerGibManager;
     [SerializeField] private PlayerPowerUp playerPowerUp;
     [SerializeField] private TimeDilation timeDilation;
+    [SerializeField] private Animator HUD;
 
     private GameObject[] cubeParts;
     public void endGame() {
@@ -55,7 +56,8 @@ public class EndGame : MonoBehaviour
         //Activate beam
         StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) gameValues.Divide, true));
 
-
+        //remove hud
+        HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
     }
 
     public IEnumerator LoadNewScene() {
