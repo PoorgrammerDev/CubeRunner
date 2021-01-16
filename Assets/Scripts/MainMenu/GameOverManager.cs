@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Manages the Game Over screen on the Main Menu, including all the effects on there.
@@ -11,9 +11,7 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] private GameObject mainMenuScreen;
 
-    [SerializeField] private Text scoreNumber;
-
-    [SerializeField] private Text highScoreNumber;
+    [SerializeField] private TextMeshProUGUI scoreNumber;
 
     [SerializeField] private GameObject beam; 
 

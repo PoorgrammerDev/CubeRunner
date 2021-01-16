@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Class is meant to be placed directly on UI Text. Updates its value to match the correct High Score.
@@ -8,11 +8,11 @@ public class HighScoreDisplay : MonoBehaviour
 {
     [SerializeField] private HighScoreManager highScore;
 
-    private Text numDisplay;
+    private TextMeshProUGUI numDisplay;
 
     // Start is called before the first frame update
     void Start() {
-        numDisplay = GetComponent<Text>();
+        numDisplay = GetComponent<TextMeshProUGUI>();
         UpdateScore();
     }
 
