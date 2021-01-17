@@ -13,6 +13,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private GameObject platform;
     [SerializeField] private PanelObjectHolder[] panels;
     [SerializeField] private Button[] buttons;
+    [SerializeField] private MusicManager musicManager;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
@@ -51,6 +52,9 @@ public class StartGame : MonoBehaviour
         
         //removes other menu elements from screen
         panel.MoveOut();
+
+        //music fades out
+        StartCoroutine(musicManager.FadeOutAndStop(0.5f));
 
         //removes platform
         platform.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);

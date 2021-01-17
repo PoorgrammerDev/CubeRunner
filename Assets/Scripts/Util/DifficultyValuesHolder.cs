@@ -42,4 +42,10 @@ public class DifficultyValuesHolder : MonoBehaviour
     //POWER UP SPAWN CHANCE
     [SerializeField] private float powerUpSpawnChance;
     public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
+    
+
+    //MUSIC
+    [SerializeField] private AudioClip[] songs;
+    public AudioClip[] Songs { get => songs; set => songs = value; }
+    
 }

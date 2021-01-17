@@ -22,7 +22,7 @@ public class DifficultyManager : MonoBehaviour
         new Color(0.69f, 0.17f, 0.75f), //impossible - purple
     };
     
-    void Awake() {
+    void Start() {
         difficulty = PlayerPrefs.HasKey(TagHolder.PREF_DIFFICULTY) ?
         (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY) :
         defaultDifficulty;
@@ -39,6 +39,7 @@ public class DifficultyManager : MonoBehaviour
 
     void UpdateText() {
         text.text = Difficulty.ToString();
-        text.CrossFadeColor(colors[(int) Difficulty], 0.25f, true, false);
+        //text.CrossFadeColor(colors[(int) Difficulty], 0.25f, true, false); //disabled because it didn't actually change the vertex color for some reason and caused the color to reset to white when changing menu
+        text.color = colors[(int) Difficulty];
     }
 }

@@ -24,6 +24,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private PlayerPowerUp playerPowerUp;
     [SerializeField] private TimeDilation timeDilation;
     [SerializeField] private Animator HUD;
+    [SerializeField] private MusicManager musicManager;
 
     private GameObject[] cubeParts;
     public void endGame(bool effects) {
@@ -41,6 +42,9 @@ public class EndGame : MonoBehaviour
         
         //Disable movement, etc.
         StartCoroutine(DisableGame());
+
+        //stop music
+        StartCoroutine(musicManager.FadeOutAndStop(2));
 
         if (effects) {
             //disable invisible borders

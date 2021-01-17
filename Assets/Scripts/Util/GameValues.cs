@@ -23,6 +23,7 @@ public class GameValues : MonoBehaviour {
         gapIncreaseChance = difficultyValuesHolder.GapIncreaseChance;
         widthScale = difficultyValuesHolder.WidthScale;
         powerUpSpawnChance = difficultyValuesHolder.PowerUpSpawnChance;
+        songs = difficultyValuesHolder.Songs;
     }
 
     //GAME ACTIVE-----------
@@ -123,5 +124,9 @@ public class GameValues : MonoBehaviour {
     [SerializeField] private uint[] divideValues;
     private uint divide;
     public uint Divide {get => divide; set => divide = divideValues[value];}
+
+    //MUSIC
+    private AudioClip[] songs;
+    public AudioClip[] Songs { get => songs; set => songs = value; }
     
 }
