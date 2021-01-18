@@ -8,6 +8,8 @@ public class Options : MonoBehaviour
     [SerializeField] private Toggle ColorblindMode;
     [SerializeField] private Slider Particles;
     [SerializeField] private GameValues gameValues;
+    [SerializeField] private MusicManager musicManager;
+    [SerializeField] private SFXVolumeManager[] soundEffectManagers;
 
     void Start() {
         SFXVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, 0.5f);
@@ -18,10 +20,15 @@ public class Options : MonoBehaviour
 
     public void UpdateSFXVolume() {
         PlayerPrefs.SetFloat(TagHolder.PREF_SFX_VOLUME, SFXVolume.value);
+        
+        foreach (SFXVolumeManager soundEffectManager in soundEffectManagers) {
+            soundEffectManager.UpdateVolume();
+        }
     }
 
     public void UpdateMusicVolume() {
         PlayerPrefs.SetFloat(TagHolder.PREF_MUSIC_VOLUME, MusicVolume.value);
+        musicManager.UpdateVolume();
     }
 
     public void UpdateColorblindMode() {

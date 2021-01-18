@@ -23,7 +23,7 @@ public class MusicManager : MonoBehaviour
             songs = gameValues.Songs;
         }
 
-
+        UpdateVolume();
         ShuffleAndAdd();
     }
 
@@ -103,5 +103,9 @@ public class MusicManager : MonoBehaviour
         else {
             PlayMusic();
         }   
+    }
+
+    public void UpdateVolume() {
+        audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME);
     }
 }

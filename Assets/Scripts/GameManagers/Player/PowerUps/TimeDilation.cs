@@ -8,6 +8,10 @@ public class TimeDilation : AbstractPowerUp {
     [SerializeField] private Volume volume;
     [SerializeField] private float timeDilationDuration;
     [SerializeField] private float timeDilationScale;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource droning;
+
+    [SerializeField] private MusicManager musicManager;
     ChromaticAberration chromAb;
     ColorAdjustments colorAdj;
     private PlayerPowerUp powerUpManager;
@@ -24,6 +28,13 @@ public class TimeDilation : AbstractPowerUp {
         float t = 0f;
         powerUpManager.State = PowerUpState.Active;
 
+        //pause music
+        musicManager.Pause();
+
+        //droning sound
+        droning.clip = Sounds[1];
+        droning.time = SoundStartTimes[1];
+        droning.Play();
 
         //slowing down
         Time.timeScale = timeDilationScale;
@@ -45,6 +56,10 @@ public class TimeDilation : AbstractPowerUp {
             yield return powerUpManager.TickRT;
         }
 
+        //speed back up sound
+        audioSource.clip = Sounds[2];
+        audioSource.Play();
+
         //speed back up and get rid of effects
         while (t <= 1) {
             t += 2 * Time.deltaTime;
@@ -53,6 +68,11 @@ public class TimeDilation : AbstractPowerUp {
             Time.timeScale = Mathf.Lerp(timeDilationScale, 1, t);
             yield return null;
         }
+
+        //music returns
+        droning.Stop();
+        musicManager.Resume();
+        StartCoroutine(musicManager.FadeIn(1));
 
         chromAb.active = false;
         colorAdj.active = false;

@@ -16,6 +16,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private PowerUpType type;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
+    [SerializeField] private AudioSource audioSource;
     private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
     private AbstractPowerUp ActivePowerUpClass;
     private Blaster blaster;
@@ -150,15 +151,29 @@ public class PlayerPowerUp : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) {
             if (state == PowerUpState.Standby) {
                 PowerUpType? type = GetActivePowerUp();
+                AbstractPowerUp playSound = null;
 
+                //detect power ups activation
                 if (type == PowerUpType.TimeDilation) {
                     StartCoroutine(timeDilation.RunTimeDilation());
+                    playSound = timeDilation;
                 }
                 else if (type == PowerUpType.Compress) {
                     StartCoroutine(compression.RunCompression());
+                    playSound = compression;
                 }
                 else if (type == PowerUpType.Blaster) {
-                    blaster.ShootBlaster();
+                    if (blaster.ShootBlaster()) {
+                        playSound = blaster;
+                    }
+                }
+
+
+                //playing sound
+                if (playSound != null) {
+                    audioSource.clip = playSound.Sounds[0];
+                    audioSource.time = playSound.SoundStartTimes[0];
+                    audioSource.Play();
                 }
             }
         }

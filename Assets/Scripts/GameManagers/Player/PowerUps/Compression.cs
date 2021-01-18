@@ -5,6 +5,7 @@ using UnityEngine;
 public class Compression : AbstractPowerUp {
     [SerializeField] private float compressionDuration;
     [SerializeField] private float compressionSize;
+    [SerializeField] private AudioSource audioSource;
     private PlayerPowerUp powerUpManager;
 
     void Start() {
@@ -41,9 +42,13 @@ public class Compression : AbstractPowerUp {
         }
         
 
+        audioSource.clip = Sounds[1];
+        audioSource.time = SoundStartTimes[1];
+        audioSource.Play();
+
         //return to original size
         while (t >= 0) {
-            t -= 4 * Time.deltaTime;
+            t -= 2 * Time.deltaTime;
             scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
             transform.localScale = scale;
 

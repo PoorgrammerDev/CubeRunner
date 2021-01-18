@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ButtonSounds.cs" />
      <Compile Include="Assets\Scripts\Dev\ClearPlayerPrefs.cs" />
      <Compile Include="Assets\Scripts\GameManagers\CubeSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\EndGame.cs" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\Scripts\MainMenu\SettingsMenu\SettingsMenu.cs" />
      <Compile Include="Assets\Scripts\MainMenu\StartGame.cs" />
      <Compile Include="Assets\Scripts\MusicManager.cs" />
+     <Compile Include="Assets\Scripts\SFXVolumeManager.cs" />
      <Compile Include="Assets\Scripts\Util\AnimationDisappear.cs" />
      <Compile Include="Assets\Scripts\Util\BarMove.cs" />
      <Compile Include="Assets\Scripts\Util\Beam.cs" />
@@ -98,7 +100,6 @@
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">

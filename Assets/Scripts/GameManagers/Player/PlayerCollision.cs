@@ -12,11 +12,13 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private GibManager obstacleGibManager;
     [SerializeField] private GameObject obstaclePrefab;
     private PlayerPowerUp playerPowerUp;
+    private Hardened hardenedPUP;
     private new Collider collider;
 
     void Start() {
         playerPowerUp = GetComponent<PlayerPowerUp>();
         collider = GetComponent<Collider>();
+        hardenedPUP = GetComponent<Hardened>();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -54,6 +56,7 @@ public class PlayerCollision : MonoBehaviour
                 obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
             }
             
+            hardenedPUP.PlaySound();
             other.gameObject.SetActive(false);
             playerPowerUp.RemovePowerUp();
             return;

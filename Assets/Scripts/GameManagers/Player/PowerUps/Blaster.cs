@@ -6,6 +6,7 @@ public class Blaster : AbstractPowerUp {
     [SerializeField] private BarMove barMove;
     [SerializeField] private GibManager gibManager;
     [SerializeField] private LineRenderer blasterTracer;
+    [SerializeField] private AudioSource obstacleHitSource;
 
     [SerializeField] private int blasterShots;
 
@@ -35,9 +36,11 @@ public class Blaster : AbstractPowerUp {
     }
 
 
-    public void ShootBlaster() {
+    public bool ShootBlaster() {
         if (blasterCooldownTracker <= 0) {
+            bool result = false;
             if (blasterShotsLeft > 0) {
+                result = true;
                 blasterCooldownTracker = blasterCooldown;
 
                 //front posiiton of cube
@@ -53,6 +56,11 @@ public class Blaster : AbstractPowerUp {
                     if (hitObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
                         x = hitObject.position.x;
                         hitObject.gameObject.SetActive(false);
+
+                        //sound
+                        obstacleHitSource.clip = Sounds[1];
+                        obstacleHitSource.time = SoundStartTimes[1];
+                        obstacleHitSource.Play();
 
                         if (gameValues.Divide != 0) {
                             gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
@@ -81,7 +89,10 @@ public class Blaster : AbstractPowerUp {
             if (blasterShotsLeft == 0) {
                 powerUpManager.RemovePowerUp();
             }
+
+            return result;
         }
+        return false;
     }
 
     public IEnumerator BlasterCooldown() {
