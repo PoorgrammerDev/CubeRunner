@@ -17,6 +17,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip pickupPUPSound;
     private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
     private AbstractPowerUp ActivePowerUpClass;
     private Blaster blaster;
@@ -97,6 +98,10 @@ public class PlayerPowerUp : MonoBehaviour
 
                 //bar color
                 ChangeUIColor(ActivePowerUpClass.Color, colorFadeTime);
+
+                //pickup sound
+                audioSource.clip = pickupPUPSound;
+                audioSource.Play();
 
                 //change icon
                 PUPIcon.enabled = true;

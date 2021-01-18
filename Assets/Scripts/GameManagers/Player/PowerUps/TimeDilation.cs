@@ -42,10 +42,13 @@ public class TimeDilation : AbstractPowerUp {
         //postprocessing effects
         chromAb.active = true;
         colorAdj.active = true;
+
+        Color finalColor = new Color(0.9f, 0.9f, 1f);
         while (t <= 1) {
             t += 8 * Time.deltaTime;
             chromAb.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(0, 1, t), 0, 1, true));
             colorAdj.saturation.SetValue(new ClampedFloatParameter(Mathf.Lerp(0, -45, t), -100, 100, true));
+            colorAdj.colorFilter.Override(Color.Lerp(Color.white, finalColor, t));
             yield return null;
         }
         t = 0;
@@ -65,6 +68,7 @@ public class TimeDilation : AbstractPowerUp {
             t += 2 * Time.deltaTime;
             chromAb.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(1, 0, t), 0, 1, true));
             colorAdj.saturation.SetValue(new ClampedFloatParameter(Mathf.Lerp(-45, 0, t), -100, 100, true));
+            colorAdj.colorFilter.Override(Color.Lerp(finalColor, Color.white, t));
             Time.timeScale = Mathf.Lerp(timeDilationScale, 1, t);
             yield return null;
         }

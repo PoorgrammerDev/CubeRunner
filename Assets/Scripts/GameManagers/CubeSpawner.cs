@@ -226,7 +226,7 @@ public class CubeSpawner : MonoBehaviour
     }
 
     int GetGapAmount(int currentNumber) {
-        if (currentNumber < lanes && Random.value < gameValues.GapIncreaseChance) {
+        if (currentNumber < (lanes - 1) && Random.value < gameValues.GapIncreaseChance) {
             return GetGapAmount(++currentNumber);
         }
         else {

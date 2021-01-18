@@ -25,6 +25,8 @@ public class EndGame : MonoBehaviour
     [SerializeField] private TimeDilation timeDilation;
     [SerializeField] private Animator HUD;
     [SerializeField] private MusicManager musicManager;
+    [SerializeField] private AudioSource genericSFX;
+    [SerializeField] private AudioClip deathSound;
 
     private GameObject[] cubeParts;
     public void endGame(bool effects) {
@@ -44,7 +46,12 @@ public class EndGame : MonoBehaviour
         StartCoroutine(DisableGame());
 
         //stop music
-        StartCoroutine(musicManager.FadeOutAndStop(2));
+        //StartCoroutine(musicManager.FadeOutAndStop(2));
+        musicManager.Pause();
+
+        //sfx
+        genericSFX.clip = deathSound;
+        genericSFX.Play();
 
         if (effects) {
             //disable invisible borders

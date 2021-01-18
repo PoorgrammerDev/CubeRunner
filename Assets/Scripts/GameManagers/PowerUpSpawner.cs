@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// This class is used for spawning in Power Ups.
@@ -11,8 +12,10 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private int cooldown;
     [SerializeField] private PowerUp[] powerUpObjects;
+    [SerializeField] private Animator PUPTypeDisplay;
+    [SerializeField] private Image TypeDisplayImage;
+    [SerializeField] private Sprite[] sprites;
     
-
     private int cooldownTracker = 0;
 
     public bool SpawnPowerUp(Row row, int slot, int lanes) {
@@ -33,6 +36,15 @@ public class PowerUpSpawner : MonoBehaviour
                 Vector3 position = powerUpObject.transform.localPosition;
                 position.z = (((lanes) / 2f) - slot - 0.5f) * gameValues.WidthScale;
                 powerUpObject.transform.localPosition = position;
+
+                //colorblind indicator
+                if (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE) == 1) {
+                    TypeDisplayImage.sprite = sprites[(int) powerUpType];
+                    
+                    PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+                    PUPTypeDisplay.gameObject.SetActive(true);
+                    StartCoroutine(RemoveTypeGUI());
+                }
                 
                 powerUpObject.gameObject.SetActive(true);
 
@@ -72,5 +84,11 @@ public class PowerUpSpawner : MonoBehaviour
         if (cooldownTracker > 0) cooldownTracker--;
     }
 
+    IEnumerator RemoveTypeGUI() {
+        do {
+            yield return null;
+        } while (gameValues.GameActive && IsDeployed());
 
+        PUPTypeDisplay.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+    }
 }
