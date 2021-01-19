@@ -12,6 +12,7 @@ public class GameStartAnimations : MonoBehaviour
     [SerializeField] private Treadmill treadmill;
     [SerializeField] private GameObject HUD;
     [SerializeField] private GameObject sun;
+    [SerializeField] private BackgroundObjects backgroundObjects;
 
     // Start is called before the first frame update
     void Start() {
@@ -43,6 +44,7 @@ public class GameStartAnimations : MonoBehaviour
         //start the game
         yield return new WaitForSeconds(1);
         cubeSpawner.InitialSpawn();
+        backgroundObjects.Initialize();
         gameValues.GameActive = true;
         HUD.SetActive(true);
     }
