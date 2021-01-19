@@ -93,17 +93,14 @@ public class BackgroundObjects : MonoBehaviour
             //de-parents from pool, which automatically activates it
             innerObj.transform.SetParent(transform);
 
-            if (init) innerObj.transform.localScale = new Vector3(size, size, size);
-            else {
-                //inflates up to size
-                float t = 0f;
-                float currentSize;
-                while (t <= 1) {
-                    t += 0.5f * Time.deltaTime;
-                    currentSize = Mathf.Lerp(0, size, t);
-                    innerObj.transform.localScale = new Vector3(currentSize, currentSize, currentSize);
-                    yield return null;
-                }
+            //inflates up to size
+            float t = 0f;
+            float currentSize;
+            while (t <= 1) {
+                t += 0.25f * Time.deltaTime;
+                currentSize = Mathf.Lerp(0, size, t);
+                innerObj.transform.localScale = new Vector3(currentSize, currentSize, currentSize);
+                yield return null;
             }
 
             StartCoroutine(ObjectTravel(bgObject, size, z));

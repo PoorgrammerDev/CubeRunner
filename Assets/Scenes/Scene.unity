@@ -219,11 +219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
   prefabs:
-  - {fileID: 7902411428244373834, guid: 6e90c0bcced813048bca2c664b9b76dc, type: 3}
-  - {fileID: 6862998496390290496, guid: 180326e7b777ade4d8e804bd006c7c77, type: 3}
-  - {fileID: 324472670555282166, guid: 7b6c429bb32dbb846a528b0951c9561e, type: 3}
+  - {fileID: 6638984139870613065, guid: 2dec91387fba33f4f90b1909d2a6f9f1, type: 3}
   poolParentObj: {fileID: 1551439002}
-  poolStartingAmt: 5
+  poolStartingAmt: 50
   startingAmt: 25
   maxRot: 0.1
 --- !u!1 &47330122
@@ -7341,27 +7339,27 @@ PrefabInstance:
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 304766688258740106, guid: f097fa2e372941e41bedbe11f4946130,
         type: 3}
@@ -7634,7 +7632,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 39.999878}
+  m_AnchoredPosition: {x: -150, y: 39.999756}
   m_SizeDelta: {x: 425, y: 25}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4765073937264156004
