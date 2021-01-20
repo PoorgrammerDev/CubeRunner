@@ -127,8 +127,10 @@ public class BackgroundObjects : MonoBehaviour
             yield return wait2;
         } while (gameValues.GameActive && bgTransform.position.x > 0);
 
-        //return to pool
-        innerObj.transform.SetParent(poolObjs[bgObject.Type]);
-        pools[bgObject.Type].Push(bgObject);
+        if (gameValues.GameActive) {
+            //return to pool
+            innerObj.transform.SetParent(poolObjs[bgObject.Type]);
+            pools[bgObject.Type].Push(bgObject);
+        }
     }
 }

@@ -1,0 +1,89 @@
+Developer
+Thomas Tran
+
+====================
+
+Music Licensing
+
+The song "Glorious Movie Ending" by TeknoAXE is licensed under CC BY 4.0.
+The song "Future Ghost" by TeknoAXE is licensed under CC BY 4.0.
+The song "Nineteen Eighty Seven" by TeknoAXE is licensed under CC BY 4.0.
+The song "Wall of Celebration" by TeknoAXE is licensed under CC BY 4.0.
+The song "Just Breathe" by TeknoAXE is licensed under CC BY 4.0.
+The song "Bright Future Ahead" by TeknoAXE is licensed under CC BY 4.0.
+The song "Synthwave F" by TeknoAXE is licensed under CC BY 4.0.
+The song "Run At Midnight" by TeknoAXE is licensed under CC BY 4.0.
+The song "Aerial" by TeknoAXE is licensed under CC BY 4.0.
+The song "Driving to the Future" by TeknoAXE is licensed under CC BY 4.0.
+The song "Synthwave E" by TeknoAXE is licensed under CC BY 4.0. // Edited: Beginning has been cut
+The song "Hoverboard" by TeknoAXE is licensed under CC BY 4.0.
+The song "Spire of Light" by TeknoAXE is licensed under CC BY 4.0.
+The song "Ascent to the Station" by TeknoAXE is licensed under CC BY 4.0.
+The song "The Harrowing" by TeknoAXE is licensed under CC BY 4.0.
+The song "Afterburners in Space" by TeknoAXE is licensed under CC BY 4.0.
+The song "A Meeting of Genres" by TeknoAXE is licensed under CC BY 4.0.
+The song "Edge of Tomorrow" by TeknoAXE is licensed under CC BY 4.0.
+The song "Dystopian Paradise" by TeknoAXE is licensed under CC BY 4.0.
+
+TeknoAXE's Website: https://teknoaxe.com/Home.php
+CC BY 4.0 license: https://creativecommons.org/licenses/by/4.0/
+
+====================
+
+Font Licensing
+
+The Font "Space Grotesk" by The Space Grotesk Project Authors is licensed under the SIL Open Font License, Version 1.1.
+Space Grotesk: https://github.com/floriankarsten/space-grotesk
+SIL Open Font License, Version 1.1: http://scripts.sil.org/OFL
+
+--------------
+
+The Font "Commando" is by defaulterror (Derek Clark).
+Commando: https://www.dafont.com/commando.font
+
+====================
+
+Icon Licensing
+
+The icon "done" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "exit_to_app" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "music_note" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "play_arrow" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "replay" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "volume_up" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "settings" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "pause" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+
+Google's Material Design: https://material.io/
+Apache License Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.html
+
+====================
+
+Sound Effects Licensing
+
+The sound effect "basspitch_sfx" by gjamnadas is licensed under CC0 1.0. //Edited: Used both original and one reversed, sped up version
+
+basspitch_sfx: https://freesound.org/people/gjamnadas/sounds/253839/
+CC0 1.0 license: https://creativecommons.org/publicdomain/zero/1.0/
+
+--------------
+
+The sound effect pack "Free Sound Effects Pack" is by Olivier Girardot.
+Free Sound Effects Pack: https://assetstore.unity.com/packages/audio/sound-fx/free-sound-effects-pack-155776
+
+--------------
+
+The sound effect pack "SoundBits | Free Sound FX Collection" is by SoundBits.
+SoundBits | Free Sound FX Collection: https://assetstore.unity.com/packages/audio/sound-fx/soundbits-free-sound-fx-collection-31837
+
+--------------
+
+The sound effect pack "Minimal UI Sounds" is by cabled_mess.
+Minimal UI Sounds: https://assetstore.unity.com/packages/audio/sound-fx/minimal-ui-sounds-78266
+
+--------------
+
+The sound effect pack "Game App SFX Pack 002 - Futuristic USER - FREEBIE EDITION" is by Arcade Arthur.
+Game App SFX Pack 002 - Futuristic USER - FREEBIE EDITION: https://assetstore.unity.com/packages/audio/sound-fx/game-app-sfx-pack-002-futuristic-user-freebie-edition-142641
+
+====================

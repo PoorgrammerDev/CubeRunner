@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class About : MonoBehaviour
 {
-    public void OpenGitHub() {
-        Application.OpenURL(TagHolder.LINK_GITHUB);
+    public void OpenFeedback() {
+        Application.OpenURL(TagHolder.LINK_FEEDBACK);
     }
 
     public void OpenLinkedIn() {

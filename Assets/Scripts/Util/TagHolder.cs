@@ -40,7 +40,7 @@ public class TagHolder
     public const string HORIZONTAL_AXIS = "Horizontal";
     
     //EXTERNAL LINKS
-    public const string LINK_GITHUB = "https://github.com/SlappyPotato";
+    public const string LINK_FEEDBACK = "";
     public const string LINK_LINKEDIN = "";
     public const string LINK_WEBSITE = "";
     public const string LINK_INSTAGRAM = "";
