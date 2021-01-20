@@ -56,7 +56,7 @@ public class TimeDilation : AbstractPowerUp {
         //wait
         for (float i = 0; i < timeDilationDuration; i+= powerUpManager.TickDuration) {
             powerUpManager.TopBar.value = 1 - (i / timeDilationDuration);
-            yield return powerUpManager.TickRT;
+            yield return powerUpManager.Tick;
         }
 
         //speed back up sound

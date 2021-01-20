@@ -8,9 +8,11 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private MusicManager musicManager;
 
+    private float currentTimeScale = -1;
     public void Pause() {
         if (pauseMenu.gameObject.activeInHierarchy) return;
 
+        currentTimeScale = Time.timeScale;
         Time.timeScale = 0f;
         musicManager.Pause();
         pauseMenu.gameObject.SetActive(true);
@@ -19,7 +21,8 @@ public class PauseManager : MonoBehaviour
     public void Resume() {
         if (!pauseMenu.gameObject.activeInHierarchy) return;
 
-        Time.timeScale = 1f;
+        Time.timeScale = (currentTimeScale != -1) ? currentTimeScale : 1;
+        currentTimeScale = -1;
         musicManager.Resume();
         pauseMenu.Play(TagHolder.HUD_EXIT_TRIGGER);
     }

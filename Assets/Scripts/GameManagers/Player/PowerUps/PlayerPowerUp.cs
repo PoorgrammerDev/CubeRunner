@@ -32,9 +32,6 @@ public class PlayerPowerUp : MonoBehaviour
     private WaitForSeconds tick;
     public WaitForSeconds Tick => tick;
 
-    private WaitForSecondsRealtime tickRT;
-    public WaitForSecondsRealtime TickRT => tickRT;
-
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
     [SerializeField] private float colorFadeTime;
@@ -51,6 +48,9 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Image bottomBarFill;
     public Slider BottomBar => bottomBar;
 
+    //mobile
+    [SerializeField] private Animator mobilePUPButton;
+
     void Start() {
         //get individual PUP classes
         blaster = GetComponent<Blaster>();
@@ -65,7 +65,6 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
 
         tick = new WaitForSeconds(tickDuration);
-        tickRT = new WaitForSecondsRealtime(tickDuration);
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -103,6 +102,14 @@ public class PlayerPowerUp : MonoBehaviour
                 audioSource.clip = pickupPUPSound;
                 audioSource.Play();
 
+                #if UNITY_ANDROID || UNITY_IOS
+                    if (type != PowerUpType.Hardened) {
+                        //fade in pup button
+                        mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
+                        mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
+                    }
+                #endif
+
                 //change icon
                 PUPIcon.enabled = true;
                 PUPIcon.sprite = ActivePowerUpClass.Sprite;
@@ -128,6 +135,12 @@ public class PlayerPowerUp : MonoBehaviour
             PowerUpHUDAnimator.ResetTrigger(TagHolder.PUP_HUD_OPEN_TRIGGER);
             PowerUpHUDAnimator.SetTrigger(TagHolder.PUP_HUD_CLOSE_TRIGGER);
 
+            #if UNITY_ANDROID || UNITY_IOS
+                //fade out pup button
+                mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
+                mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
+            #endif
+
             //update bar
             ChangeUIColor(defaultColor, colorFadeTime);
             StartCoroutine(barMove.MoveBarAsync(topBar, 0, 4));
@@ -149,37 +162,51 @@ public class PlayerPowerUp : MonoBehaviour
         }
         return null;
     }
-
+    
+    #if UNITY_STANDALONE || UNITY_WEBGL
     void Update() {
         if (!gameValues.GameActive) return;
 
         if (Input.GetKeyDown(KeyCode.F)) {
-            if (state == PowerUpState.Standby) {
-                PowerUpType? type = GetActivePowerUp();
-                AbstractPowerUp playSound = null;
+            ClickedPUPUse()
+        }
+    }
+    #endif
 
-                //detect power ups activation
-                if (type == PowerUpType.TimeDilation) {
-                    StartCoroutine(timeDilation.RunTimeDilation());
-                    playSound = timeDilation;
+    public void ClickedPUPUse () {
+        if (!gameValues.GameActive) return;
+
+        if (state == PowerUpState.Standby) {
+            PowerUpType? type = GetActivePowerUp();
+            AbstractPowerUp playSound = null;
+
+            //detect power ups activation
+            if (type == PowerUpType.TimeDilation) {
+                StartCoroutine(timeDilation.RunTimeDilation());
+                playSound = timeDilation;
+            }
+            else if (type == PowerUpType.Compress) {
+                StartCoroutine(compression.RunCompression());
+                playSound = compression;
+            }
+            else if (type == PowerUpType.Blaster) {
+                if (blaster.ShootBlaster()) {
+                    playSound = blaster;
                 }
-                else if (type == PowerUpType.Compress) {
-                    StartCoroutine(compression.RunCompression());
-                    playSound = compression;
-                }
-                else if (type == PowerUpType.Blaster) {
-                    if (blaster.ShootBlaster()) {
-                        playSound = blaster;
-                    }
-                }
+            }
 
 
-                //playing sound
-                if (playSound != null) {
-                    audioSource.clip = playSound.Sounds[0];
-                    audioSource.time = playSound.SoundStartTimes[0];
-                    audioSource.Play();
-                }
+            //playing sound
+            if (playSound != null) {
+                #if UNITY_ANDROID || UNITY_IOS
+                    //fade out pup button
+                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
+                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
+                #endif
+
+                audioSource.clip = playSound.Sounds[0];
+                audioSource.time = playSound.SoundStartTimes[0];
+                audioSource.Play();
             }
         }
     }

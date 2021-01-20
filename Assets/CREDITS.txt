@@ -45,14 +45,17 @@ Commando: https://www.dafont.com/commando.font
 
 Icon Licensing
 
-The icon "done" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "exit_to_app" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "music_note" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "play_arrow" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "replay" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "volume_up" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "settings" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
-The icon "pause" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: turned icon white
+The icon "done" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "exit_to_app" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "music_note" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "play_arrow" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "replay" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "volume_up" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "settings" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "pause" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "chevron_left" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "chevron_right" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
+The icon "api" by Google's Material Design is licensed under the Apache License Version 2.0.  // Edited: rasterized and turned white
 
 Google's Material Design: https://material.io/
 Apache License Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.html
