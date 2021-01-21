@@ -168,7 +168,7 @@ public class PlayerPowerUp : MonoBehaviour
         if (!gameValues.GameActive) return;
 
         if (Input.GetKeyDown(KeyCode.F)) {
-            ClickedPUPUse()
+            ClickedPUPUse();
         }
     }
     #endif
@@ -179,15 +179,27 @@ public class PlayerPowerUp : MonoBehaviour
         if (state == PowerUpState.Standby) {
             PowerUpType? type = GetActivePowerUp();
             AbstractPowerUp playSound = null;
+            
+            #if UNITY_ANDROID || UNITY_IOS
+                bool disableButton = false;
+            #endif
 
             //detect power ups activation
             if (type == PowerUpType.TimeDilation) {
                 StartCoroutine(timeDilation.RunTimeDilation());
                 playSound = timeDilation;
+
+                #if UNITY_ANDROID || UNITY_IOS
+                    disableButton = true;
+                #endif
             }
             else if (type == PowerUpType.Compress) {
                 StartCoroutine(compression.RunCompression());
                 playSound = compression;
+                
+                #if UNITY_ANDROID || UNITY_IOS
+                    disableButton = true;
+                #endif
             }
             else if (type == PowerUpType.Blaster) {
                 if (blaster.ShootBlaster()) {
@@ -195,15 +207,17 @@ public class PlayerPowerUp : MonoBehaviour
                 }
             }
 
-
-            //playing sound
-            if (playSound != null) {
-                #if UNITY_ANDROID || UNITY_IOS
+            #if UNITY_ANDROID || UNITY_IOS
+                if (disableButton) {
                     //fade out pup button
                     mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
                     mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
-                #endif
+                }
+            #endif
 
+
+            //playing sound
+            if (playSound != null) {
                 audioSource.clip = playSound.Sounds[0];
                 audioSource.time = playSound.SoundStartTimes[0];
                 audioSource.Play();
