@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
     private AudioSource audioSource;
 
     private Queue<AudioClip> songQueue;
+    private const float defaultVolume = 0.5f;
     private bool stopped = false;
 
     // Start is called before the first frame update
@@ -106,6 +107,6 @@ public class MusicManager : MonoBehaviour
     }
 
     public void UpdateVolume() {
-        audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME);
+        audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME, defaultVolume);
     }
 }

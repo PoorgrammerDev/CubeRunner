@@ -6,6 +6,7 @@ using UnityEngine;
 public class SFXVolumeManager : MonoBehaviour
 {
     private AudioSource audioSource;
+    private const float defaultSFXVolume = 0.5f;
     // Start is called before the first frame update
     void Start() {
         audioSource = GetComponent<AudioSource>();
@@ -13,6 +14,6 @@ public class SFXVolumeManager : MonoBehaviour
     }
 
     public void UpdateVolume() {
-        audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME);
+        audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, defaultSFXVolume);
     }
 }

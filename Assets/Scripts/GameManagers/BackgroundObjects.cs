@@ -5,35 +5,20 @@ using UnityEngine;
 public class BackgroundObjects : MonoBehaviour
 {
     [SerializeField] private GameValues gameValues;
-    [SerializeField] private GameObject[] prefabs;
-    [SerializeField] private Transform poolParentObj;
-    [SerializeField] private int poolStartingAmt;
+    [SerializeField] private GameObject prefab;
+    [SerializeField] private int poolAmount;
     [SerializeField] private int startingAmt;
     [SerializeField] private float maxRot;
 
-    private Transform[] poolObjs;
-    private Stack<BGObject>[] pools;
+    private Stack<BGObject> pool;
     private Quaternion defaultRot = new Quaternion();
     private WaitForSeconds wait = new WaitForSeconds(0.25f);
     private WaitForSeconds wait2 = new WaitForSeconds(0.01f);
-    
-    private int types;
 
     // Start is called before the first frame update
     void Start() {
-        types = prefabs.Length;
-        pools = new Stack<BGObject>[types];
-        poolObjs = new Transform[types];
-
-        for (int i = 0; i < types; i++) {
-            //create pool and instantiate objs
-            poolObjs[i] = new GameObject("BG_OBJ_POOL_" + i).transform;
-            pools[i] = new Stack<BGObject>();
-            poolObjs[i].transform.SetParent(poolParentObj);
-            AddPartsToPool(i, poolStartingAmt);
-        }
-
-        
+        pool = new Stack<BGObject>();
+        AddPartsToPool(poolAmount);
     }
 
     public void Initialize() {
@@ -43,20 +28,20 @@ public class BackgroundObjects : MonoBehaviour
         StartCoroutine(DeployMechanism());
     }
 
-    void AddPartsToPool (int type, int num) {
-        if (type >= 0 && type < prefabs.Length) {
-            for (int i = 0; i < num; i++) {
-                pools[type].Push(new BGObject(type, Instantiate(prefabs[type], Vector3.zero, defaultRot, poolObjs[type].transform)));
-            }
-        }   
+    void AddPartsToPool (int num) {
+        for (int i = 0; i < num; i++) {
+            GameObject gameObject = Instantiate(prefab, Vector3.zero, defaultRot, transform);
+            gameObject.SetActive(false);
+
+            pool.Push(new BGObject(gameObject));
+        } 
     }
 
-    BGObject GetObject(int type) {
-        if (pools[type].Count > 0) {
-            return pools[type].Pop();
+    BGObject GetObject() {
+        if (pool.Count > 0) {
+            return pool.Pop();
         }
-        AddPartsToPool(type, 1);
-        return GetObject(type);
+        return null;
     }
 
     public IEnumerator DeployMechanism() {
@@ -67,8 +52,10 @@ public class BackgroundObjects : MonoBehaviour
     }
 
     IEnumerator Deploy(bool init) {
-        BGObject bgObject = GetObject(Random.Range(0, types));
+        BGObject bgObject = GetObject();
+        if (bgObject != null) {
             GameObject innerObj = bgObject.GameObject;
+            innerObj.SetActive(true);
 
             //size
             float size = Random.Range(0.25f, 3f);
@@ -104,6 +91,7 @@ public class BackgroundObjects : MonoBehaviour
             }
 
             StartCoroutine(ObjectTravel(bgObject, size, z));
+        }      
     }
 
     IEnumerator ObjectTravel(BGObject bgObject, float size, float z) {
@@ -129,8 +117,8 @@ public class BackgroundObjects : MonoBehaviour
 
         if (gameValues.GameActive) {
             //return to pool
-            innerObj.transform.SetParent(poolObjs[bgObject.Type]);
-            pools[bgObject.Type].Push(bgObject);
+            pool.Push(bgObject);
+            innerObj.SetActive(false);
         }
     }
 }
