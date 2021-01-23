@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private Animator pauseMenu;
+    [SerializeField] private Animator GameHUD;
     [SerializeField] private EndGame endGame;
     [SerializeField] private GameObject player;
     [SerializeField] private MusicManager musicManager;
@@ -13,6 +14,8 @@ public class PauseManager : MonoBehaviour
         if (pauseMenu.gameObject.activeInHierarchy) return;
 
         currentTimeScale = Time.timeScale;
+        GameHUD.ResetTrigger(TagHolder.HUD_ENTER_TRIGGER);
+        GameHUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
         Time.timeScale = 0f;
         musicManager.Pause();
         pauseMenu.gameObject.SetActive(true);
@@ -21,6 +24,9 @@ public class PauseManager : MonoBehaviour
     public void Resume() {
         if (!pauseMenu.gameObject.activeInHierarchy) return;
 
+        GameHUD.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+        GameHUD.SetTrigger(TagHolder.HUD_ENTER_TRIGGER);
+        
         Time.timeScale = (currentTimeScale != -1) ? currentTimeScale : 1;
         currentTimeScale = -1;
         musicManager.Resume();

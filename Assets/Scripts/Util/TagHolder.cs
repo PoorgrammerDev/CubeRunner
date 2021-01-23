@@ -18,6 +18,7 @@ public class TagHolder
     //Animation Triggers
     public const string PUP_HUD_OPEN_TRIGGER = "Open";
     public const string PUP_HUD_CLOSE_TRIGGER = "Close";
+    public const string HUD_ENTER_TRIGGER = "Enter";
     public const string HUD_EXIT_TRIGGER = "Exit";
 
     //Scenes
