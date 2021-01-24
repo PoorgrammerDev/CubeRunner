@@ -36,9 +36,10 @@ public class Compression : AbstractPowerUp {
         }
 
         //wait
-        for (float i = 0; i < compressionDuration; i+= powerUpManager.TickDuration) {
-            powerUpManager.TopBar.value = 1 - (i / compressionDuration);
-            yield return powerUpManager.Tick;
+        powerUpManager.ticker = compressionDuration;
+        while (powerUpManager.ticker > 0) {
+            powerUpManager.TopBar.value = (powerUpManager.ticker / compressionDuration);
+            yield return null;
         }
         
 

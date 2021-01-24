@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2526,6 +2526,8 @@ MonoBehaviour:
   barMove: {fileID: 620621771}
   audioSource: {fileID: 1768795403}
   pickupPUPSound: {fileID: 8300000, guid: aa96be973fbf7884db2542cd67e99ba8, type: 3}
+  tickRate: 1
+  ticker: 0
   PowerUpHUDAnimator: {fileID: 491121452}
   colorFadeTime: 0
   defaultColor: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 0}
@@ -5896,6 +5898,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e23dd3a4bf6ee4b89755bc7e9931de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1661238482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661238484}
+  - component: {fileID: 1661238483}
+  m_Layer: 0
+  m_Name: DEVOBJECT - DELETE PRIOR TO RELEASE
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1661238483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661238482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e033ace94bb188d44a81415fd0d51a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1661238484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661238482}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1685618695
 GameObject:
   m_ObjectHideFlags: 0
@@ -6809,7 +6854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
-  cooldown: 10
+  cooldown: 0
   powerUpObjects:
   - {fileID: 2095521378}
   - {fileID: 1641208828}
@@ -6937,7 +6982,7 @@ MonoBehaviour:
   scoreTickRate: 2
   gapIncreaseChance: 0.66
   widthScale: 1.65
-  powerUpSpawnChance: 0.1
+  powerUpSpawnChance: 1
   songs:
   - {fileID: 8300000, guid: 99d2f5b47754780418ebf7a5c3153dd9, type: 3}
   - {fileID: 8300000, guid: c4332a8ff123b064b92c7b5f2bd47543, type: 3}

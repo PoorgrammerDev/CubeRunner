@@ -36,7 +36,6 @@ public class GameOverManager : MonoBehaviour
         if (endGameDataExport != null) {
             gameOverScreen.SetActive(true);
             spinningCube.SetActive(false);
-            beam.SetActive(true);
 
             scoreNumber.text = endGameDataExport.FinalScore.ToString();
             highScoreManager.ContestHighScore(endGameDataExport.FinalScore);

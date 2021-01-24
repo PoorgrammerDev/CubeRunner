@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 106370923}
   - component: {fileID: 106370922}
   m_Layer: 0
-  m_Name: MobileTargetFPS
+  m_Name: MobileLaunchSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

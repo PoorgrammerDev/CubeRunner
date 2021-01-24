@@ -49,7 +49,6 @@ public class Beam : MonoBehaviour
         //cubes get sucked up
         for (int i = 0; i < cubeParts.Length; i++) {
             StartCoroutine(SuckUpCube(cubeParts[i], timeToCenter, timetoTop, partScale, i));
-            yield return null;
         }
 
         GameObject finalCubePart = cubeParts[cubeParts.Length - 1];
@@ -67,7 +66,7 @@ public class Beam : MonoBehaviour
         Vector3 targetPosition = new Vector3(0 + (Random.Range(-0.25f, 0.25f)), 1, transform.position.z + (Random.Range(-0.25f, 0.25f)));
         float step = 0f;
         while (step < 1) {
-            step += Time.deltaTime / (timeToCenter + (0.025f * i));
+            step += Time.deltaTime / (timeToCenter + (0.01f * i));
             cubeTransform.position = Vector3.Lerp(currentPosition, targetPosition, step);
             yield return null;
         }

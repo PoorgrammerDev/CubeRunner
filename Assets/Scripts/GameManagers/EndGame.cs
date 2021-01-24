@@ -46,7 +46,6 @@ public class EndGame : MonoBehaviour
         StartCoroutine(DisableGame());
 
         //stop music
-        //StartCoroutine(musicManager.FadeOutAndStop(2));
         musicManager.Pause();
 
         //sfx

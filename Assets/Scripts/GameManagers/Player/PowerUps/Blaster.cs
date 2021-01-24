@@ -17,8 +17,6 @@ public class Blaster : AbstractPowerUp {
     
     private int blasterShotsLeft;
 
-    private float blasterCooldownTracker;
-
     void Start() {
         powerUpManager = GetComponent<PlayerPowerUp>();
     }
@@ -26,9 +24,7 @@ public class Blaster : AbstractPowerUp {
     public void Pickup() {
         blasterShotsLeft = blasterShots;   
         StartCoroutine(barMove.MoveBarAsync(powerUpManager.BottomBar, 1, 4));
-
-        blasterCooldownTracker = 0;
-        StartCoroutine(BlasterCooldown());
+        StartCoroutine(CooldownBar());
     }
 
     public void RefillAmmo() {
@@ -37,11 +33,11 @@ public class Blaster : AbstractPowerUp {
 
 
     public bool ShootBlaster() {
-        if (blasterCooldownTracker <= 0) {
+        if (powerUpManager.ticker <= 0) {
             bool result = false;
             if (blasterShotsLeft > 0) {
                 result = true;
-                blasterCooldownTracker = blasterCooldown;
+                powerUpManager.ticker = blasterCooldown;
 
                 //front posiiton of cube
                 Vector3 position = transform.position;
@@ -95,13 +91,10 @@ public class Blaster : AbstractPowerUp {
         return false;
     }
 
-    public IEnumerator BlasterCooldown() {
+    public IEnumerator CooldownBar() {
         while (powerUpManager.GetActivePowerUp() == PowerUpType.Blaster) {
-            if (blasterCooldownTracker > 0) {
-                blasterCooldownTracker -= powerUpManager.TickDuration;
-                powerUpManager.BottomBar.value = 1f - (blasterCooldownTracker / blasterCooldown);
-            }
-            yield return powerUpManager.Tick;
+            powerUpManager.BottomBar.value = 1f - (powerUpManager.ticker / blasterCooldown);
+            yield return null;
         }
     }
 }

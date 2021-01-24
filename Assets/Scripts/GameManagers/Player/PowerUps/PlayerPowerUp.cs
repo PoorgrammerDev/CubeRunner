@@ -26,11 +26,8 @@ public class PlayerPowerUp : MonoBehaviour
     private Hardened hardened;
 
     [Header("Ticking")]
-    private float tickDuration = 0.01f;
-    public float TickDuration => tickDuration;
-
-    private WaitForSeconds tick;
-    public WaitForSeconds Tick => tick;
+    [SerializeField] private float tickRate;
+    [HideInInspector] public float ticker = 0;
 
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
@@ -63,8 +60,6 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
-
-        tick = new WaitForSeconds(tickDuration);
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -163,15 +158,21 @@ public class PlayerPowerUp : MonoBehaviour
         return null;
     }
     
-    #if UNITY_STANDALONE || UNITY_WEBGL
+    
     void Update() {
         if (!gameValues.GameActive) return;
 
-        if (Input.GetKeyDown(KeyCode.F)) {
-            ClickedPUPUse();
+        if (ticker > 0) {
+            ticker -= tickRate * Time.deltaTime;
         }
+
+        #if UNITY_STANDALONE || UNITY_WEBGL
+            if (Input.GetKeyDown(KeyCode.F)) {
+                ClickedPUPUse();
+            }
+        #endif
     }
-    #endif
+    
 
     public void ClickedPUPUse () {
         if (!gameValues.GameActive) return;
