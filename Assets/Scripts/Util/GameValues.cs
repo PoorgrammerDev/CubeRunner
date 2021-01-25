@@ -10,7 +10,7 @@ public class GameValues : MonoBehaviour {
         difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
 
         //divide value
-        divide = divideValues[PlayerPrefs.GetInt(TagHolder.PREF_PARTICLES, 2)];
+        divide = divideValues[PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 1)];
 
         //set values
         DifficultyValuesHolder difficultyValuesHolder = difficultyValuesHolders[(int) difficulty];

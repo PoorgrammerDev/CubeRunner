@@ -3,19 +3,23 @@ using UnityEngine.UI;
 
 public class Options : MonoBehaviour
 {
-    [SerializeField] private Slider SFXVolume;
-    [SerializeField] private Slider MusicVolume;
-    [SerializeField] private Toggle ColorblindMode;
-    [SerializeField] private Slider Particles;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private SFXVolumeManager[] soundEffectManagers;
+
+    [Header("UI Elements")]
+    [SerializeField] private Slider SFXVolume;
+    [SerializeField] private Slider MusicVolume;
+    [SerializeField] private Toggle ColorblindMode;
+    [SerializeField] private Slider Graphics;
+    [SerializeField] private Toggle SkipAnimations;
 
     void Start() {
         SFXVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, 0.5f);
         MusicVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME, 0.5f);
         ColorblindMode.isOn = (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE, 0) == 1);
-        Particles.value = PlayerPrefs.GetInt(TagHolder.PREF_PARTICLES, 2);
+        Graphics.value = PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 1);
+        SkipAnimations.isOn = (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM, 0) == 1);
     }
 
     public void UpdateSFXVolume() {
@@ -35,10 +39,14 @@ public class Options : MonoBehaviour
         PlayerPrefs.SetInt(TagHolder.PREF_COLORBLIND_MODE, ColorblindMode.isOn ? 1 : 0);
     }
 
-    public void UpdateParticles() {
-        PlayerPrefs.SetInt(TagHolder.PREF_PARTICLES, (int) Particles.value);
+    public void UpdateGraphics() {
+        PlayerPrefs.SetInt(TagHolder.PREF_GRAPHICS, (int) Graphics.value);
         if (gameValues != null) {
-            gameValues.Divide = (uint) Particles.value;
+            gameValues.Divide = (uint) Graphics.value;
         }
+    }
+
+    public void UpdateSkipAnimations() {
+        PlayerPrefs.SetInt(TagHolder.PREF_SKIP_ANIM, SkipAnimations.isOn ? 1 : 0);
     }
 }

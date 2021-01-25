@@ -33,13 +33,24 @@ public class GameOverManager : MonoBehaviour
 
     void Awake() {
         endGameDataExport = FindObjectOfType<EndGameDataExport>();
-        if (endGameDataExport != null) {
+        if (endGameDataExport != null) {            
             gameOverScreen.SetActive(true);
-            spinningCube.SetActive(false);
-
             scoreNumber.text = endGameDataExport.FinalScore.ToString();
             highScoreManager.ContestHighScore(endGameDataExport.FinalScore);
-            StartCoroutine(CubeFormingAnimation());
+
+            //dont call anims and immediately enable delayed objects
+            if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
+                //enable the delayed objects
+                foreach (GameObject delayed in delayedEnable) {
+                    delayed.SetActive(true);
+                }
+            }
+
+            //start animations
+            else {
+                spinningCube.SetActive(false);
+                StartCoroutine(CubeFormingAnimation());
+            }
 
         }
         else {
@@ -57,58 +68,64 @@ public class GameOverManager : MonoBehaviour
 
         //spawn cube bits
         float partScale = 1f / (float) endGameDataExport.CubePartDivide;
-        int parts = (int) endGameDataExport.CubePartDivide * 16;
+        int parts = (int) (endGameDataExport.CubePartDivide * endGameDataExport.CubePartDivide * endGameDataExport.CubePartDivide);
         cubeParts = new GameObject[parts];
         for (int i = 0; i < parts; i++) {
-            cubeParts[i] = cubeGibs.DeployGib(playerPropPrefab, new Vector3(0, spawnYPos - (0.5f * i), cubeGibs.transform.position.z), cubeGibs.transform, partScale, partScale, partScale, true); //spawnCubeGib(playerPropPrefab, new Vector3(0, spawnYPos - (0.5f * i), cubeGibs.transform.position.z), quaternion, cubeGibs.transform, partScale);
+            cubeParts[i] = cubeGibs.DeployGib(playerPropPrefab, new Vector3(0, spawnYPos - (2f * i), cubeGibs.transform.position.z), cubeGibs.transform, partScale, partScale, partScale, true);
             cubeParts[i].GetComponent<Rigidbody>().isKinematic = true;
         }
 
         //cube begins forming
-        StartCoroutine(NewPlayerCubeForm(1, 1f / (2.5f * 16f * endGameDataExport.CubePartDivide)));
+        StartCoroutine(NewPlayerCubeForm(2));
 
         //make cube bits flow into base
-        Vector3 moveUp = new Vector3(0, 0.4f, 0);
-        foreach (GameObject cubePart in cubeParts) {
-            StartCoroutine(cubeRise(cubePart, moveUp));
-            yield return null;
+        for (int i = 0; i < cubeParts.Length; i++) {
+            StartCoroutine(CubeRise(cubeParts[i], cubeParts.Length / 4, i));
         }
     }
 
-    IEnumerator cubeRise(GameObject cubePart, Vector3 riseVector) {
+    IEnumerator CubeRise(GameObject cubePart, float speed, int i) {
         Transform cubePartTransform = cubePart.transform;
-        while (cubePartTransform.localPosition.y < -1.5f) {
-            cubePartTransform.Translate(riseVector, Space.World);
+        Vector3 position = cubePartTransform.localPosition;
+        float origY = position.y;
+
+        float t = 0f;
+        while (t <= 1) {
+            t += (speed * Time.deltaTime) / (0.1f * i);
+            
+            //move position up
+            position.y = Mathf.Lerp(origY, -0.75f, t);
+            cubePartTransform.localPosition = position;
+
             yield return null;
         }
 
         Destroy(cubePart);
     }
 
-    IEnumerator NewPlayerCubeForm (float scale, float speed) {
-        bool hasAlreadyAppeared = false;
+    IEnumerator NewPlayerCubeForm (float speed) {
         Transform scTransform = spinningCube.transform;
-        Vector3 scPosition = scTransform.localPosition; 
-        Vector3 scScale = scTransform.localScale; 
-        for (float i = 0; i < scale; i+= speed) {
-            float yPos = -(scale / 2f) + (i / 2f);
-            scPosition.y = yPos;
-            scTransform.localPosition = scPosition;
+        Vector3 position = scTransform.localPosition; 
+        Vector3 scale = scTransform.localScale; 
+        
+        //cube appears
+        spinningCube.SetActive(true);
+        
+        float t = 0f;
+        while (t <= 1) {
+            t += speed * Time.deltaTime;
+            float change = Mathf.Lerp(0, 1, t);
 
-            scScale.y = i;
-            scTransform.localScale = scScale;
+            //change position, starts at -0.5 and climbs up to 0
+            position.y = -0.5f + (change / 2f);
+            scTransform.localPosition = position;
 
-            if (!hasAlreadyAppeared) {
-                spinningCube.SetActive(true);
-                hasAlreadyAppeared = true;
-            }
+            //change scale, starts at 0 and climbs up to 1
+            scale.y = change;
+            scTransform.localScale = scale;
+
             yield return null;
         }
-
-        scPosition.x = scPosition.y = scPosition.z = 0;
-        scScale.x = scScale.y = scScale.z = scale;
-        scTransform.localPosition = scPosition;
-        scTransform.localScale = scScale;
 
         yield return new WaitForSeconds(0.5f);
         

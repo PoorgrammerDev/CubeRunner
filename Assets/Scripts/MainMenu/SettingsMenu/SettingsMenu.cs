@@ -9,6 +9,7 @@ public class SettingsMenu : MonoBehaviour
     //[SerializeField] private GameObject tutorialMenu;
     [SerializeField] private GameObject aboutMenu;
     [SerializeField] private GameObject creditsMenu;
+    [SerializeField] private ButtonSounds buttonSounds;
 
     public void OpenSettingsMenu () {
         mainMenu.SetActive(false);
@@ -49,6 +50,14 @@ public class SettingsMenu : MonoBehaviour
     public void CloseCreditsMenu() {
         creditsMenu.SetActive(false);
         baseMenu.SetActive(true);
+    }
+
+    public void PlayHoverSound() {
+        buttonSounds.PlayHoverSound();
+    }
+    
+    public void PlayClickSound() {
+        buttonSounds.PlayClickSound();
     }
 
 

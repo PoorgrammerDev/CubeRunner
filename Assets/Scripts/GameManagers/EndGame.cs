@@ -48,11 +48,11 @@ public class EndGame : MonoBehaviour
         //stop music
         musicManager.Pause();
 
-        //sfx
-        genericSFX.clip = deathSound;
-        genericSFX.Play();
-
         if (effects) {
+            //sfx
+            genericSFX.clip = deathSound;
+            genericSFX.Play();
+
             //disable invisible borders
             foreach (GameObject invisibleWall in invisibleWalls) {
                 invisibleWall.SetActive(false);
