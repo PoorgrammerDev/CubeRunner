@@ -43,10 +43,9 @@ public class TagHolder
     public const string HORIZONTAL_AXIS = "Horizontal";
     
     //EXTERNAL LINKS
-    public const string LINK_FEEDBACK = "";
-    public const string LINK_LINKEDIN = "";
-    public const string LINK_WEBSITE = "";
-    public const string LINK_INSTAGRAM = "";
+    public const string LINK_FEEDBACK = "https://forms.gle/XCGzxi4c4e4forrW7";
+    public const string LINK_WEBSITE = "http://cuberunner.infinityfreeapp.com/";
+    public const string LINK_INSTAGRAM = "https://www.instagram.com/cuberunner_/";
 
     //public const string  = "";
     //public const string  = "";

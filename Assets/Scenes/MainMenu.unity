@@ -693,6 +693,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe127c58481e9b4489cbad30db3beb9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mobileDetector: {fileID: 1026908088}
 --- !u!4 &106370923
 Transform:
   m_ObjectHideFlags: 0
@@ -705,7 +706,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &133574953
 PrefabInstance:
@@ -3032,6 +3033,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 994333904}
   m_CullTransparentMesh: 0
+--- !u!1 &1026908087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1026908089}
+  - component: {fileID: 1026908088}
+  m_Layer: 0
+  m_Name: WebGLMobileDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1026908088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026908087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a59834b035a2ca54ca3235a2ade36166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1026908089
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1026908087}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1067481665
 GameObject:
   m_ObjectHideFlags: 0
@@ -4288,7 +4332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -59.99951, y: 64.999756}
+  m_AnchoredPosition: {x: -60, y: 65}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1522029411
@@ -5711,7 +5755,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952781333
 GameObject:
@@ -6190,6 +6234,100 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1189654071}
     m_Modifications:
+    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.050980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048574761001902260, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1048574761001902260, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739706209066370463, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2739706209066370463, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347720418444, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347859689710, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_text
+      value: "Thank you for downloading and playing CubeRunner! This is the first
+        game I\u2019ve ever made, so I\u2019m really new to all of this. If you have
+        any feedback or comments, please feel free to click the Feedback button below
+        to submit a message. Also linked below is the CubeRunner website and Instagram.\nI
+        hope you enjoy the game!\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3979454347974817488, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_RootOrder
@@ -6260,6 +6398,16 @@ PrefabInstance:
       propertyPath: buttonSounds
       value: 
       objectReference: {fileID: 176962722}
+    - target: {fileID: 3979454348100683694, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348181742165, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: musicManager
@@ -6270,6 +6418,36 @@ PrefabInstance:
       propertyPath: soundEffectManagers.Array.data[0]
       value: 
       objectReference: {fileID: 176962724}
+    - target: {fileID: 3979454348902575966, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348902575966, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -225
+      objectReference: {fileID: 0}
+    - target: {fileID: 6116452902948476848, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenInstagram
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652755111515032016, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652755111515032016, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8920565521365896171, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baca89c1b3ed01246b7f73e0a70bf1b2, type: 3}
 --- !u!1001 &6802686289653688871

@@ -18,6 +18,8 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private BarMove barMove;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pickupPUPSound;
+    [SerializeField] private MobileDetector mobileDetector;
+    private bool webglMobile;
     private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
     private AbstractPowerUp ActivePowerUpClass;
     private Blaster blaster;
@@ -65,6 +67,10 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
+
+        #if UNITY_WEBGL
+            webglMobile = mobileDetector.isMobile();
+        #endif
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -179,8 +185,14 @@ public class PlayerPowerUp : MonoBehaviour
             fitterWorkVar = !fitterWorkVar;
         }
 
-        #if UNITY_STANDALONE || UNITY_WEBGL
+        #if UNITY_STANDALONE
             if (Input.GetKeyDown(KeyCode.F)) {
+                ClickedPUPUse();
+            }
+        #endif
+
+        #if UNITY_WEBGL
+            if (!webglMobile && Input.GetKeyDown(KeyCode.F)) {
                 ClickedPUPUse();
             }
         #endif
@@ -194,8 +206,15 @@ public class PlayerPowerUp : MonoBehaviour
             PowerUpType? type = GetActivePowerUp();
             AbstractPowerUp playSound = null;
             
+            //disable power up button if mobile
             #if UNITY_ANDROID || UNITY_IOS
                 bool disableButton = false;
+            #endif
+
+            #if UNITY_WEBGL
+                if (webglMobile) {
+                    bool disableButton = false;
+                }
             #endif
 
             //detect power ups activation
@@ -203,16 +222,30 @@ public class PlayerPowerUp : MonoBehaviour
                 StartCoroutine(timeDilation.RunTimeDilation());
                 playSound = timeDilation;
 
+                //disable power up button if mobile
                 #if UNITY_ANDROID || UNITY_IOS
                     disableButton = true;
+                #endif
+
+                #if UNITY_WEBGL
+                    if (webglMobile) {
+                        bool disableButton = false;
+                    }
                 #endif
             }
             else if (type == PowerUpType.Compress) {
                 StartCoroutine(compression.RunCompression());
                 playSound = compression;
                 
+                //disable power up button if mobile
                 #if UNITY_ANDROID || UNITY_IOS
                     disableButton = true;
+                #endif
+
+                #if UNITY_WEBGL
+                    if (webglMobile) {
+                        bool disableButton = false;
+                    }
                 #endif
             }
             else if (type == PowerUpType.Blaster) {
@@ -221,8 +254,17 @@ public class PlayerPowerUp : MonoBehaviour
                 }
             }
 
+            //disable power up button
             #if UNITY_ANDROID || UNITY_IOS
                 if (disableButton) {
+                    //fade out pup button
+                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
+                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
+                }
+            #endif
+
+            #if UNITY_WEBGL
+                if (webglMobile && disableButton) {
                     //fade out pup button
                     mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
                     mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);

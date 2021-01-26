@@ -7,25 +7,31 @@ public class BackgroundObjects : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private GameObject prefab;
     [SerializeField] private int poolAmount;
-    [SerializeField] private int startingAmt;
     [SerializeField] private float maxRot;
 
     private Stack<BGObject> pool;
     private Quaternion defaultRot = new Quaternion();
     private WaitForSeconds wait = new WaitForSeconds(0.25f);
     private WaitForSeconds wait2 = new WaitForSeconds(0.01f);
+    private int adjustedPoolAmount;
 
     // Start is called before the first frame update
     void Start() {
         pool = new Stack<BGObject>();
-        AddPartsToPool(poolAmount);
+
+        adjustedPoolAmount = poolAmount * PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 2);
+        if (adjustedPoolAmount > 0) {
+            AddPartsToPool(adjustedPoolAmount);
+        }
     }
 
     public void Initialize() {
-        for (int i = 0; i < startingAmt - 1; i++) {
-            StartCoroutine(Deploy(true));
+        if (adjustedPoolAmount > 0) {
+            for (int i = 0; i < (adjustedPoolAmount / 2) - 1; i++) {
+                StartCoroutine(Deploy(true));
+            }
+            StartCoroutine(DeployMechanism());
         }
-        StartCoroutine(DeployMechanism());
     }
 
     void AddPartsToPool (int num) {
