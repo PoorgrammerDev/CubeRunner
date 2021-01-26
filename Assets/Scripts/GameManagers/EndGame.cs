@@ -9,8 +9,6 @@ public class EndGame : MonoBehaviour
 {
     [SerializeField] private GameObject activePlayer;
 
-    [SerializeField] private GameObject playerPrefab;
-
     [SerializeField] private Beam beam;
     [SerializeField] private Treadmill treadmill;
 
@@ -24,6 +22,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private PlayerPowerUp playerPowerUp;
     [SerializeField] private TimeDilation timeDilation;
     [SerializeField] private Animator HUD;
+    [SerializeField] private Animator NextPUPHUD;
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private AudioSource genericSFX;
     [SerializeField] private AudioClip deathSound;
@@ -41,6 +40,7 @@ public class EndGame : MonoBehaviour
 
         //remove hud
         HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+        NextPUPHUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
         
         //Disable movement, etc.
         StartCoroutine(DisableGame());

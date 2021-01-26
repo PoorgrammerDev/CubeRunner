@@ -31,6 +31,9 @@ public class PlayerPowerUp : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
+    private AspectRatioFitter PUPHUDXYFitter;
+    private bool aspectFitterWorking = false;
+    private bool fitterWorkVar = false;
     [SerializeField] private float colorFadeTime;
     [SerializeField] private Color defaultColor;
     [SerializeField] private Image outline;
@@ -54,6 +57,8 @@ public class PlayerPowerUp : MonoBehaviour
         timeDilation = GetComponent<TimeDilation>();
         compression = GetComponent<Compression>();
         hardened = GetComponent<Hardened>();
+
+        PUPHUDXYFitter = PowerUpHUDAnimator.GetComponent<AspectRatioFitter>();
 
         PowerUpTypeToClass = new Dictionary<PowerUpType, AbstractPowerUp>();
         PowerUpTypeToClass.Add(PowerUpType.Blaster, blaster);
@@ -87,6 +92,7 @@ public class PlayerPowerUp : MonoBehaviour
                 //open bar
                 PowerUpHUDAnimator.ResetTrigger(TagHolder.PUP_HUD_CLOSE_TRIGGER);
                 PowerUpHUDAnimator.SetTrigger(TagHolder.PUP_HUD_OPEN_TRIGGER);
+                StartCoroutine(TogglePUPHUD(true));
 
                 StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4)); //fill up top bar
 
@@ -129,6 +135,7 @@ public class PlayerPowerUp : MonoBehaviour
             //close bar
             PowerUpHUDAnimator.ResetTrigger(TagHolder.PUP_HUD_OPEN_TRIGGER);
             PowerUpHUDAnimator.SetTrigger(TagHolder.PUP_HUD_CLOSE_TRIGGER);
+            StartCoroutine(TogglePUPHUD(false));
 
             #if UNITY_ANDROID || UNITY_IOS
                 //fade out pup button
@@ -164,6 +171,12 @@ public class PlayerPowerUp : MonoBehaviour
 
         if (ticker > 0) {
             ticker -= tickRate * Time.deltaTime;
+        }
+
+        //THIS IS A HACKY WORKAROUND
+        if (aspectFitterWorking) {
+            PUPHUDXYFitter.enabled = fitterWorkVar;
+            fitterWorkVar = !fitterWorkVar;
         }
 
         #if UNITY_STANDALONE || UNITY_WEBGL
@@ -231,5 +244,16 @@ public class PlayerPowerUp : MonoBehaviour
         PUPIconBG.CrossFadeColor(color, duration, true, false);
         topBarFill.CrossFadeColor(color, duration, true, false);
         bottomBarFill.CrossFadeColor(color, duration, true, false);
+    }
+
+    IEnumerator TogglePUPHUD(bool open) {
+        float t = 0f;
+        aspectFitterWorking = true;
+        while (t <= 1) {
+            t += 2.5f * Time.deltaTime;
+            PUPHUDXYFitter.aspectRatio = open ?  Mathf.Lerp(1, 4, t) : Mathf.Lerp(4, 1, t);
+            yield return null;
+        }
+        aspectFitterWorking = false;
     }
 }

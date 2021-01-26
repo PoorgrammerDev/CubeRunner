@@ -18,7 +18,7 @@ public class Options : MonoBehaviour
         SFXVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, 0.5f);
         MusicVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME, 0.5f);
         ColorblindMode.isOn = (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE, 0) == 1);
-        Graphics.value = PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 1);
+        Graphics.value = PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 2);
         SkipAnimations.isOn = (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM, 0) == 1);
     }
 

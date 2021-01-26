@@ -30,46 +30,51 @@ public class StartGame : MonoBehaviour
     }
 
     public void Click() {
-        //check for active panel
-        foreach (PanelObjectHolder panel in panels) {
-            if (panel.gameObject.activeInHierarchy) {
-                this.panel = panel;
-                break;
-            }
+        //disables all buttons
+        foreach (Button button in buttons) {
+            button.interactable = false;
         }
 
         Time.timeScale = 1f;
         renderer.material = glowingMaterial;
         menuScale.Active = false;
 
-        //disables all buttons
-        foreach (Button button in buttons) {
-            button.interactable = false;
+        if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
+            SceneManager.LoadScene(TagHolder.GAME_SCENE, LoadSceneMode.Single);
         }
+        else {
+            //check for active panel
+            foreach (PanelObjectHolder panel in panels) {
+                if (panel.gameObject.activeInHierarchy) {
+                    this.panel = panel;
+                    break;
+                }
+            }
 
-        //begins loading new scene in background
-        StartCoroutine(LoadScene());
-        
-        //removes other menu elements from screen
-        panel.MoveOut();
+            //begins loading new scene in background
+            StartCoroutine(LoadScene());
 
-        //music fades out
-        StartCoroutine(musicManager.FadeOutAndStop(0.5f));
+            //removes other menu elements from screen
+            panel.MoveOut();
 
-        //removes platform
-        platform.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);
+            //music fades out
+            StartCoroutine(musicManager.FadeOutAndStop(0.5f));
 
-        //cube stop
-        spinManager.stopAtStraight();
+            //removes platform
+            platform.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);
 
-        //cube moves closer
-        StartCoroutine(CubeMovesCloser());
+            //cube stop
+            spinManager.stopAtStraight();
 
-        //camera moves up
-        Animator mainCamAnim = Camera.main.GetComponent<Animator>();
-        mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
+            //cube moves closer
+            StartCoroutine(CubeMovesCloser());
 
-        //scene switching is handled by the animation event on the camera
+            //camera moves up
+            Animator mainCamAnim = Camera.main.GetComponent<Animator>();
+            mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
+
+            //scene switching is handled by the animation event on the camera
+        }
     }
 
     IEnumerator CubeMovesCloser() {

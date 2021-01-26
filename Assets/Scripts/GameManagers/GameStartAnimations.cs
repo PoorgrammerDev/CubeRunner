@@ -20,12 +20,21 @@ public class GameStartAnimations : MonoBehaviour
     }
 
     IEnumerator StartingAnim() {
-        //Start Treadmill (Also activates Game and spawns in cubes at the end)
-        StartCoroutine(ActivateTreadmill());
+        if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
+            treadmill.transform.position = Vector3.zero;
+            treadmill.active = true;
+            
+            sun.SetActive(true);
+            StartGame();
+        }
+        else {
+            //Start Treadmill (Also activates Game and spawns in cubes at the end)
+            StartCoroutine(ActivateTreadmill());
 
-        //Sun fades in
-        yield return new WaitForSeconds(1);
-        sun.SetActive(true);
+            //Sun fades in
+            yield return new WaitForSeconds(1);
+            sun.SetActive(true);
+        }
     }
 
     IEnumerator ActivateTreadmill() {
@@ -43,11 +52,14 @@ public class GameStartAnimations : MonoBehaviour
 
         //start the game
         yield return new WaitForSeconds(1);
+        StartGame();
+    }
+
+    void StartGame() {
         cubeSpawner.InitialSpawn();
         backgroundObjects.Initialize();
         gameValues.GameActive = true;
         HUD.SetActive(true);
     }
-
     
 }
