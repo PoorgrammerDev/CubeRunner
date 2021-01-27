@@ -117,6 +117,14 @@ public class PlayerPowerUp : MonoBehaviour
                     }
                 #endif
 
+                #if UNITY_WEBGL
+                    if (webglMobile && type != PowerUpType.Hardened) {
+                        //fade in pup button
+                        mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
+                        mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
+                    }
+                #endif
+
                 //change icon
                 PUPIcon.enabled = true;
                 PUPIcon.sprite = ActivePowerUpClass.Sprite;
@@ -149,6 +157,14 @@ public class PlayerPowerUp : MonoBehaviour
                 mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
             #endif
 
+            #if UNITY_WEBGL
+                if (webglMobile) {
+                    //fade out pup button
+                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
+                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
+                }
+            #endif
+
             //update bar
             ChangeUIColor(defaultColor, colorFadeTime);
             StartCoroutine(barMove.MoveBarAsync(topBar, 0, 4));
@@ -177,6 +193,22 @@ public class PlayerPowerUp : MonoBehaviour
 
         if (ticker > 0) {
             ticker -= tickRate * Time.deltaTime;
+
+            #if UNITY_ANDROID || UNITY_IOS
+                if (ticker < 0 && GetActivePowerUp() == PowerUpType.Blaster) {
+                    //fade in pup button
+                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
+                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
+                }
+            #endif
+
+            #if UNITY_WEBGL
+                if (webglMobile && ticker < 0 && GetActivePowerUp() == PowerUpType.Blaster) {
+                    //fade in pup button
+                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
+                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
+                }
+            #endif
         }
 
         //THIS IS A HACKY WORKAROUND
@@ -252,6 +284,17 @@ public class PlayerPowerUp : MonoBehaviour
                 if (blaster.ShootBlaster()) {
                     playSound = blaster;
                 }
+
+                //disable power up button if mobile
+                #if UNITY_ANDROID || UNITY_IOS
+                    disableButton = true;
+                #endif
+
+                #if UNITY_WEBGL
+                    if (webglMobile) {
+                        bool disableButton = false;
+                    }
+                #endif
             }
 
             //disable power up button
