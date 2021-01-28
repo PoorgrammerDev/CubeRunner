@@ -12,6 +12,7 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuScreen;
 
     [SerializeField] private TextMeshProUGUI scoreNumber;
+    [SerializeField] private Animator highScore;
 
     [SerializeField] private GameObject beam; 
 
@@ -36,7 +37,11 @@ public class GameOverManager : MonoBehaviour
         if (endGameDataExport != null) {            
             gameOverScreen.SetActive(true);
             scoreNumber.text = endGameDataExport.FinalScore.ToString();
-            highScoreManager.ContestHighScore(endGameDataExport.FinalScore);
+            
+            //check high score and play effect if new score is higher
+            if (highScoreManager.ContestHighScore(endGameDataExport.FinalScore)) {
+                highScore.SetTrigger(TagHolder.ANIM_HIGH_SCORE_SUCCESS);
+            }
 
             //dont call anims and immediately enable delayed objects
             if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {

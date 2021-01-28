@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1448,10 +1448,10 @@ MonoBehaviour:
   forwardSpeed: 8.5
   strafingSpeed: 8.5
   rowDistMultLowerBound: 1.25
-  rowDistMultUpperBound: 1.5
-  scoreTickRate: 3
+  rowDistMultUpperBound: 1.45
   gapIncreaseChance: 0.5
-  widthScale: 1.5
+  widthScale: 1.65
+  scoreTickRate: 4
   powerUpSpawnChance: 0.05
   songs:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
@@ -1920,6 +1920,8 @@ MonoBehaviour:
   - {fileID: 404304790}
   - {fileID: 804833837}
   gameActive: 0
+  forwardSpeed: 0
+  strafingSpeed: 0
   divideValues: 000000000200000004000000
 --- !u!4 &573723475
 Transform:
@@ -2902,9 +2904,9 @@ MonoBehaviour:
   strafingSpeed: 10
   rowDistMultLowerBound: 1.2
   rowDistMultUpperBound: 1.4
+  gapIncreaseChance: 0.375
+  widthScale: 1.6
   scoreTickRate: 5
-  gapIncreaseChance: 0.25
-  widthScale: 1.25
   powerUpSpawnChance: 0.025
   songs:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
@@ -6224,13 +6226,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 0
   maxForwardSpeed: 15
-  forwardSpeed: 6.5
-  strafingSpeed: 6.5
-  rowDistMultLowerBound: 1.45
-  rowDistMultUpperBound: 1.5
-  scoreTickRate: 1
+  forwardSpeed: 7
+  strafingSpeed: 7
+  rowDistMultLowerBound: 1.35
+  rowDistMultUpperBound: 1.45
   gapIncreaseChance: 0.75
   widthScale: 2
+  scoreTickRate: 2
   powerUpSpawnChance: 0.15
   songs:
   - {fileID: 8300000, guid: 99d2f5b47754780418ebf7a5c3153dd9, type: 3}
@@ -6580,7 +6582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
-  cooldown: 0
+  cooldown: 10
   powerUpObjects:
   - {fileID: 2095521378}
   - {fileID: 1641208828}
@@ -6701,14 +6703,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficulty: 1
   maxForwardSpeed: 20
-  forwardSpeed: 7
-  strafingSpeed: 7
+  forwardSpeed: 7.5
+  strafingSpeed: 7.5
   rowDistMultLowerBound: 1.25
-  rowDistMultUpperBound: 1.5
-  scoreTickRate: 2
-  gapIncreaseChance: 0.66
-  widthScale: 1.65
-  powerUpSpawnChance: 1
+  rowDistMultUpperBound: 1.45
+  gapIncreaseChance: 0.625
+  widthScale: 1.75
+  scoreTickRate: 3
+  powerUpSpawnChance: 0.1
   songs:
   - {fileID: 8300000, guid: 99d2f5b47754780418ebf7a5c3153dd9, type: 3}
   - {fileID: 8300000, guid: c4332a8ff123b064b92c7b5f2bd47543, type: 3}

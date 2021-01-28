@@ -706,7 +706,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &133574953
 PrefabInstance:
@@ -3074,7 +3074,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1067481665
 GameObject:
@@ -3781,6 +3781,7 @@ GameObject:
   - component: {fileID: 1252562198}
   - component: {fileID: 1252562200}
   - component: {fileID: 1252562199}
+  - component: {fileID: 1252562201}
   m_Layer: 5
   m_Name: HighScore
   m_TagString: Untagged
@@ -3847,6 +3848,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1252562197}
   m_CullTransparentMesh: 0
+--- !u!95 &1252562201
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252562197}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3d2975f80d0c98428a370516f0a7814, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1266333011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4134,6 +4154,7 @@ MonoBehaviour:
   gameOverScreen: {fileID: 600306653}
   mainMenuScreen: {fileID: 745310534}
   scoreNumber: {fileID: 994333906}
+  highScore: {fileID: 1252562201}
   beam: {fileID: 1743910582}
   spinningCube: {fileID: 2119642130}
   playerPropPrefab: {fileID: 3625991710297185765, guid: f9da759b440136b4896dca009b16dc55,
@@ -5755,7 +5776,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952781333
 GameObject:
@@ -6413,6 +6434,11 @@ PrefabInstance:
       propertyPath: musicManager
       value: 
       objectReference: {fileID: 1067481667}
+    - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: soundEffectManagers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: soundEffectManagers.Array.data[0]
