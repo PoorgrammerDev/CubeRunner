@@ -238,16 +238,8 @@ public class PlayerPowerUp : MonoBehaviour
             PowerUpType? type = GetActivePowerUp();
             AbstractPowerUp playSound = null;
             
-            //disable power up button if mobile
-            #if UNITY_ANDROID || UNITY_IOS
-                bool disableButton = false;
-            #endif
-
-            #if UNITY_WEBGL
-                if (webglMobile) {
-                    bool disableButton = false;
-                }
-            #endif
+            //disable mobile power up button
+            bool disableButton = false;
 
             //detect power ups activation
             if (type == PowerUpType.TimeDilation) {
@@ -261,7 +253,7 @@ public class PlayerPowerUp : MonoBehaviour
 
                 #if UNITY_WEBGL
                     if (webglMobile) {
-                        bool disableButton = false;
+                        disableButton = true;
                     }
                 #endif
             }
@@ -276,7 +268,7 @@ public class PlayerPowerUp : MonoBehaviour
 
                 #if UNITY_WEBGL
                     if (webglMobile) {
-                        bool disableButton = false;
+                        disableButton = true;
                     }
                 #endif
             }
@@ -292,7 +284,7 @@ public class PlayerPowerUp : MonoBehaviour
 
                 #if UNITY_WEBGL
                     if (webglMobile) {
-                        bool disableButton = false;
+                        disableButton = true;
                     }
                 #endif
             }

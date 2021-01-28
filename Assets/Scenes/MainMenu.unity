@@ -6295,6 +6295,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.90000004
+      objectReference: {fileID: 0}
     - target: {fileID: 3979454347720418444, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_IsActive
@@ -6419,12 +6434,37 @@ PrefabInstance:
       propertyPath: buttonSounds
       value: 
       objectReference: {fileID: 176962722}
+    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348057631395, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_ShowMaskGraphic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3979454348100683694, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3979454348181742165, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3979454348369718974, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_IsActive
       value: 0
