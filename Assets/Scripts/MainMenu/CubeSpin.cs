@@ -1,59 +1,36 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 /// <summary>
 /// This class handles the Spinning Cube in the Main Menu.
 /// </summary>
 public class CubeSpin : MonoBehaviour
 {
-    [SerializeField] private bool active = true;
-    public bool Active {get => active; set => active = value;}
-
-    [SerializeField] private bool triggerStopAtStraight = false;
-    [SerializeField] private float spinSpeed = 0.5f;
-
+    [SerializeField] private int spinSpeed;
+    private bool active = true;
+    
     // Update is called once per frame
     void Update() {
-        if (active) {
-            Quaternion rotation = transform.localRotation;
-            Vector3 eulerAngles = rotation.eulerAngles;
-            if (triggerStopAtStraight && (int) eulerAngles.y % 90 == 0) {
-                triggerStopAtStraight = false;
-                active = false;
+        if (active) transform.Rotate(new Vector3(0, spinSpeed * Time.deltaTime, 0), Space.Self);
+    }
 
-                eulerAngles.y = (int) eulerAngles.y;
-                rotation.eulerAngles = eulerAngles;
-                transform.localRotation = rotation;
-                return;
-            }
+    public IEnumerator StopAtStraight() {
+        active = false;
 
-            transform.Rotate(new Vector3(0, spinSpeed, 0), Space.Self);
+        float t = 0f;
+        Quaternion rotation = transform.localRotation;
+        Vector3 eulerAngles = rotation.eulerAngles;
+
+        float startY = eulerAngles.y;
+        float endY = (startY % 90 != 0) ? startY + (90 - startY % 90) : startY; //finds next multiple of 90
+
+        while (t <= 1) {
+            t += 2f * Time.deltaTime;
+            eulerAngles.y = Mathf.Lerp(startY, endY, t);
+
+            rotation.eulerAngles = eulerAngles;
+            transform.localRotation = rotation;
+            yield return null;
         }
     }
-
-    public void stopAtStraight() {
-        triggerStopAtStraight = true;
-    }
-
-    /* NOTE: couldn't get this to work, just using scheduled stop w/o slowdown for the time being
-    public IEnumerator slowDownAndStop(int slowingRate, float delay) {
-        stopAtStraight();
-        float rotUntilNextStraight = 90 - (transform.localEulerAngles.y % 90);
-        print(rotUntilNextStraight);
-
-        do {
-            if (rotUntilNextStraight < 15) {
-                float spinSpeedClone = spinSpeed;
-                spinSpeedClone /= (float) slowingRate;
-
-                if (spinSpeedClone > 0) {
-                    spinSpeed = spinSpeedClone;
-                }
-                yield return null;
-            }
-
-            yield return null;
-        } while (active);
-        yield break;
-    }
-    */
 }

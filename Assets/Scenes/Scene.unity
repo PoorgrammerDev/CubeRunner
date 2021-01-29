@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1920,8 +1920,6 @@ MonoBehaviour:
   - {fileID: 404304790}
   - {fileID: 804833837}
   gameActive: 0
-  forwardSpeed: 0
-  strafingSpeed: 0
   divideValues: 000000000200000004000000
 --- !u!4 &573723475
 Transform:
@@ -2384,7 +2382,7 @@ PositionConstraint:
   m_TranslationAtRest: {x: 0, y: 0.6, z: 0}
   m_TranslationOffset: {x: 0, y: 0.6, z: 0}
   m_AffectTranslationX: 1
-  m_AffectTranslationY: 0
+  m_AffectTranslationY: 1
   m_AffectTranslationZ: 0
   m_IsContraintActive: 1
   m_IsLocked: 1
@@ -7234,7 +7232,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.14827341, g: 0.20738429, b: 0.46226418, a: 0}
+  m_BackGroundColor: {r: 0.11372549, g: 0.15686275, b: 0.3529412, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

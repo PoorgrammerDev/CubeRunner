@@ -32,6 +32,7 @@ public class TagHolder
     public const string GIBS_TAG = "Gibs";
     
     //PlayerPref Keys
+    public const string PREF_HAS_ACCEPTED_EULA = "HasAcceptedEULA";
     public const string PREF_HIGH_SCORE = "HighScore";
     public const string PREF_DIFFICULTY = "Difficulty";
     public const string PREF_SFX_VOLUME = "SFX_VOLUME";

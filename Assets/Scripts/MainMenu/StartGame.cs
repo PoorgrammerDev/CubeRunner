@@ -64,7 +64,7 @@ public class StartGame : MonoBehaviour
             platform.GetComponent<Animator>().Play(TagHolder.ANIM_FADE_OUT);
 
             //cube stop
-            spinManager.stopAtStraight();
+            StartCoroutine(spinManager.StopAtStraight());
 
             //cube moves closer
             StartCoroutine(CubeMovesCloser());
