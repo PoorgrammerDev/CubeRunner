@@ -73,7 +73,6 @@
      <Compile Include="Assets\Scripts\MainMenu\SettingsMenu\SettingsMenu.cs" />
      <Compile Include="Assets\Scripts\MainMenu\StartGame.cs" />
      <Compile Include="Assets\Scripts\MainMenu\TutorialMenu.cs" />
-     <Compile Include="Assets\Scripts\MobileLaunchSettings.cs" />
      <Compile Include="Assets\Scripts\Util\AnimationDisappear.cs" />
      <Compile Include="Assets\Scripts\Util\BGObject.cs" />
      <Compile Include="Assets\Scripts\Util\BarMove.cs" />

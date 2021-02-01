@@ -664,50 +664,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &106370921
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 106370923}
-  - component: {fileID: 106370922}
-  m_Layer: 0
-  m_Name: MobileLaunchSettings
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &106370922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106370921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe127c58481e9b4489cbad30db3beb9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mobileDetector: {fileID: 1026908088}
---- !u!4 &106370923
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106370921}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &133574953
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2138,26 +2094,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425465062}
   m_CullTransparentMesh: 0
---- !u!1 &426503076 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3979454348533620217, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 3979454347292312604}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &426503081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426503076}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!1 &490909360
 GameObject:
   m_ObjectHideFlags: 0
@@ -4234,51 +4170,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844301195}
   m_CullTransparentMesh: 0
---- !u!1 &882707798 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3979454347911097405, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-    type: 3}
-  m_PrefabInstance: {fileID: 3979454347292312604}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &882707800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882707798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
---- !u!114 &882707801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 882707798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalFit: 0
-  m_VerticalFit: 2
 --- !u!1 &911263572
 GameObject:
   m_ObjectHideFlags: 0
@@ -4754,7 +4645,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1067481665
 GameObject:
@@ -8866,114 +8757,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1189654071}
     m_Modifications:
-    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.050980393
-      objectReference: {fileID: 0}
-    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 747576428410859064, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1048574761001902260, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 1048574761001902260, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -375
-      objectReference: {fileID: 0}
-    - target: {fileID: 2739706209066370463, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 2739706209066370463, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347163555222, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.90000004
-      objectReference: {fileID: 0}
     - target: {fileID: 3979454347720418444, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3979454347859689710, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_lineSpacing
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -40
+      propertyPath: m_wordSpacing
+      value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -40
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940245, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
+    - target: {fileID: 3979454347911097406, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_text
-      value: "Thank you for downloading and playing CubeRunner! This is the first
-        game I\u2019ve ever made, so I\u2019m really new to all of this. If you have
-        any feedback or comments, please feel free to click the Feedback button below
-        to submit a message. Also linked below is the CubeRunner website and Instagram.\nI
-        hope you enjoy the game!\r"
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_fontStyle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_VerticalAlignment
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_HorizontalAlignment
-      value: 1
+      value: -0.000046913097
       objectReference: {fileID: 0}
     - target: {fileID: 3979454347974817488, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
@@ -9045,80 +8847,10 @@ PrefabInstance:
       propertyPath: buttonSounds
       value: 
       objectReference: {fileID: 176962722}
-    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348057631394, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -17
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348057631395, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_ShowMaskGraphic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348100683694, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3979454348181742165, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348369718974, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 603
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 7485
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 316.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348533620218, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -3757.5
       objectReference: {fileID: 0}
     - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
@@ -9127,44 +8859,9 @@ PrefabInstance:
       objectReference: {fileID: 1067481667}
     - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
-      propertyPath: soundEffectManagers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
       propertyPath: soundEffectManagers.Array.data[0]
       value: 
       objectReference: {fileID: 176962724}
-    - target: {fileID: 3979454348902575966, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 625
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454348902575966, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -225
-      objectReference: {fileID: 0}
-    - target: {fileID: 6116452902948476848, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenInstagram
-      objectReference: {fileID: 0}
-    - target: {fileID: 6652755111515032016, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 6652755111515032016, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -375
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920565521365896171, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baca89c1b3ed01246b7f73e0a70bf1b2, type: 3}
 --- !u!1001 &6802686289653688871
