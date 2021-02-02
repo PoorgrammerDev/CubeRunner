@@ -2218,7 +2218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
-  mobileDetector: {fileID: 1288876520}
   mobileControls: {fileID: 476657196}
   gravity: 9.81
 --- !u!114 &686139433
@@ -2257,7 +2256,6 @@ MonoBehaviour:
   barMove: {fileID: 620621771}
   audioSource: {fileID: 1768795403}
   pickupPUPSound: {fileID: 8300000, guid: aa96be973fbf7884db2542cd67e99ba8, type: 3}
-  mobileDetector: {fileID: 1288876520}
   tickRate: 1
   ticker: 0
   PowerUpHUDAnimator: {fileID: 491121452}
@@ -4615,49 +4613,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1268258262}
   m_CullTransparentMesh: 0
---- !u!1 &1288876519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1288876521}
-  - component: {fileID: 1288876520}
-  m_Layer: 0
-  m_Name: WebGLMobileDetector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1288876520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288876519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a59834b035a2ca54ca3235a2ade36166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1288876521
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1288876519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 23
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1344376375
 GameObject:
   m_ObjectHideFlags: 0

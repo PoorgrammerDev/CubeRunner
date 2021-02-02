@@ -18,8 +18,6 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private BarMove barMove;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip pickupPUPSound;
-    [SerializeField] private MobileDetector mobileDetector;
-    private bool webglMobile;
     private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
     private AbstractPowerUp ActivePowerUpClass;
     private Blaster blaster;
@@ -67,10 +65,6 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
-
-        #if UNITY_WEBGL
-            webglMobile = mobileDetector.isMobile();
-        #endif
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -117,14 +111,6 @@ public class PlayerPowerUp : MonoBehaviour
                     }
                 #endif
 
-                #if UNITY_WEBGL
-                    if (webglMobile && type != PowerUpType.Hardened) {
-                        //fade in pup button
-                        mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
-                        mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
-                    }
-                #endif
-
                 //change icon
                 PUPIcon.enabled = true;
                 PUPIcon.sprite = ActivePowerUpClass.Sprite;
@@ -155,14 +141,6 @@ public class PlayerPowerUp : MonoBehaviour
                 //fade out pup button
                 mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
                 mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
-            #endif
-
-            #if UNITY_WEBGL
-                if (webglMobile) {
-                    //fade out pup button
-                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
-                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
-                }
             #endif
 
             //update bar
@@ -201,14 +179,6 @@ public class PlayerPowerUp : MonoBehaviour
                     mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
                 }
             #endif
-
-            #if UNITY_WEBGL
-                if (webglMobile && ticker < 0 && GetActivePowerUp() == PowerUpType.Blaster) {
-                    //fade in pup button
-                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_OUT);
-                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_IN);
-                }
-            #endif
         }
 
         //THIS IS A HACKY WORKAROUND
@@ -217,14 +187,8 @@ public class PlayerPowerUp : MonoBehaviour
             fitterWorkVar = !fitterWorkVar;
         }
 
-        #if UNITY_STANDALONE
+        #if UNITY_STANDALONE || UNITY_WEBGL
             if (Input.GetKeyDown(KeyCode.F)) {
-                ClickedPUPUse();
-            }
-        #endif
-
-        #if UNITY_WEBGL
-            if (!webglMobile && Input.GetKeyDown(KeyCode.F)) {
                 ClickedPUPUse();
             }
         #endif
@@ -250,12 +214,6 @@ public class PlayerPowerUp : MonoBehaviour
                 #if UNITY_ANDROID || UNITY_IOS
                     disableButton = true;
                 #endif
-
-                #if UNITY_WEBGL
-                    if (webglMobile) {
-                        disableButton = true;
-                    }
-                #endif
             }
             else if (type == PowerUpType.Compress) {
                 StartCoroutine(compression.RunCompression());
@@ -264,12 +222,6 @@ public class PlayerPowerUp : MonoBehaviour
                 //disable power up button if mobile
                 #if UNITY_ANDROID || UNITY_IOS
                     disableButton = true;
-                #endif
-
-                #if UNITY_WEBGL
-                    if (webglMobile) {
-                        disableButton = true;
-                    }
                 #endif
             }
             else if (type == PowerUpType.Blaster) {
@@ -281,12 +233,6 @@ public class PlayerPowerUp : MonoBehaviour
                 #if UNITY_ANDROID || UNITY_IOS
                     disableButton = true;
                 #endif
-
-                #if UNITY_WEBGL
-                    if (webglMobile) {
-                        disableButton = true;
-                    }
-                #endif
             }
 
             //disable power up button
@@ -297,15 +243,6 @@ public class PlayerPowerUp : MonoBehaviour
                     mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
                 }
             #endif
-
-            #if UNITY_WEBGL
-                if (webglMobile && disableButton) {
-                    //fade out pup button
-                    mobilePUPButton.ResetTrigger(TagHolder.ANIM_FADE_IN);
-                    mobilePUPButton.SetTrigger(TagHolder.ANIM_FADE_OUT);
-                }
-            #endif
-
 
             //playing sound
             if (playSound != null) {
