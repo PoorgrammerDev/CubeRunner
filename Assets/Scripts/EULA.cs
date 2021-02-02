@@ -12,11 +12,13 @@ public class EULA : MonoBehaviour
 
     // Start is called before the first frame update
     void Start() {
-        if (PlayerPrefs.GetInt(TagHolder.PREF_HAS_ACCEPTED_EULA) == 1) return;
-
-        mainMenu.SetActive(false);
-        eulaPanel.SetActive(true);
-        eulaText.text = eulaTextAsset.text;
+        #if UNITY_WEBGL || UNITY_IOS || UNITY_ANDROID
+            if (PlayerPrefs.GetInt(TagHolder.PREF_HAS_ACCEPTED_EULA) == 1) return;
+    
+            mainMenu.SetActive(false);
+            eulaPanel.SetActive(true);
+            eulaText.text = eulaTextAsset.text;
+        #endif
     }
 
     public void Accept() {
