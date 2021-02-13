@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -9,9 +10,24 @@ public class PauseManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private MusicManager musicManager;
 
+    [SerializeField] private Button pauseButton;
+
     public bool paused = false;
 
     private float currentTimeScale = -1;
+
+    //escape button for pause/unpause
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (paused) {
+                if (pauseMenu.gameObject.activeInHierarchy) Resume();
+            }
+            else if (pauseButton.interactable) {
+                Pause();
+            }
+        }
+    }
+
     public void Pause() {
         if (pauseMenu.gameObject.activeInHierarchy) return;
 

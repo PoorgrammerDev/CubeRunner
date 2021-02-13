@@ -40,7 +40,7 @@ public class EndGame : MonoBehaviour
 
         //remove hud
         HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
-        NextPUPHUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+        if (NextPUPHUD.gameObject.activeInHierarchy) NextPUPHUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
         
         //Disable movement, etc.
         StartCoroutine(DisableGame());

@@ -8646,6 +8646,9 @@ MonoBehaviour:
   - {fileID: 733673522}
   - {fileID: 1522029411}
   musicManager: {fileID: 1067481667}
+  startGameButtons:
+  - {fileID: 12124418}
+  - {fileID: 733673522}
 --- !u!23 &2119642135
 MeshRenderer:
   m_ObjectHideFlags: 0
