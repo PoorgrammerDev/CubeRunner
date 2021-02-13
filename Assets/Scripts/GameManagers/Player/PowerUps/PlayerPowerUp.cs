@@ -203,7 +203,9 @@ public class PlayerPowerUp : MonoBehaviour
             AbstractPowerUp playSound = null;
             
             //disable mobile power up button
-            bool disableButton = false;
+            #if UNITY_ANDROID || UNITY_IOS
+                bool disableButton = false;
+            #endif
 
             //detect power ups activation
             if (type == PowerUpType.TimeDilation) {

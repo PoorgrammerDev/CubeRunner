@@ -12,4 +12,6 @@ public class Hardened : AbstractPowerUp
         audioSource.time = SoundStartTimes[0];
         audioSource.Play();
     }
+
+    //NOTE: The actual shield mechanism is handled in PlayerCollision.cs
 }

@@ -15,6 +15,8 @@ public class PlayerCollision : MonoBehaviour
     private Hardened hardenedPUP;
     private new Collider collider;
 
+    public LayerMask obstacleLayer;
+
     void Start() {
         playerPowerUp = GetComponent<PlayerPowerUp>();
         collider = GetComponent<Collider>();
@@ -26,7 +28,7 @@ public class PlayerCollision : MonoBehaviour
         if (otherObject != gameObject) {
             if (otherObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
                 if (otherObject.transform.position.x > 0) {
-                    collideWithObstacle(other);
+                    CollideWithObstacle();
                 }
             }
             else if (otherObject.CompareTag(TagHolder.POWERUP_TAG)) {
@@ -48,16 +50,21 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
-    private void collideWithObstacle(Collider other) {
+    private void CollideWithObstacle() {
         //HARDENED POWER-UP OVERRIDE OBSTACLE HITTING
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.Hardened) {
-            //smashing obstacle
-            if (gameValues.Divide != 0) {
-                obstacleGibManager.Activate(other.transform.position, other.transform.localScale, true, true);
+            Collider[] allObstacles = Physics.OverlapBox(transform.position, transform.localScale / 2f, Quaternion.identity, obstacleLayer, QueryTriggerInteraction.Collide);
+
+            foreach (Collider obstacle in allObstacles) {
+                //smashing obstacle
+                if (gameValues.Divide != 0) {
+                    obstacleGibManager.Activate(obstacle.transform.position, obstacle.transform.localScale, true, true);
+                }
+
+                obstacle.gameObject.SetActive(false);
             }
-            
+
             hardenedPUP.PlaySound();
-            other.gameObject.SetActive(false);
             playerPowerUp.RemovePowerUp();
             return;
         }

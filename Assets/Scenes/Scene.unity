@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2238,6 +2238,9 @@ MonoBehaviour:
   obstacleGibManager: {fileID: 47766900}
   obstaclePrefab: {fileID: 7961269666094133384, guid: c8f685ecaf37386448a977482c23d346,
     type: 3}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &686139434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2325,6 +2328,7 @@ MonoBehaviour:
   audioSource: {fileID: 1768795403}
   droning: {fileID: 814723811}
   musicManager: {fileID: 999835071}
+  pauseManager: {fileID: 1891629745}
 --- !u!114 &686139437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7093,6 +7097,7 @@ MonoBehaviour:
   endGame: {fileID: 602921035}
   player: {fileID: 686139426}
   musicManager: {fileID: 999835071}
+  paused: 0
 --- !u!4 &1891629746
 Transform:
   m_ObjectHideFlags: 0

@@ -41,8 +41,8 @@ public class PowerUpSpawner : MonoBehaviour
                 if (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE) == 1) {
                     TypeDisplayImage.sprite = sprites[(int) powerUpType];
                     
-                    PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
                     PUPTypeDisplay.gameObject.SetActive(true);
+                    PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
                     StartCoroutine(RemoveTypeGUI());
                 }
                 
