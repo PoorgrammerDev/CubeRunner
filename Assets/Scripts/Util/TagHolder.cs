@@ -30,6 +30,7 @@ public class TagHolder
     public const string OBSTACLE_TAG = "Obstacle";
     public const string POWERUP_TAG = "PowerUp";
     public const string GIBS_TAG = "Gibs";
+    public const string BITS_TAG = "Bits";
     
     //PlayerPref Keys
     public const string PREF_HAS_ACCEPTED_EULA = "HasAcceptedEULA";

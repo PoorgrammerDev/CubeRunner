@@ -47,6 +47,11 @@ public class PlayerCollision : MonoBehaviour
             else if (otherObject.CompareTag(TagHolder.GIBS_TAG)) {
                 Physics.IgnoreCollision(collider, other, true);
             }
+            else if (otherObject.CompareTag(TagHolder.BITS_TAG)) {
+                Physics.IgnoreCollision(collider, other, true);
+                other.gameObject.SetActive(false);
+                //TODO bit stuff here
+            }
         }
     }
 

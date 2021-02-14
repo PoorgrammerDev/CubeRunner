@@ -13,6 +13,7 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private Transform groundPlane;
     [SerializeField] private Material transparentMaterial;
     [SerializeField] private Material opaqueMaterial;
+    [SerializeField] private BitsSpawner bitsSpawner;
     [SerializeField] private int rowCount = 10;
 
     private float firstRowDistance;
@@ -121,6 +122,11 @@ public class CubeSpawner : MonoBehaviour
             powerUpSpawner.SpawnPowerUp(row, slot, lanes);
         }
 
+        //Bits
+        else if (initialSpawn != 0 && Random.value < gameValues.BitsSpawnChance) {
+            row.bits = bitsSpawner.SpawnBits(Random.Range(2, 5), row, rows.Last.Value, BitsPattern.Direct, initialSpawn != -1);
+        }
+
         rows.AddLast(row);
     }
 
@@ -187,6 +193,11 @@ public class CubeSpawner : MonoBehaviour
         //If row has Power up, detaches it and deactivates it
         if (row.HasPowerUp()) {
             powerUpSpawner.DespawnPowerUp(row);
+        }
+
+        //If row has bits, stashes them
+        if (row.HasBits()) {
+            bitsSpawner.StashBits(row);
         }
 
         //return all cubes to the pool

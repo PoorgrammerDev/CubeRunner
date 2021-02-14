@@ -3,6 +3,7 @@
 /// <summary>
 /// Class used in Game Scene for setting game settings / values based on Difficulty.
 /// </summary>
+
 public class DifficultyValuesHolder : MonoBehaviour
 {
     [SerializeField] private Difficulty difficulty;
@@ -45,6 +46,10 @@ public class DifficultyValuesHolder : MonoBehaviour
     //POWER UP SPAWN CHANCE
     [SerializeField] private float powerUpSpawnChance;
     public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
+
+    //BITS SPAWN CHANCE
+    [SerializeField] private float bitsSpawnChance;
+    public float BitsSpawnChance { get => bitsSpawnChance; set => bitsSpawnChance = value; }
     
     //MUSIC
     [SerializeField] private AudioClip[] songs;

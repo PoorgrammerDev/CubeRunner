@@ -42,6 +42,7 @@
      <Compile Include="Assets\Scripts\Credits.cs" />
      <Compile Include="Assets\Scripts\EULA.cs" />
      <Compile Include="Assets\Scripts\GameManagers\BackgroundObjects.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\BitsSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\CubeSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\EndGame.cs" />
      <Compile Include="Assets\Scripts\GameManagers\EndGameDataExport.cs" />

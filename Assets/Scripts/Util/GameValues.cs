@@ -24,6 +24,7 @@ public class GameValues : MonoBehaviour {
         widthScale = difficultyValuesHolder.WidthScale;
         powerUpSpawnChance = difficultyValuesHolder.PowerUpSpawnChance;
         songs = difficultyValuesHolder.Songs;
+        bitsSpawnChance = difficultyValuesHolder.BitsSpawnChance;
     }
 
     //GAME ACTIVE-----------
@@ -119,6 +120,10 @@ public class GameValues : MonoBehaviour {
     //POWER UP SPAWN CHANCE
     private float powerUpSpawnChance;
     public float PowerUpSpawnChance { get => powerUpSpawnChance; set => powerUpSpawnChance = value; }
+
+    //BITS SPAWN CHANCE
+    private float bitsSpawnChance;
+    public float BitsSpawnChance { get => bitsSpawnChance; set => bitsSpawnChance = value; }
 
     //CUBE GIBS [NOT DEPENDENT ON DIFFICULTY]
     [SerializeField] private uint[] divideValues;
