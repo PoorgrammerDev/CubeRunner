@@ -124,7 +124,7 @@ public class CubeSpawner : MonoBehaviour
 
         //Bits
         else if (initialSpawn != 0 && Random.value < gameValues.BitsSpawnChance) {
-            row.bits = bitsSpawner.SpawnBits(Random.Range(2, 5), row, rows.Last.Value, BitsPattern.Direct, initialSpawn != -1);
+            row.bits = bitsSpawner.SpawnBits(Random.Range(2, 5), row, rows.Last.Value, (BitsPattern) Random.Range(0, (int) BitsPattern.COUNT), initialSpawn != -1);
         }
 
         rows.AddLast(row);
