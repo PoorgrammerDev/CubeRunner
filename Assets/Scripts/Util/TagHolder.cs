@@ -41,6 +41,7 @@ public class TagHolder
     public const string PREF_COLORBLIND_MODE = "COLORBLIND_MODE";
     public const string PREF_GRAPHICS = "Graphics";
     public const string PREF_SKIP_ANIM = "SkipAnimations";
+    public const string PREF_TOTAL_BITS = "TotalBits";
 
     //Other
     public const string HORIZONTAL_AXIS = "Horizontal";

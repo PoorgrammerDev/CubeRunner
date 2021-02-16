@@ -19,7 +19,7 @@ public class GameValues : MonoBehaviour {
         strafingSpeed = difficultyValuesHolder.StrafingSpeed;
         rowDistMultLowerBound = difficultyValuesHolder.RowDistMultLowerBound;
         rowDistMultUpperBound = difficultyValuesHolder.RowDistMultUpperBound;
-        scoreTickRate = difficultyValuesHolder.ScoreTickRate;
+        bitsMultiplier = difficultyValuesHolder.BitsMultiplier;
         gapIncreaseChance = difficultyValuesHolder.GapIncreaseChance;
         widthScale = difficultyValuesHolder.WidthScale;
         powerUpSpawnChance = difficultyValuesHolder.PowerUpSpawnChance;
@@ -105,9 +105,13 @@ public class GameValues : MonoBehaviour {
     private int score = 0;
     public int Score {get => score; set => score = value;}
 
-    //SCORE TICK RATE---------
-    private int scoreTickRate;
-    public int ScoreTickRate {get => scoreTickRate; set => scoreTickRate = value;}
+    //BITS---------
+    private int bits = 0;
+    public int Bits {get => bits; set => bits = value;}
+
+    //BITS MULTIPLIER---------
+    private int bitsMultiplier;
+    public int BitsMultiplier {get => bitsMultiplier; set => bitsMultiplier = value;}
 
     //GAP INCREASE CHANCE---------
     private float gapIncreaseChance;

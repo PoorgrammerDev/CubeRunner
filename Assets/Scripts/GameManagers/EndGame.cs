@@ -36,7 +36,7 @@ public class EndGame : MonoBehaviour
         //Data Export
         dataExport.FinalScore = gameValues.Score;
         dataExport.CubePartDivide = gameValues.Divide;
-        dataExport.Difficulty = gameValues.Difficulty;
+        dataExport.BitsCollected = gameValues.Bits;
 
         //remove hud
         HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);

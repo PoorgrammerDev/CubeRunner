@@ -9,20 +9,13 @@ public class GameProgression : MonoBehaviour
 
     [SerializeField] private CubeSpawner cubeSpawner;
 
-    [SerializeField] private bool increaseSpeed;
-
-    [SerializeField] private bool decreaseGapWidth;
-    
-    [SerializeField] private bool decreaseGaps;
-
     [SerializeField] private int progressionStep = 25;
 
     private int lastScoreRanAt = 0;
 
-
     public void CheckForProgression() {
         int score = gameValues.Score;
-        if ((increaseSpeed && IncreaseSpeed(score))) {
+        if (IncreaseSpeed(score)) {
             lastScoreRanAt = score;
         }
     }

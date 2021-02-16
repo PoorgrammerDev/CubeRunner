@@ -39,9 +39,9 @@ public class DifficultyValuesHolder : MonoBehaviour
     public float WidthScale { get => widthScale; set => widthScale = value; }
 
     [Header("Other")]
-    //SCORE TICK RATE---------
-    [SerializeField] private int scoreTickRate;
-    public int ScoreTickRate => scoreTickRate;
+    //BITS MULTIPLIER---------
+    [SerializeField] private int bitsMultiplier;
+    public int BitsMultiplier {get => bitsMultiplier; set => bitsMultiplier = value;}
 
     //POWER UP SPAWN CHANCE
     [SerializeField] private float powerUpSpawnChance;

@@ -62,6 +62,8 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\GameManagers\PowerUpSpawner.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Treadmill.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\BitsDisplay.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\BitsManager.cs" />
      <Compile Include="Assets\Scripts\MainMenu\CamSceneSwitch.cs" />
      <Compile Include="Assets\Scripts\MainMenu\CubeSpin.cs" />
      <Compile Include="Assets\Scripts\MainMenu\DifficultyManager.cs" />

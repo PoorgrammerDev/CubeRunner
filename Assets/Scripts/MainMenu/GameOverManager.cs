@@ -12,7 +12,8 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuScreen;
 
     [SerializeField] private TextMeshProUGUI scoreNumber;
-    [SerializeField] private Animator highScore;
+    [SerializeField] private Animator scoreAnim;
+    [SerializeField] private TextMeshProUGUI bitsNumber;
 
     [SerializeField] private GameObject beam; 
 
@@ -25,6 +26,7 @@ public class GameOverManager : MonoBehaviour
     [SerializeField] private CubeGibsUtil cubeGibs;
 
     [SerializeField] private HighScoreManager highScoreManager;
+    [SerializeField] private BitsManager bitsManager;
 
     private EndGameDataExport endGameDataExport;
 
@@ -36,12 +38,20 @@ public class GameOverManager : MonoBehaviour
         endGameDataExport = FindObjectOfType<EndGameDataExport>();
         if (endGameDataExport != null) {            
             gameOverScreen.SetActive(true);
-            scoreNumber.text = endGameDataExport.FinalScore.ToString();
-            
+
+            //display score
+            scoreNumber.text = endGameDataExport.FinalScore + "m";
+
             //check high score and play effect if new score is higher
             if (highScoreManager.ContestHighScore(endGameDataExport.FinalScore)) {
-                highScore.SetTrigger(TagHolder.ANIM_HIGH_SCORE_SUCCESS);
+                scoreAnim.SetTrigger(TagHolder.ANIM_HIGH_SCORE_SUCCESS);
             }
+
+            //display bits
+            bitsNumber.text = endGameDataExport.BitsCollected.ToString();
+
+            //increment bits
+            bitsManager.AddBits(endGameDataExport.BitsCollected);
 
             //dont call anims and immediately enable delayed objects
             if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {

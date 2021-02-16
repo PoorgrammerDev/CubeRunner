@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 /// <summary>
 /// Handles player collision with objects, like obstacles or power-ups.
@@ -11,6 +12,8 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private PowerUpSpawner powerUpSpawner;
     [SerializeField] private GibManager obstacleGibManager;
     [SerializeField] private GameObject obstaclePrefab;
+
+    [SerializeField] private TextMeshProUGUI bitsText;
     private PlayerPowerUp playerPowerUp;
     private Hardened hardenedPUP;
     private new Collider collider;
@@ -26,11 +29,15 @@ public class PlayerCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         GameObject otherObject = other.gameObject;
         if (otherObject != gameObject) {
+
+            //OBSTACLES ----- ----- ----- 
             if (otherObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
                 if (otherObject.transform.position.x > 0) {
                     CollideWithObstacle();
                 }
             }
+            
+            //POWER UPS ----- ----- ----- 
             else if (otherObject.CompareTag(TagHolder.POWERUP_TAG)) {
                 Physics.IgnoreCollision(collider, other, true);
                 
@@ -44,13 +51,18 @@ public class PlayerCollision : MonoBehaviour
                     }
                 }
             }
+
+            //IGNORE GIBS ----- ----- ----- 
             else if (otherObject.CompareTag(TagHolder.GIBS_TAG)) {
                 Physics.IgnoreCollision(collider, other, true);
             }
+            
+            //BITS ----- ----- -----
             else if (otherObject.CompareTag(TagHolder.BITS_TAG)) {
                 Physics.IgnoreCollision(collider, other, true);
                 other.gameObject.SetActive(false);
-                //TODO bit stuff here
+                
+                bitsText.text = (++gameValues.Bits).ToString();
             }
         }
     }

@@ -2,7 +2,7 @@
 using TMPro;
 
 /// <summary>
-/// Class is meant to be placed directly on UI Text. Updates its value to match the correct High Score.
+/// Class is meant to be placed directly on UI Text. Updates its value to match the current High Score.
 /// </summary>
 public class HighScoreDisplay : MonoBehaviour
 {
@@ -17,6 +17,6 @@ public class HighScoreDisplay : MonoBehaviour
     }
 
     public void UpdateScore() {
-        numDisplay.text = highScore.HighScore.ToString();
+        numDisplay.text = highScore.HighScore + "m";
     }
 }

@@ -10,6 +10,7 @@ public class EndGameDataExport : MonoBehaviour {
     [SerializeField] private uint cubePartDivide;
     public uint CubePartDivide { get => cubePartDivide; set => cubePartDivide = value; }
 
-    [SerializeField] private Difficulty difficulty;
-    public Difficulty Difficulty { get => difficulty; set => difficulty = value; }
+    [SerializeField] private int bitsCollected;
+    public int BitsCollected { get => bitsCollected; set => bitsCollected = value; }
+
 }

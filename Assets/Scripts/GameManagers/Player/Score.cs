@@ -17,7 +17,7 @@ public class Score : MonoBehaviour
     // Start is called before the first frame update
     void Start() {
         scoreText = GetComponent<TextMeshProUGUI>();
-        wait = new WaitForSeconds(2f / gameValues.ScoreTickRate);
+        wait = new WaitForSeconds(5f / gameValues.ForwardSpeed);
 
         StartCoroutine(ScoreTick());
     }
