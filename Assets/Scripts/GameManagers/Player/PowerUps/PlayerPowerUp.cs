@@ -27,7 +27,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
-    [HideInInspector] public float ticker = 0;
+     public float ticker = 0;
 
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
@@ -73,13 +73,18 @@ public class PlayerPowerUp : MonoBehaviour
                 if (this.type == type) {
                     //if picking up of same type ---
 
-                    //refill blaster ammo
-                    if (type == PowerUpType.Blaster) {
-                        blaster.RefillAmmo();
-                        StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4));
-                        return true;
-                    }
+                    switch (type) {
+                        //refill blaster ammo
+                        case PowerUpType.Blaster:
+                            blaster.RefillAmmo();
+                            StartCoroutine(barMove.MoveBarAsync(topBar, 1, 4));
+                            return true;
 
+                        //recharge shield time
+                        case PowerUpType.Hardened:
+                            hardened.ResetExpiry();
+                            return true;
+                    }
                     return false;
                 }
                 RemovePowerUp();
@@ -101,6 +106,7 @@ public class PlayerPowerUp : MonoBehaviour
 
                 //pickup sound
                 audioSource.clip = pickupPUPSound;
+                audioSource.time = 0;
                 audioSource.Play();
 
                 #if UNITY_ANDROID || UNITY_IOS
@@ -116,11 +122,15 @@ public class PlayerPowerUp : MonoBehaviour
                 PUPIcon.sprite = ActivePowerUpClass.Sprite;
 
                 //special actions when picking up PUP ---
-                if (type == PowerUpType.Hardened) {
-                    hardened.shieldObject.SetActive(true);
-                }
-                else if (type == PowerUpType.Blaster) {
-                    blaster.Pickup();
+                switch (type) {
+                    case PowerUpType.Blaster:
+                        blaster.Pickup();
+                        break;
+
+                    case PowerUpType.Hardened:
+                        hardened.shieldObject.SetActive(true);
+                        StartCoroutine(hardened.HardenedExpiration());
+                        break;
                 }
                 return true;
             }

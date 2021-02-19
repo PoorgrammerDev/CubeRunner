@@ -92,6 +92,7 @@ public class Blaster : AbstractPowerUp {
     }
 
     public IEnumerator CooldownBar() {
+        powerUpManager.ticker = 0;
         while (powerUpManager.GetActivePowerUp() == PowerUpType.Blaster) {
             powerUpManager.BottomBar.value = 1f - (powerUpManager.ticker / blasterCooldown);
             yield return null;

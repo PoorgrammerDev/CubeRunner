@@ -14,6 +14,7 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private GameObject obstaclePrefab;
 
     [SerializeField] private TextMeshProUGUI bitsText;
+    [SerializeField] private AudioSource bitsSound;
     private PlayerPowerUp playerPowerUp;
     private Hardened hardenedPUP;
     private new Collider collider;
@@ -62,7 +63,12 @@ public class PlayerCollision : MonoBehaviour
                 Physics.IgnoreCollision(collider, other, true);
                 other.gameObject.SetActive(false);
                 
-                bitsText.text = (++gameValues.Bits).ToString();
+                //increment bits, update text
+                gameValues.Bits += gameValues.BitsMultiplier;
+                bitsText.text = gameValues.Bits.ToString();
+
+                //play sound
+                bitsSound.Play();
             }
         }
     }

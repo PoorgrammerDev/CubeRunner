@@ -9637,26 +9637,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1189654071}
     m_Modifications:
-    - target: {fileID: 3979454347720418444, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_lineSpacing
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347895940246, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_wordSpacing
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3979454347911097406, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.000046913097
-      objectReference: {fileID: 0}
     - target: {fileID: 3979454347974817488, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: m_RootOrder
@@ -9727,11 +9707,6 @@ PrefabInstance:
       propertyPath: buttonSounds
       value: 
       objectReference: {fileID: 176962722}
-    - target: {fileID: 3979454348181742165, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3979454348749180351, guid: baca89c1b3ed01246b7f73e0a70bf1b2,
         type: 3}
       propertyPath: musicManager

@@ -9,7 +9,7 @@ public class GameProgression : MonoBehaviour
 
     [SerializeField] private CubeSpawner cubeSpawner;
 
-    [SerializeField] private int progressionStep = 25;
+    [SerializeField] private int progressionStep;
 
     private int lastScoreRanAt = 0;
 
