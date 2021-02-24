@@ -5950,8 +5950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
-  cubeSpawner: {fileID: 7314368}
-  progressionStep: 100
+  baseProgStep: 100
 --- !u!4 &1656581795
 Transform:
   m_ObjectHideFlags: 0

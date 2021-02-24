@@ -1,35 +1,46 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Handles intra-Game progression (stage getting faster as it goes, etc.)
+/// Handles intra-Game progression (stage getting faster as it goes)
 /// </summary>
 public class GameProgression : MonoBehaviour
 {
     [SerializeField] private GameValues gameValues;
+    [SerializeField] private int baseProgStep;
 
-    [SerializeField] private CubeSpawner cubeSpawner;
+    private int totalSteps;
+    private int nextScore;
+    
+    private float startingFwdSpeed;
+    private float startingStrfSpeed;
 
-    [SerializeField] private int progressionStep;
+    void Start() {
+        //stores speed at the start
+        startingFwdSpeed = gameValues.ForwardSpeed;
+        startingStrfSpeed = gameValues.StrafingSpeed;
 
-    private int lastScoreRanAt = 0;
-
-    public void CheckForProgression() {
-        int score = gameValues.Score;
-        if (IncreaseSpeed(score)) {
-            lastScoreRanAt = score;
-        }
+        RecalculateValues();
     }
 
-    bool IncreaseSpeed(int score) {
-        if (score != 0 && score > lastScoreRanAt && score % progressionStep == 0) {
-            float forwardSpeed = gameValues.ForwardSpeed;
-            if (++forwardSpeed < gameValues.MaxForwardSpeed) {
-                gameValues.ForwardSpeed = forwardSpeed;
-                gameValues.StrafingSpeed = (gameValues.StrafingSpeed + 1);
+    public bool CheckForProgression() {
+        if (gameValues.Score >= nextScore) {
+            //speed limiter
+            if (startingFwdSpeed + (totalSteps + 1) <= gameValues.MaxForwardSpeed) {
+                totalSteps++;
+                RecalculateValues();
+                return true;
             }
-            return true;
         }
         return false;
+    }
+
+    void RecalculateValues() {
+        //update speed values
+        gameValues.ForwardSpeed = startingFwdSpeed + totalSteps;
+        gameValues.StrafingSpeed = startingStrfSpeed + totalSteps;
+
+        //update next score with new prog step (based on speed)
+        nextScore = gameValues.Score + ((int) (baseProgStep * (gameValues.ForwardSpeed / startingFwdSpeed)));
     }
 
 }
