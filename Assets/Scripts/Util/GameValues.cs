@@ -48,7 +48,7 @@ public class GameValues : MonoBehaviour {
 
     private float forwardSpeed;
     public float ForwardSpeed { get => forwardSpeed; set {
-            if (value > 0 && value < maxForwardSpeed) {
+            if (value > 0 && value <= maxForwardSpeed) {
                 forwardSpeed = value;
             }
             else {

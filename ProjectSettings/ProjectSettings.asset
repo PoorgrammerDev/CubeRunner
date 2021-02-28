@@ -254,7 +254,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/Thomas/Desktop/CubeRunner Keystore/cuberunner.keystore
+  AndroidKeystoreName: C:/Users/Thomas/Desktop/CubeRunner/CubeRunner Keystore/cuberunner.keystore
   AndroidKeyaliasName: cuberunnerkey
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

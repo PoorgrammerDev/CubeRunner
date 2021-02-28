@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\Util\BGObject.cs" />
      <Compile Include="Assets\Scripts\Util\BarMove.cs" />
      <Compile Include="Assets\Scripts\Util\Beam.cs" />
+     <Compile Include="Assets\Scripts\Util\ButtonAutoSelect.cs" />
      <Compile Include="Assets\Scripts\Util\CubeGibsUtil.cs" />
      <Compile Include="Assets\Scripts\Util\Difficulty.cs" />
      <Compile Include="Assets\Scripts\Util\DifficultyValuesHolder.cs" />

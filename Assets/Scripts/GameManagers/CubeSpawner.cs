@@ -123,6 +123,7 @@ public class CubeSpawner : MonoBehaviour
         }
 
         //Bits
+        //TODO Change AMOUNT to non-literal values (use vars instead), and perhaps have it affected by game progression
         else if (initialSpawn != 0 && Random.value < gameValues.BitsSpawnChance) {
             row.bits = bitsSpawner.SpawnBits(Random.Range(2, 5), row, rows.Last.Value, (BitsPattern) Random.Range(0, (int) BitsPattern.COUNT), initialSpawn != -1);
         }

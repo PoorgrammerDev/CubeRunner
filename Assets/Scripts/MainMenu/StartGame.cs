@@ -14,7 +14,6 @@ public class StartGame : MonoBehaviour
     [SerializeField] private PanelObjectHolder[] panels;
     [SerializeField] private Button[] buttons;
     [SerializeField] private MusicManager musicManager;
-    [SerializeField] private Button[] startGameButtons;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
@@ -28,18 +27,6 @@ public class StartGame : MonoBehaviour
         renderer = GetComponent<MeshRenderer>();
         spinManager = GetComponent<CubeSpin>();
         menuScale = GetComponentInParent<MenuScale>();
-    }
-
-    //space also starts game
-    public void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            foreach (Button startGameButton in startGameButtons) {
-                if (startGameButton.gameObject.activeInHierarchy && startGameButton.interactable) {
-                    Click();
-                    return;
-                }
-            } 
-        }
     }
 
     public void Click() {
