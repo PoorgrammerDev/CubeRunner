@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class TimeDilation : AbstractPowerUp {
+    [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private Volume volume;
     [SerializeField] private float timeDilationDuration;
     [SerializeField] private float timeDilationScale;
@@ -15,11 +16,9 @@ public class TimeDilation : AbstractPowerUp {
     [SerializeField] private PauseManager pauseManager;
     ChromaticAberration chromAb;
     ColorAdjustments colorAdj;
-    private PlayerPowerUp powerUpManager;
 
     // Start is called before the first frame update
     void Start() {
-        powerUpManager = GetComponent<PlayerPowerUp>();
         volume.sharedProfile.TryGet<ChromaticAberration>(out chromAb);
         volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdj);
         ResetTDEffects(false);

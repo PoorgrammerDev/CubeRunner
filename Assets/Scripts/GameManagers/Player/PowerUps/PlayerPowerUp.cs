@@ -20,10 +20,14 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private AudioClip pickupPUPSound;
     private Dictionary<PowerUpType, AbstractPowerUp> PowerUpTypeToClass;
     private AbstractPowerUp ActivePowerUpClass;
-    private Blaster blaster;
-    private TimeDilation timeDilation;
-    private Compression compression;
-    private Hardened hardened;
+
+    //Power up classes
+    [Header("Power Up Classes")]
+    [SerializeField] private Blaster blaster;
+    [SerializeField] private TimeDilation timeDilation;
+    [SerializeField] private Compression compression;
+    [SerializeField] private Hardened hardened;
+    [SerializeField] private Guidelines guidelines;
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
@@ -52,12 +56,6 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Animator mobilePUPButton;
 
     void Start() {
-        //get individual PUP classes
-        blaster = GetComponent<Blaster>();
-        timeDilation = GetComponent<TimeDilation>();
-        compression = GetComponent<Compression>();
-        hardened = GetComponent<Hardened>();
-
         PUPHUDXYFitter = PowerUpHUDAnimator.GetComponent<AspectRatioFitter>();
 
         PowerUpTypeToClass = new Dictionary<PowerUpType, AbstractPowerUp>();
@@ -65,6 +63,7 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
+        PowerUpTypeToClass.Add(PowerUpType.Guidelines, guidelines);
     }
     
     public bool AddPowerUp (PowerUpType type) {

@@ -3,5 +3,6 @@ public enum PowerUpType {
     TimeDilation,
     Compress,
     Hardened,
+    Guidelines,
     COUNT,
 }

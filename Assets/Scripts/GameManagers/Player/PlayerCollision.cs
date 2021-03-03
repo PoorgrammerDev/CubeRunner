@@ -15,8 +15,8 @@ public class PlayerCollision : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI bitsText;
     [SerializeField] private AudioSource bitsSound;
-    private PlayerPowerUp playerPowerUp;
-    private Hardened hardenedPUP;
+    [SerializeField] private Hardened hardenedPUP;
+    private PlayerPowerUp playerPowerUp;    
     private new Collider collider;
 
     public LayerMask obstacleLayer;
@@ -24,7 +24,6 @@ public class PlayerCollision : MonoBehaviour
     void Start() {
         playerPowerUp = GetComponent<PlayerPowerUp>();
         collider = GetComponent<Collider>();
-        hardenedPUP = GetComponent<Hardened>();
     }
 
     private void OnTriggerEnter(Collider other) {

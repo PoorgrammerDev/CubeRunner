@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class Hardened : AbstractPowerUp
 {
+    [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private float hardenedDuration;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private BarMove barMove;
+
     public GameObject shieldObject;
-
-    private PlayerPowerUp powerUpManager;
     private bool suspended = false;
-
-    void Start() {
-        powerUpManager = GetComponent<PlayerPowerUp>();
-    }
 
     public void PlaySound() {
         audioSource.clip = Sounds[0];

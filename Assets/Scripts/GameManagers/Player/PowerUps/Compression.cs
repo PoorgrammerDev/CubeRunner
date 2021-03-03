@@ -3,19 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Compression : AbstractPowerUp {
+    [SerializeField] private PlayerPowerUp powerUpManager;
+    [SerializeField] private Transform playerObject;
     [SerializeField] private float compressionDuration;
     [SerializeField] private float compressionSize;
     [SerializeField] private AudioSource audioSource;
-    private PlayerPowerUp powerUpManager;
-
-    void Start() {
-        powerUpManager = GetComponent<PlayerPowerUp>();
-    }
 
     public IEnumerator RunCompression() {
         powerUpManager.State = PowerUpState.Active;
-        Vector3 scale = transform.localScale;
-        Vector3 position = transform.position;
+        Vector3 scale = playerObject.localScale;
+        Vector3 position = playerObject.position;
 
         //save original scale
         float originalScale = scale.z;
@@ -27,11 +24,11 @@ public class Compression : AbstractPowerUp {
         while (t <= 1) {
             t += 4 * Time.deltaTime;
             scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
-            transform.localScale = scale;
+            playerObject.localScale = scale;
 
-            position = transform.position;
+            position = playerObject.position;
             position.y = Mathf.Lerp(originalY, newY, t);
-            transform.position = position;
+            playerObject.position = position;
             yield return null;
         }
 
@@ -51,11 +48,11 @@ public class Compression : AbstractPowerUp {
         while (t >= 0) {
             t -= 2 * Time.deltaTime;
             scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
-            transform.localScale = scale;
+            playerObject.localScale = scale;
 
-            position = transform.position;
+            position = playerObject.position;
             position.y = Mathf.Lerp(originalY, newY, t);
-            transform.position = position;
+            playerObject.position = position;
             yield return null;
         }
         powerUpManager.RemovePowerUp();

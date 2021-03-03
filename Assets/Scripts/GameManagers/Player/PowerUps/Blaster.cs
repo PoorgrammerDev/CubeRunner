@@ -2,6 +2,7 @@
 using UnityEngine;
 
 public class Blaster : AbstractPowerUp {
+    [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
     [SerializeField] private GibManager gibManager;
@@ -12,14 +13,9 @@ public class Blaster : AbstractPowerUp {
 
     [SerializeField] private int blasterRange;
     [SerializeField] private float blasterCooldown;
-    private PlayerPowerUp powerUpManager;
     private Vector3 blasterShootDirection = new Vector3(1, 0, 0);
     
     private int blasterShotsLeft;
-
-    void Start() {
-        powerUpManager = GetComponent<PlayerPowerUp>();
-    }
 
     public void Pickup() {
         blasterShotsLeft = blasterShots;   

@@ -14,7 +14,6 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] private PowerUp[] powerUpObjects;
     [SerializeField] private Animator PUPTypeDisplay;
     [SerializeField] private Image TypeDisplayImage;
-    [SerializeField] private Sprite[] sprites;
     
     private int cooldownTracker = 0;
 
@@ -26,6 +25,7 @@ public class PowerUpSpawner : MonoBehaviour
         if (IsReady()) {
             bool[] rowStructs = row.structures;
             if (rowStructs[slot]) { //checks that the position indicated is a gap
+            print (powerUpType + " | " + (int) powerUpType);
                 PowerUp powerUpObject = powerUpObjects[(int) powerUpType];
 
                 //re-parent
@@ -39,7 +39,7 @@ public class PowerUpSpawner : MonoBehaviour
 
                 //colorblind indicator
                 if (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE) == 1) {
-                    TypeDisplayImage.sprite = sprites[(int) powerUpType];
+                    TypeDisplayImage.sprite = powerUpObjects[(int) powerUpType].PUPMechanism.Sprite;
                     
                     PUPTypeDisplay.gameObject.SetActive(true);
                     PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
