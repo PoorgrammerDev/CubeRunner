@@ -217,33 +217,44 @@ public class PlayerPowerUp : MonoBehaviour
             #endif
 
             //detect power ups activation
-            if (type == PowerUpType.TimeDilation) {
-                StartCoroutine(timeDilation.RunTimeDilation());
-                playSound = timeDilation;
+            switch (type) {
+                case PowerUpType.TimeDilation:
+                    StartCoroutine(timeDilation.RunTimeDilation());
+                    playSound = timeDilation;
 
-                //disable power up button if mobile
-                #if UNITY_ANDROID || UNITY_IOS
-                    disableButton = true;
-                #endif
-            }
-            else if (type == PowerUpType.Compress) {
-                StartCoroutine(compression.RunCompression());
-                playSound = compression;
-                
-                //disable power up button if mobile
-                #if UNITY_ANDROID || UNITY_IOS
-                    disableButton = true;
-                #endif
-            }
-            else if (type == PowerUpType.Blaster) {
-                if (blaster.ShootBlaster()) {
-                    playSound = blaster;
-                }
+                    //disable power up button if mobile
+                    #if UNITY_ANDROID || UNITY_IOS
+                        disableButton = true;
+                    #endif
+                    break;
+                case PowerUpType.Compress:
+                    StartCoroutine(compression.RunCompression());
+                    playSound = compression;
 
-                //disable power up button if mobile
-                #if UNITY_ANDROID || UNITY_IOS
-                    disableButton = true;
-                #endif
+                    //disable power up button if mobile
+                    #if UNITY_ANDROID || UNITY_IOS
+                        disableButton = true;
+                    #endif
+                    break;
+                case PowerUpType.Blaster:
+                    if (blaster.ShootBlaster()) {
+                        playSound = blaster;
+                    }
+
+                    //disable power up button if mobile
+                    #if UNITY_ANDROID || UNITY_IOS
+                        disableButton = true;
+                    #endif
+                    break;
+                case PowerUpType.Guidelines:
+                    StartCoroutine(guidelines.RunGuidelines());
+                    //TODO add sound
+
+                    //disable power up button if mobile
+                    #if UNITY_ANDROID || UNITY_IOS
+                        disableButton = true;
+                    #endif
+                    break;
             }
 
             //disable power up button
