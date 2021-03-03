@@ -1464,8 +1464,8 @@ MonoBehaviour:
   gameValues: {fileID: 573723474}
   prefab: {fileID: 6831132850392133367, guid: 7c4793413cb158f4da52fd621aa07786, type: 3}
   poolObject: {fileID: 1345540885}
-  regularMat: {fileID: 2100000, guid: 93b7369b026260743b814a177d0c449e, type: 2}
-  transparentMat: {fileID: 2100000, guid: 223147334cf53dc4b98557b14808aed9, type: 2}
+  regularMat: {fileID: 2100000, guid: 7fc9be79762a5184795bf111d7efb4b1, type: 2}
+  transparentMat: {fileID: 2100000, guid: c966b701674f15d40983243a3cf01c48, type: 2}
 --- !u!4 &314905986
 Transform:
   m_ObjectHideFlags: 0
