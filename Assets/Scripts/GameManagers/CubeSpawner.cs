@@ -18,10 +18,12 @@ public class CubeSpawner : MonoBehaviour
 
     private float firstRowDistance;
     private int lanes;
+    public int Lanes => lanes;
 
     private Transform cubePoolObject;
     private Stack<GameObject> cubePool;
     private LinkedList<Row> rows;
+    public LinkedList<Row> Rows => rows;
 
     private Vector3 spawnPosition = new Vector3(0, 0.5f, 0);
     private Quaternion quaternion = new Quaternion();
@@ -67,14 +69,15 @@ public class CubeSpawner : MonoBehaviour
         Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
-        InitiateRow(row, xCoordSpawn, initialSpawnNum);
+        InitiateRow(row, xCoordSpawn, initialSpawnNum, -1, true);
         return row;
     }
 
     //This method takes an already made but inactive row and "activates" it, putting it into the game field.
     //This is not to be confused with CreateNewRow which adds an extra row to the total.
-    void InitiateRow(Row row, float xCoordSpawn, int initialSpawn) {
-        row.structures = getPlacementArray();
+    public void InitiateRow(Row row, float xCoordSpawn, int initialSpawn, int gaps, bool ignoreBits) {
+        if (gaps == -1) GetPlacementArray(row);
+        else GetPlacementArray(row, gaps);
 
         if (xCoordSpawn == -1) xCoordSpawn = GetNextXCoord(row);
 
@@ -119,23 +122,26 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Shuffle); //TODO: revert later
         }
 
         //Bits
-        //TODO Change AMOUNT to non-literal values (use vars instead), and perhaps have it affected by game progression
-        else if (initialSpawn != 0 && Random.value < gameValues.BitsSpawnChance) {
+        //TODO: Change AMOUNT to non-literal values (use vars instead), and perhaps have it affected by game progression
+        else if (!ignoreBits && initialSpawn != 0 && Random.value < gameValues.BitsSpawnChance) {
             row.bits = bitsSpawner.SpawnBits(Random.Range(2, 5), row, rows.Last.Value, (BitsPattern) Random.Range(0, (int) BitsPattern.COUNT), initialSpawn != -1);
         }
 
         rows.AddLast(row);
     }
 
+    void GetPlacementArray(Row row) {
+        GetPlacementArray(row, GetGapAmount(1));
+    }
+
     //randomly generates the gaps
-    bool[] getPlacementArray() {
+    void GetPlacementArray(Row row, int gaps) {
         //generate boolean array
         bool[] placement = new bool[lanes];
-        int gaps = GetGapAmount(1);
 
         //randomly fill gaps
         for (int i = 0; i < gaps; i++) {
@@ -147,7 +153,9 @@ public class CubeSpawner : MonoBehaviour
                 i--;
             }
         }
-        return placement;
+
+        row.structures = placement;
+        row.gapCount = gaps;
     }
 
     void Update() {
@@ -175,7 +183,7 @@ public class CubeSpawner : MonoBehaviour
         if (removeFlag) {
             Row first = rows.First.Value;
             rows.RemoveFirst();
-            RecycleRow(first);
+            RecycleRow(first, true);
 
             if (!gameValues.PassedFirstObstacle) {
                 gameValues.PassedFirstObstacle = true;
@@ -188,7 +196,7 @@ public class CubeSpawner : MonoBehaviour
     }
 
     //Method run on Row after it passes the Player. Recycles it and puts it onto the end,
-    void RecycleRow(Row row) {
+    public void RecycleRow(Row row, bool autoInit) {
         Transform rowTransform = row.transform;
 
         //If row has Power up, detaches it and deactivates it
@@ -209,7 +217,7 @@ public class CubeSpawner : MonoBehaviour
         }
 
         row.structures = null;
-        InitiateRow(row, -1, -1);
+        if (autoInit) InitiateRow(row, -1, -1, -1, true);
     }
 
     float GetNextXCoord (Row row) {

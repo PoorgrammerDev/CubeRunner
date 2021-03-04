@@ -2,11 +2,11 @@ using UnityEngine;
 using System.Collections;
 
 public class Row : MonoBehaviour {
-
     //boolean array for row structure
     //TRUE for GAP
     //FALSE for OBSTACLE
     public bool[] structures;
+    public int gapCount;
 
     public PowerUp powerUp;
 
@@ -45,5 +45,4 @@ public class Row : MonoBehaviour {
     public bool HasBits() {
         return bits != null && bits.Length > 0;
     }
-
 }

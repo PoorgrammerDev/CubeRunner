@@ -4,5 +4,6 @@ public enum PowerUpType {
     Compress,
     Hardened,
     Guidelines,
+    Shuffle,
     COUNT,
 }

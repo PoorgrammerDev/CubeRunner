@@ -28,6 +28,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Compression compression;
     [SerializeField] private Hardened hardened;
     [SerializeField] private Guidelines guidelines;
+    [SerializeField] private Shuffle shuffle;
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
@@ -64,14 +65,15 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
         PowerUpTypeToClass.Add(PowerUpType.Guidelines, guidelines);
+        PowerUpTypeToClass.Add(PowerUpType.Shuffle, shuffle);
     }
     
     public bool AddPowerUp (PowerUpType type) {
         if (state != PowerUpState.Active) {
             if (state == PowerUpState.Standby) {
                 if (this.type == type) {
-                    //if picking up of same type ---
 
+                    //if picking up of same type ---
                     switch (type) {
                         //refill blaster ammo
                         case PowerUpType.Blaster:
@@ -129,6 +131,9 @@ public class PlayerPowerUp : MonoBehaviour
                     case PowerUpType.Hardened:
                         hardened.shieldObject.SetActive(true);
                         StartCoroutine(hardened.HardenedExpiration());
+                        break;
+                    case PowerUpType.Shuffle:
+                        shuffle.RunShuffle();
                         break;
                 }
                 return true;
@@ -248,7 +253,7 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Guidelines:
                     StartCoroutine(guidelines.RunGuidelines());
-                    //TODO add sound
+                    //TODO: add sound
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS
