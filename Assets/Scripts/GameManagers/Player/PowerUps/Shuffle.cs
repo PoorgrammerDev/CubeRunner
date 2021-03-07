@@ -14,6 +14,7 @@ public class Shuffle : AbstractPowerUp
     ColorAdjustments colorAdj;
     LensDistortion lensDist;
 
+
     void Start() {
         volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdj);
         volume.sharedProfile.TryGet<LensDistortion>(out lensDist);
@@ -26,20 +27,27 @@ public class Shuffle : AbstractPowerUp
 
         Time.timeScale = 0.25f;
         lensDist.active = true;
+        colorAdj.active = true;
         while (t >= 0f) {
             t -= 3f * Time.deltaTime;
             lensDist.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(-0.5f, 0, t), -1, 1, true));
+            colorAdj.saturation.SetValue(new ClampedFloatParameter(Mathf.Lerp(-100, 0, t), -100, 100, true));
             yield return null;
         }
 
+        colorAdj.contrast.SetValue(new ClampedFloatParameter(50, -100, 100, true));
         ShuffleRows();
+        yield return null;
 
         while (t <= 1) {
             t += 60f * Time.deltaTime;
             lensDist.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(-0.5f, 0, t), -1, 1, true));
+            colorAdj.saturation.SetValue(new ClampedFloatParameter(Mathf.Lerp(-100, 0, t), -100, 100, true));
             yield return null;
         }
+        colorAdj.contrast.SetValue(new ClampedFloatParameter(0, -100, 100, true));
         lensDist.active = false;
+        colorAdj.active = false;
         Time.timeScale = 1;
     }
 
