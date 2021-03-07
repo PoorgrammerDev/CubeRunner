@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Shuffle : AbstractPowerUp
 {
@@ -8,8 +10,40 @@ public class Shuffle : AbstractPowerUp
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private CubeSpawner cubeSpawner;
 
-    //TODO: make it so power ups cant spawn in regenerated rows and also some funky stuff happens when you regenerate the starting rows
-    public void RunShuffle() {
+    [SerializeField] private Volume volume;
+    ColorAdjustments colorAdj;
+    LensDistortion lensDist;
+
+    void Start() {
+        volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdj);
+        volume.sharedProfile.TryGet<LensDistortion>(out lensDist);
+    }
+
+
+    public IEnumerator RunShuffle() {
+        powerUpManager.RemovePowerUp();
+        float t = 1f;
+
+        Time.timeScale = 0.25f;
+        lensDist.active = true;
+        while (t >= 0f) {
+            t -= 3f * Time.deltaTime;
+            lensDist.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(-0.5f, 0, t), -1, 1, true));
+            yield return null;
+        }
+
+        ShuffleRows();
+
+        while (t <= 1) {
+            t += 60f * Time.deltaTime;
+            lensDist.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(-0.5f, 0, t), -1, 1, true));
+            yield return null;
+        }
+        lensDist.active = false;
+        Time.timeScale = 1;
+    }
+
+    public void ShuffleRows() {
         LinkedList<Row> rows = cubeSpawner.Rows;
         Queue<Row> emptyRows = new Queue<Row>();
         Queue<int> gaps = new Queue<int>();
@@ -39,14 +73,13 @@ public class Shuffle : AbstractPowerUp
         }
 
         //Create first row
-        cubeSpawner.InitiateRow(emptyRows.Dequeue(), startingX, -1, Mathf.Min(gaps.Dequeue() + 1, cubeSpawner.Lanes - 1), true);
+        cubeSpawner.InitiateRow(emptyRows.Dequeue(), startingX, -1, Mathf.Min(gaps.Dequeue() + 1, cubeSpawner.Lanes - 1), true, true);
 
         //Create all subsquent rows
         while (emptyRows.Count > 0 && gaps.Count > 0) {
-            cubeSpawner.InitiateRow(emptyRows.Dequeue(), -1, -1, Mathf.Min(gaps.Dequeue() + 1, cubeSpawner.Lanes - 1), false);
+            cubeSpawner.InitiateRow(emptyRows.Dequeue(), -1, -1, Mathf.Min(gaps.Dequeue() + 1, cubeSpawner.Lanes - 1), true, false);
         }
         
-        cubeSpawner.InitiateRow(first, -1, -1, -1, false);
-        powerUpManager.RemovePowerUp();
+        cubeSpawner.InitiateRow(first);
     }
 }

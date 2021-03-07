@@ -12,7 +12,7 @@ public enum PowerUpState {
 public class PlayerPowerUp : MonoBehaviour
 {
     [SerializeField] private PowerUpState state;
-     public PowerUpState State { get => state; set => state = value; }
+    public PowerUpState State { get => state; set => state = value; }
     [SerializeField] private PowerUpType type;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private BarMove barMove;
@@ -133,7 +133,7 @@ public class PlayerPowerUp : MonoBehaviour
                         StartCoroutine(hardened.HardenedExpiration());
                         break;
                     case PowerUpType.Shuffle:
-                        shuffle.RunShuffle();
+                        StartCoroutine(shuffle.RunShuffle());
                         break;
                 }
                 return true;

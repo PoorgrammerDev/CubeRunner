@@ -5936,6 +5936,7 @@ MonoBehaviour:
   powerUpManager: {fileID: 686139434}
   audioSource: {fileID: 0}
   cubeSpawner: {fileID: 7314368}
+  volume: {fileID: 1983630987}
 --- !u!1 &1604880397
 GameObject:
   m_ObjectHideFlags: 0
@@ -7377,7 +7378,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameValues: {fileID: 573723474}
-  cooldown: 0
+  cooldown: 10
   powerUpObjects:
   - {fileID: 2095521378}
   - {fileID: 1641208828}

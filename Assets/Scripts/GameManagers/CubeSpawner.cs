@@ -69,13 +69,17 @@ public class CubeSpawner : MonoBehaviour
         Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
-        InitiateRow(row, xCoordSpawn, initialSpawnNum, -1, true);
+        InitiateRow(row, xCoordSpawn, initialSpawnNum, -1, true, false);
         return row;
+    }
+
+    public void InitiateRow(Row row) {
+        InitiateRow(row, -1, -1, -1, false, false);
     }
 
     //This method takes an already made but inactive row and "activates" it, putting it into the game field.
     //This is not to be confused with CreateNewRow which adds an extra row to the total.
-    public void InitiateRow(Row row, float xCoordSpawn, int initialSpawn, int gaps, bool ignoreBits) {
+    public void InitiateRow(Row row, float xCoordSpawn, int initialSpawn, int gaps, bool ignorePUP, bool ignoreBits) {
         if (gaps == -1) GetPlacementArray(row);
         else GetPlacementArray(row, gaps);
 
@@ -116,7 +120,7 @@ public class CubeSpawner : MonoBehaviour
         }
 
         //Power ups
-        if (powerUpSpawner.IsReady() && Random.value < gameValues.PowerUpSpawnChance) {
+        if (!ignorePUP && powerUpSpawner.IsReady() && Random.value < gameValues.PowerUpSpawnChance) {
             int slot = -1;
             do {
                 slot = Random.Range(0, lanes);
@@ -217,7 +221,7 @@ public class CubeSpawner : MonoBehaviour
         }
 
         row.structures = null;
-        if (autoInit) InitiateRow(row, -1, -1, -1, true);
+        if (autoInit) InitiateRow(row);
     }
 
     float GetNextXCoord (Row row) {
