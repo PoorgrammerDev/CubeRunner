@@ -28,7 +28,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Compression compression;
     [SerializeField] private Hardened hardened;
     [SerializeField] private Guidelines guidelines;
-    [SerializeField] private Shuffle shuffle;
+    [SerializeField] private Decimate decimate;
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
@@ -65,7 +65,7 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
         PowerUpTypeToClass.Add(PowerUpType.Guidelines, guidelines);
-        PowerUpTypeToClass.Add(PowerUpType.Shuffle, shuffle);
+        PowerUpTypeToClass.Add(PowerUpType.Decimate, decimate);
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -132,8 +132,8 @@ public class PlayerPowerUp : MonoBehaviour
                         hardened.shieldObject.SetActive(true);
                         StartCoroutine(hardened.HardenedExpiration());
                         break;
-                    case PowerUpType.Shuffle:
-                        StartCoroutine(shuffle.RunShuffle());
+                    case PowerUpType.Decimate:
+                        decimate.RunDecimate();
                         break;
                 }
                 return true;
@@ -253,7 +253,7 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Guidelines:
                     StartCoroutine(guidelines.RunGuidelines());
-                    //TODO: add sound
+                    //playSound = guidelines; TODO: add SOUND
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS

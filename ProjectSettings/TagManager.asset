@@ -8,6 +8,7 @@ TagManager:
   - PowerUp
   - Gibs
   - Bits
+  - DecimateObject
   layers:
   - Default
   - TransparentFX
