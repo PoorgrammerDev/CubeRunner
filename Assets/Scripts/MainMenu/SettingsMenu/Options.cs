@@ -5,7 +5,8 @@ public class Options : MonoBehaviour
 {
     [SerializeField] private GameValues gameValues;
     [SerializeField] private MusicManager musicManager;
-    [SerializeField] private SFXVolumeManager[] soundEffectManagers;
+
+    private SFXVolumeManager[] soundEffectManagers;
 
     [Header("UI Elements")]
     [SerializeField] private Slider SFXVolume;
@@ -14,7 +15,7 @@ public class Options : MonoBehaviour
     [SerializeField] private Slider Graphics;
     [SerializeField] private Toggle SkipAnimations;
 
-    void Start() {
+    void Awake() {
         SFXVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, 0.5f);
         MusicVolume.value = PlayerPrefs.GetFloat(TagHolder.PREF_MUSIC_VOLUME, 0.5f);
         ColorblindMode.isOn = (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE, 0) == 1);
@@ -25,8 +26,12 @@ public class Options : MonoBehaviour
     public void UpdateSFXVolume() {
         PlayerPrefs.SetFloat(TagHolder.PREF_SFX_VOLUME, SFXVolume.value);
         
-        foreach (SFXVolumeManager soundEffectManager in soundEffectManagers) {
-            soundEffectManager.UpdateVolume();
+        if (soundEffectManagers == null) {
+            soundEffectManagers = FindObjectsOfType<SFXVolumeManager>();
+        }
+
+        foreach (SFXVolumeManager manager in soundEffectManagers) {
+            if (manager != null) manager.UpdateVolume();
         }
     }
 

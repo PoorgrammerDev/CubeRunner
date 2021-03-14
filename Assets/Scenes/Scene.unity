@@ -4433,8 +4433,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0.9960785, g: 0.10980393, b: 0.2627451, a: 1}
   sprite: {fileID: 21300000, guid: c567b424af452f245b6d48f610051323, type: 3}
-  sounds: []
-  soundStartTimes: []
+  sounds:
+  - {fileID: 0}
+  soundStartTimes:
+  - 0
   powerUpManager: {fileID: 686139434}
   audioSource: {fileID: 1768795403}
   guidelinesObject: {fileID: 459698982}
