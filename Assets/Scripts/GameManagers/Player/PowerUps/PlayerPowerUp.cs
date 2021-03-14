@@ -253,7 +253,7 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Guidelines:
                     StartCoroutine(guidelines.RunGuidelines());
-                    //TODO: add sound
+                    //playSound = guidelines; TODO: add SOUND
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS

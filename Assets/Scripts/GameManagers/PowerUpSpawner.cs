@@ -25,7 +25,6 @@ public class PowerUpSpawner : MonoBehaviour
         if (IsReady()) {
             bool[] rowStructs = row.structures;
             if (rowStructs[slot]) { //checks that the position indicated is a gap
-            print (powerUpType + " | " + (int) powerUpType);
                 PowerUp powerUpObject = powerUpObjects[(int) powerUpType];
 
                 //re-parent

@@ -127,7 +127,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Decimate); //TODO: revert later
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Guidelines); //TODO: revert later
         }
 
         //Bits
@@ -228,8 +228,8 @@ public class CubeSpawner : MonoBehaviour
             }
 
             else {
-                print (child.name);
-                break;
+                Debug.LogError("Invalid Object " + child.name + " in Row");
+                Destroy(child.gameObject);
             }
         }
 

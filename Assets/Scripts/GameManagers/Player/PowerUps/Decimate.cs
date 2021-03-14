@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
 
 public class Decimate : AbstractPowerUp
 {
@@ -17,6 +15,7 @@ public class Decimate : AbstractPowerUp
 
     [Header("Options")]
     [SerializeField] private int poolSize;
+    [SerializeField] private int rowCount;
     
 
     void Start() {
@@ -38,15 +37,28 @@ public class Decimate : AbstractPowerUp
     }
 
     public void RunDecimate() {
-        foreach (Row row in cubeSpawner.Rows) { //TODO: add count
-            int count = cubeSpawner.Lanes - row.gapCount;
-            Transform obstacle = row.transform.GetChild(Random.Range(0, count));
+        //play audio
+        audioSource.clip = Sounds[0];
+        audioSource.time = SoundStartTimes[0];
+        audioSource.Play();
+
+        int count = 0;
+        foreach (Row row in cubeSpawner.Rows) {
+            //skip the first row (the one that the player is about to pass)
+            if (count == 0) {
+                count++;
+                continue;
+            }
+
+            //check count
+            if (count > rowCount) break;
+            
+            int obstacleCount = cubeSpawner.Lanes - row.gapCount;
+            Transform obstacle = row.transform.GetChild(Random.Range(0, obstacleCount));
             if (obstacle.CompareTag(TagHolder.OBSTACLE_TAG)) {
                 StartCoroutine(DecimateObstacle(row, obstacle));
             }
-            else {
-                print(obstacle.name); //TODO: REMOVE THIS PRIOR TO RELEASE
-            }
+            count++;
         }
         powerUpManager.RemovePowerUp();
     }
