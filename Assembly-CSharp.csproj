@@ -56,10 +56,10 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\AbstractPowerUp.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Blaster.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Compression.cs" />
+     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Decimate.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Guidelines.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Hardened.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\PlayerPowerUp.cs" />
-     <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Shuffle.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\TimeDilation.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\GameManagers\PowerUpSpawner.cs" />

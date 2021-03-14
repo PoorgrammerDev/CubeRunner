@@ -14,6 +14,7 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private Material transparentMaterial;
     [SerializeField] private Material opaqueMaterial;
     [SerializeField] private BitsSpawner bitsSpawner;
+    [SerializeField] private Decimate decimate;
     [SerializeField] private int rowCount = 10;
 
     private float firstRowDistance;
@@ -126,7 +127,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Shuffle); //TODO: revert later
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Decimate); //TODO: revert later
         }
 
         //Bits
@@ -213,11 +214,23 @@ public class CubeSpawner : MonoBehaviour
             bitsSpawner.StashBits(row);
         }
 
-        //return all cubes to the pool
+        //return cubes to respective pools
         while (rowTransform.childCount > 0) {
             Transform child = rowTransform.GetChild(rowTransform.childCount - 1);
-            child.SetParent(cubePoolObject);
-            cubePool.Push(child.gameObject);
+            if (child.CompareTag(TagHolder.OBSTACLE_TAG)) {
+                child.SetParent(cubePoolObject);
+                cubePool.Push(child.gameObject);
+            }
+
+            //stash decimate objects
+            else if (child.CompareTag(TagHolder.DECIMATE_OBJ_TAG)) {
+                decimate.StashObject(child.gameObject);
+            }
+
+            else {
+                print (child.name);
+                break;
+            }
         }
 
         row.structures = null;

@@ -31,6 +31,7 @@ public class TagHolder
     public const string POWERUP_TAG = "PowerUp";
     public const string GIBS_TAG = "Gibs";
     public const string BITS_TAG = "Bits";
+    public const string DECIMATE_OBJ_TAG = "DecimateObject";
     
     //PlayerPref Keys
     public const string PREF_HAS_ACCEPTED_EULA = "HasAcceptedEULA";
