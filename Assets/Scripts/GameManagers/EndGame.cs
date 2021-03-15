@@ -33,6 +33,8 @@ public class EndGame : MonoBehaviour
             timeDilation.ResetTDEffects(true);
         }
 
+        playerPowerUp.StopSound();
+
         //Data Export
         dataExport.FinalScore = gameValues.Score;
         dataExport.CubePartDivide = gameValues.Divide;

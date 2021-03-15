@@ -172,6 +172,9 @@ public class PlayerPowerUp : MonoBehaviour
                 case PowerUpType.Hardened:
                     hardened.shieldObject.SetActive(false);
                     break;
+                case PowerUpType.Guidelines:
+                    StartCoroutine(guidelines.StopSound(false));
+                    break;
                 case PowerUpType.Align:
                     align.targetParentObj.gameObject.SetActive(false);
                     break;
@@ -260,7 +263,6 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Guidelines:
                     StartCoroutine(guidelines.RunGuidelines());
-                    //playSound = guidelines; TODO: add SOUND
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS
@@ -312,5 +314,9 @@ public class PlayerPowerUp : MonoBehaviour
             yield return null;
         }
         aspectFitterWorking = false;
+    }
+
+    public void StopSound() {
+        audioSource.Stop();
     }
 }

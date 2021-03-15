@@ -2280,8 +2280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: {r: 0.6784314, g: 0.94509804, b: 1, a: 1}
   sprite: {fileID: 21300000, guid: 69fc1857c3fd35242ad17646a8e91145, type: 3}
-  sounds: []
-  soundStartTimes: []
+  sounds:
+  - {fileID: 0}
+  soundStartTimes:
+  - 0
   powerUpManager: {fileID: 686139434}
   gameValues: {fileID: 573723474}
   cubeSpawner: {fileID: 7314368}
@@ -4507,7 +4509,7 @@ MonoBehaviour:
   color: {r: 0.9960785, g: 0.10980393, b: 0.2627451, a: 1}
   sprite: {fileID: 21300000, guid: c567b424af452f245b6d48f610051323, type: 3}
   sounds:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: cf673335fc71a114c9de1aacd2e1b975, type: 3}
   soundStartTimes:
   - 0
   powerUpManager: {fileID: 686139434}
@@ -4515,6 +4517,9 @@ MonoBehaviour:
   guidelinesObject: {fileID: 459698982}
   duration: 10
   length: 15
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1013692501
 GameObject:
   m_ObjectHideFlags: 0

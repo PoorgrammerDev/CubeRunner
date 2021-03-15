@@ -11,6 +11,12 @@ public class Guidelines : AbstractPowerUp
     [Header("Settings")]
     [SerializeField] private float duration;
     [SerializeField] private float length;
+    [SerializeField] private LayerMask layerMask;
+    float originalVolume;
+
+    void Start () {
+        originalVolume = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME);
+    }
 
     public IEnumerator RunGuidelines() {
         Transform objTrans = guidelinesObject.transform;
@@ -21,6 +27,7 @@ public class Guidelines : AbstractPowerUp
         //active state
         powerUpManager.State = PowerUpState.Active;
         
+        StartCoroutine(SFXControl());
         
         //extend outwards
         guidelinesObject.SetActive(true);
@@ -55,5 +62,61 @@ public class Guidelines : AbstractPowerUp
         
         guidelinesObject.SetActive(false);
         powerUpManager.RemovePowerUp();
+    }
+
+    IEnumerator SFXControl() {
+        this.originalVolume = audioSource.volume;
+        audioSource.clip = Sounds[0];
+        audioSource.time = SoundStartTimes[0];
+        audioSource.volume = 0;
+        audioSource.loop = true;
+        audioSource.Play();
+
+        //fade in
+        float t = 0f;
+        while (t <= 1) {
+            t += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(0, originalVolume, t);
+            audioSource.pitch = Mathf.Lerp(0, 1, t);
+            yield return null;
+        }
+
+        while (powerUpManager.GetActivePowerUp() == PowerUpType.Guidelines) {
+            Collider[] obstacles = Physics.OverlapBox(guidelinesObject.transform.position, guidelinesObject.transform.localScale / 2f, guidelinesObject.transform.rotation, layerMask);
+            float minDist = float.MaxValue;
+            foreach (Collider obstacle in obstacles) {
+                if (obstacle != null) {
+                    float dist = (Mathf.Abs(obstacle.transform.position.x - powerUpManager.transform.position.x));
+                    if (dist < minDist) {
+                        minDist = dist;
+                    }
+                }
+            }
+
+            if (minDist == float.MaxValue) minDist = 0;
+            else minDist = (length - minDist) / length;
+
+            audioSource.pitch = Mathf.Lerp(1f, 1.25f, minDist);
+            yield return null;
+        }
+    }
+
+    public IEnumerator StopSound(bool instant) {
+        if (!instant) {
+            //fade out
+            float t = 1f;
+            while (t >= 0) {
+                t -= Time.deltaTime;
+                audioSource.volume = Mathf.Lerp(0, originalVolume, t);
+                audioSource.pitch = Mathf.Lerp(0, 1, t);
+                yield return null;
+            }
+        }
+
+        audioSource.Stop();
+        audioSource.clip = null;
+        audioSource.loop = false;
+        audioSource.pitch = 1f;
+        audioSource.volume = this.originalVolume;
     }
 }
