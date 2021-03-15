@@ -6,6 +6,9 @@ public class Align : AbstractPowerUp {
     [SerializeField] private GameValues gameValues;
     [SerializeField] private CubeSpawner cubeSpawner;
     [SerializeField] private Transform player;
+    [SerializeField] private GameObject targetPrefab;
+    public Transform targetParentObj;
+    [SerializeField] private GameObject[] targets;
 
     [Header("Options")]
     [SerializeField] private float duration;
@@ -27,8 +30,16 @@ public class Align : AbstractPowerUp {
         int lanes = cubeSpawner.Lanes;
         positions = new float[lanes];
 
+        //calculate positions
         for (int i = 0; i < lanes; i++) {
             positions[i] = (((lanes) / 2f) - i - 0.5f) * gameValues.WidthScale;
+        }
+
+        //initalize targets
+        targets = new GameObject[lanes];
+        Quaternion rotation = Quaternion.Euler(90, 90, 0);
+        for (int i = 0; i < lanes; i++) {
+            targets[i] = Instantiate(targetPrefab, new Vector3(0, 0.1f, positions[i]), rotation, targetParentObj);
         }
     }
 
@@ -54,11 +65,16 @@ public class Align : AbstractPowerUp {
         }
     }
 
-    public IEnumerator RunAlignTimer() {
+    void UpdateTargets() {
+        //TODO: change texture to add arrow or something
+    }
+
+    public IEnumerator RunAlign() {
         //set active
         powerUpManager.State = PowerUpState.Active;
 
         FindCurrentPosition();
+        targetParentObj.gameObject.SetActive(true);
 
         //wait
         powerUpManager.ticker = duration;
@@ -73,12 +89,14 @@ public class Align : AbstractPowerUp {
     public void MoveLeft() {
         if (currentPosition > 0) {
             Move(--currentPosition);
+            UpdateTargets();
         }
     }
 
     public void MoveRight() {
         if (currentPosition < positions.Length - 1) {
             Move(++currentPosition);
+            UpdateTargets();
         }
     }
 

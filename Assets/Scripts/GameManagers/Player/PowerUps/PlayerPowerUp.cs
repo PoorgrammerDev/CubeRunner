@@ -168,8 +168,13 @@ public class PlayerPowerUp : MonoBehaviour
             PUPIcon.enabled = false;
 
             //special actions when removing PUP
-            if (type == PowerUpType.Hardened) {
-                hardened.shieldObject.SetActive(false);
+            switch (type) {
+                case PowerUpType.Hardened:
+                    hardened.shieldObject.SetActive(false);
+                    break;
+                case PowerUpType.Align:
+                    align.targetParentObj.gameObject.SetActive(false);
+                    break;
             }
         }
     }
@@ -263,7 +268,7 @@ public class PlayerPowerUp : MonoBehaviour
                     #endif
                     break;
                 case PowerUpType.Align:
-                    StartCoroutine(align.RunAlignTimer());
+                    StartCoroutine(align.RunAlign());
                     //TODO: add sound?
 
                     //disable power up button if mobile
