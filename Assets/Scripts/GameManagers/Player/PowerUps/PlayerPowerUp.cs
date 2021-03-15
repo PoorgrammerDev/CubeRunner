@@ -29,6 +29,7 @@ public class PlayerPowerUp : MonoBehaviour
     [SerializeField] private Hardened hardened;
     [SerializeField] private Guidelines guidelines;
     [SerializeField] private Decimate decimate;
+    [SerializeField] private Align align;
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
@@ -66,6 +67,7 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
         PowerUpTypeToClass.Add(PowerUpType.Guidelines, guidelines);
         PowerUpTypeToClass.Add(PowerUpType.Decimate, decimate);
+        PowerUpTypeToClass.Add(PowerUpType.Align, align);
     }
     
     public bool AddPowerUp (PowerUpType type) {
@@ -254,6 +256,15 @@ public class PlayerPowerUp : MonoBehaviour
                 case PowerUpType.Guidelines:
                     StartCoroutine(guidelines.RunGuidelines());
                     //playSound = guidelines; TODO: add SOUND
+
+                    //disable power up button if mobile
+                    #if UNITY_ANDROID || UNITY_IOS
+                        disableButton = true;
+                    #endif
+                    break;
+                case PowerUpType.Align:
+                    StartCoroutine(align.RunAlignTimer());
+                    //TODO: add sound?
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS

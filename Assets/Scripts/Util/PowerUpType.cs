@@ -5,5 +5,6 @@ public enum PowerUpType {
     Hardened,
     Guidelines,
     Decimate,
+    Align,
     COUNT,
 }

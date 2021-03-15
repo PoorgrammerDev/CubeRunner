@@ -10,11 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private int mobileAxis;
 
     [SerializeField] private GameValues gameValues;
+    private PlayerPowerUp playerPowerUp;
+    [SerializeField] private Align align;
     [SerializeField] private GameObject mobileControls;
     [SerializeField] private float gravity;
 
     void Awake() {
         characterController = GetComponent<CharacterController>();
+        playerPowerUp = GetComponent<PlayerPowerUp>();
 
         #if UNITY_IOS || UNITY_ANDROID
             mobileControls.SetActive(true);
@@ -25,6 +28,26 @@ public class PlayerMovement : MonoBehaviour
     void Update() {
         if (!gameValues.GameActive || characterController == null || !characterController.enabled) return;
 
+        //Movement Override: Align PUP movement logic --- --- --- ---
+        if (playerPowerUp.GetActivePowerUp() == PowerUpType.Align && playerPowerUp.State == PowerUpState.Active) {
+            #if UNITY_STANDALONE || UNITY_WEBGL
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) {
+                    align.MoveLeft();
+                }
+                else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) {
+                    align.MoveRight();
+                }
+            #endif
+
+            #if UNITY_ANDROID || UNITY_IOS
+                //TODO: figure out mobile movement logic
+            #endif
+
+            return;
+        }
+
+
+        //default movement logic --- --- --- --- ---
         float horizontal;
 
         #if UNITY_STANDALONE || UNITY_WEBGL
@@ -34,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         #if UNITY_ANDROID || UNITY_IOS
             horizontal = mobileAxis;
         #endif
-
+        
         Vector3 transformDirection = new Vector3(0f, 0f, -horizontal * gameValues.StrafingSpeed);
         Vector3 velocity = transform.TransformDirection(transformDirection) * Time.deltaTime;
         velocity = ApplyGravity(velocity);
