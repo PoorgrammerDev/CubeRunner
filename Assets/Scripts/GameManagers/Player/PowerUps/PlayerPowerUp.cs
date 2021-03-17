@@ -177,6 +177,8 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Align:
                     align.targetParentObj.gameObject.SetActive(false);
+                    align.leftMoveArrow.SetActive(false);
+                    align.rightMoveArrow.SetActive(false);
                     break;
             }
         }

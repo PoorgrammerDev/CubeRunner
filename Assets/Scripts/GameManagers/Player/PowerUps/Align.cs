@@ -9,17 +9,16 @@ public class Align : AbstractPowerUp {
     [SerializeField] private GameObject targetPrefab;
     public Transform targetParentObj;
     [SerializeField] private GameObject[] targets;
+    public GameObject leftMoveArrow;
+    public GameObject rightMoveArrow;
 
     [Header("Options")]
     [SerializeField] private float duration;
     [SerializeField] private bool beginningAlign;
 
 
-
-
-
-    [SerializeField] private float[] positions; //TODO: deserialize
-    [SerializeField] private int currentPosition; //TODO: deserialize
+    private float[] positions;
+    private int currentPosition;
 
     void Start() {
         StartCoroutine(DelayStart());
@@ -41,6 +40,14 @@ public class Align : AbstractPowerUp {
         for (int i = 0; i < lanes; i++) {
             targets[i] = Instantiate(targetPrefab, new Vector3(0, 0.1f, positions[i]), rotation, targetParentObj);
         }
+
+        //set move arrow positions
+        Vector3 position = leftMoveArrow.transform.position;
+        position.z = gameValues.WidthScale;
+        leftMoveArrow.transform.position = position;
+        
+        position.z = -gameValues.WidthScale;
+        rightMoveArrow.transform.position = position;
     }
 
     void FindCurrentPosition() {
@@ -66,7 +73,8 @@ public class Align : AbstractPowerUp {
     }
 
     void UpdateTargets() {
-        //TODO: change texture to add arrow or something
+        leftMoveArrow.SetActive(currentPosition > 0);
+        rightMoveArrow.SetActive(currentPosition < positions.Length - 1);
     }
 
     public IEnumerator RunAlign() {
@@ -89,14 +97,12 @@ public class Align : AbstractPowerUp {
     public void MoveLeft() {
         if (currentPosition > 0) {
             Move(--currentPosition);
-            UpdateTargets();
         }
     }
 
     public void MoveRight() {
         if (currentPosition < positions.Length - 1) {
             Move(++currentPosition);
-            UpdateTargets();
         }
     }
 
@@ -104,6 +110,7 @@ public class Align : AbstractPowerUp {
         Vector3 position = player.position;
         position.z = this.positions[index];
         player.position = position;
+        UpdateTargets();
     }
 
 }
