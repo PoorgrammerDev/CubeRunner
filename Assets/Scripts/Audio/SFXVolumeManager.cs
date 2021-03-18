@@ -16,4 +16,12 @@ public class SFXVolumeManager : MonoBehaviour
     public void UpdateVolume() {
         audioSource.volume = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME, defaultSFXVolume);
     }
+
+    public void Pause() {
+        audioSource.Pause();
+    }
+
+    public void Resume() {
+        audioSource.UnPause();
+    }
 }

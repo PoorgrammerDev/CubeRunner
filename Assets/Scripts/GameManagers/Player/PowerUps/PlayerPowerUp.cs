@@ -38,7 +38,7 @@ public class PlayerPowerUp : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
     private AspectRatioFitter PUPHUDXYFitter;
-    private bool aspectFitterWorking = false;
+    private int activeFitterTasks = 0;
     private bool fitterWorkVar = false;
     [SerializeField] private float colorFadeTime;
     [SerializeField] private Color defaultColor;
@@ -207,8 +207,8 @@ public class PlayerPowerUp : MonoBehaviour
             #endif
         }
 
-        //THIS IS A HACKY WORKAROUND
-        if (aspectFitterWorking) {
+        //TODO: THIS IS A HACKY WORKAROUND
+        if (activeFitterTasks > 0) {
             PUPHUDXYFitter.enabled = fitterWorkVar;
             fitterWorkVar = !fitterWorkVar;
         }
@@ -309,13 +309,13 @@ public class PlayerPowerUp : MonoBehaviour
 
     IEnumerator TogglePUPHUD(bool open) {
         float t = 0f;
-        aspectFitterWorking = true;
+        activeFitterTasks++;
         while (t <= 1) {
             t += 2.5f * Time.deltaTime;
             PUPHUDXYFitter.aspectRatio = open ?  Mathf.Lerp(1, 4, t) : Mathf.Lerp(4, 1, t);
             yield return null;
         }
-        aspectFitterWorking = false;
+        activeFitterTasks--;
     }
 
     public void StopSound() {

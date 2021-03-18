@@ -2876,6 +2876,7 @@ MonoBehaviour:
   tickRate: 1
   ticker: 0
   PowerUpHUDAnimator: {fileID: 491121452}
+  activeFitterTasks: 0
   colorFadeTime: 0
   defaultColor: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 0}
   outline: {fileID: 463847832}

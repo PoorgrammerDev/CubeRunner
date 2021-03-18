@@ -13,6 +13,7 @@ public class MusicManager : MonoBehaviour
     private Queue<AudioClip> songQueue;
     private const float defaultVolume = 0.5f;
     private bool stopped = false;
+    public bool Stopped => stopped;
 
     // Start is called before the first frame update
     void Start() {

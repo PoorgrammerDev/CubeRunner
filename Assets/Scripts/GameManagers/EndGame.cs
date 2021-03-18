@@ -33,6 +33,8 @@ public class EndGame : MonoBehaviour
             timeDilation.ResetTDEffects(true);
         }
 
+        //Remove PUPs and force stop sfx
+        playerPowerUp.RemovePowerUp();
         playerPowerUp.StopSound();
 
         //Data Export

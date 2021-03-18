@@ -39,7 +39,7 @@ public class Hardened : AbstractPowerUp
         powerUpManager.ticker = hardenedDuration;
     }
 
-    //TODO quite messy code, find a better way to do this later
+    //TODO: quite messy code, find a better way to do this later
     IEnumerator DelayResume(float speed) {
         float t = 0f;
         while (t <= 1f) {
