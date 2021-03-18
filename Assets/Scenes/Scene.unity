@@ -1806,7 +1806,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
   - {fileID: 8300000, guid: 3d567310315f1d94482a56e0bfc6aeea, type: 3}
   - {fileID: 8300000, guid: a81a67944e89e814c96db70f35b5aee6, type: 3}
-  - {fileID: 8300000, guid: 063bf8fec8f3238409c02028015bb96b, type: 3}
+  - {fileID: 8300000, guid: ee30a0257a6d28749b8bfa32bd4e51cc, type: 3}
   - {fileID: 8300000, guid: 1c02bc96f335e3a4390d084e06f47618, type: 3}
   - {fileID: 8300000, guid: 1b40125248306aa4da487a1bd86331a3, type: 3}
 --- !u!1 &434842547
@@ -2876,7 +2876,6 @@ MonoBehaviour:
   tickRate: 1
   ticker: 0
   PowerUpHUDAnimator: {fileID: 491121452}
-  activeFitterTasks: 0
   colorFadeTime: 0
   defaultColor: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 0}
   outline: {fileID: 463847832}
@@ -3539,7 +3538,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
   - {fileID: 8300000, guid: 3d567310315f1d94482a56e0bfc6aeea, type: 3}
   - {fileID: 8300000, guid: a81a67944e89e814c96db70f35b5aee6, type: 3}
-  - {fileID: 8300000, guid: 063bf8fec8f3238409c02028015bb96b, type: 3}
+  - {fileID: 8300000, guid: ee30a0257a6d28749b8bfa32bd4e51cc, type: 3}
   - {fileID: 8300000, guid: 1c02bc96f335e3a4390d084e06f47618, type: 3}
   - {fileID: 8300000, guid: 1b40125248306aa4da487a1bd86331a3, type: 3}
 --- !u!1 &809075949
@@ -8287,7 +8286,6 @@ MonoBehaviour:
   pauseMenu: {fileID: 960727380}
   GameHUD: {fileID: 258100189}
   endGame: {fileID: 602921035}
-  player: {fileID: 686139426}
   musicManager: {fileID: 999835071}
   pauseButton: {fileID: 216847768}
   paused: 0
