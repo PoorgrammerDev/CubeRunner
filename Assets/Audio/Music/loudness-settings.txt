@@ -1,0 +1,10 @@
+Matched Loudness in Adobe Audition
+
+Match To: ITU-R BS.1770-3 Loudness
+Target Loudness: -18 LUFS
+Tolerance: 2 LU
+Max True Peak Level: -0.1 dBTP
+
+Use True Peak Limiting: TRUE (Forced)
+Look-Ahead Time: 12ms
+Release Time: 200ms
