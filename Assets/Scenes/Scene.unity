@@ -925,6 +925,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189748465}
   m_CullTransparentMesh: 0
+--- !u!1 &197828921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 197828922}
+  m_Layer: 0
+  m_Name: PlayerShadows
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &197828922
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197828921}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1273532622}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200243916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2283,10 +2313,11 @@ MonoBehaviour:
   color: {r: 0.6784314, g: 0.94509804, b: 1, a: 1}
   sprite: {fileID: 21300000, guid: 69fc1857c3fd35242ad17646a8e91145, type: 3}
   sounds:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 7387dbd5cb7a1344db519bae272ac6a1, type: 3}
   soundStartTimes:
-  - 0
+  - 0.2
   powerUpManager: {fileID: 686139434}
+  audioSource: {fileID: 1768795403}
   gameValues: {fileID: 573723474}
   cubeSpawner: {fileID: 7314368}
   player: {fileID: 686139431}
@@ -2296,8 +2327,12 @@ MonoBehaviour:
   targets: []
   leftMoveArrow: {fileID: 1366598826}
   rightMoveArrow: {fileID: 2141664450}
+  playerShadowsParent: {fileID: 197828922}
+  shadowPrefab: {fileID: 6410433358480600640, guid: 996b1c16dce557943870330bf5be16b9,
+    type: 3}
   duration: 10
   beginningAlign: 1
+  shadowCount: 3
 --- !u!1 &491121447
 GameObject:
   m_ObjectHideFlags: 0
@@ -5327,7 +5362,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 197828922}
   m_Father: {fileID: 0}
   m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -1,8 +1,10 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Align : AbstractPowerUp {
     [SerializeField] private PlayerPowerUp powerUpManager;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameValues gameValues;
     [SerializeField] private CubeSpawner cubeSpawner;
     [SerializeField] private Transform player;
@@ -12,9 +14,14 @@ public class Align : AbstractPowerUp {
     public GameObject leftMoveArrow;
     public GameObject rightMoveArrow;
 
+    [SerializeField] private Transform playerShadowsParent;
+    [SerializeField] private GameObject shadowPrefab;
+    private Queue<GameObject> shadows;
+
     [Header("Options")]
     [SerializeField] private float duration;
     [SerializeField] private bool beginningAlign;
+    [SerializeField] private int shadowCount;
 
 
     private float[] positions;
@@ -22,6 +29,7 @@ public class Align : AbstractPowerUp {
 
     void Start() {
         StartCoroutine(DelayStart());
+        MakeShadows(shadowCount * 2);
     }
 
     IEnumerator DelayStart() {
@@ -96,21 +104,64 @@ public class Align : AbstractPowerUp {
 
     public void MoveLeft() {
         if (currentPosition > 0) {
-            Move(--currentPosition);
+            Move(currentPosition - 1);
         }
     }
 
     public void MoveRight() {
         if (currentPosition < positions.Length - 1) {
-            Move(++currentPosition);
+            Move(currentPosition + 1);
         }
     }
 
+    void MakeShadows(int count) {
+        Vector3 pos = new Vector3(0, 0.6f, 0);
+        Quaternion rot = new Quaternion();
+        shadows = new Queue<GameObject>();
+        for (int i = 0; i < count; i++) {
+            shadows.Enqueue(Instantiate(shadowPrefab, pos, rot, playerShadowsParent));
+        }
+    }
+
+    GameObject GetShadow() {
+        if (shadows.Count > 0) {
+            return shadows.Dequeue();
+        }
+        MakeShadows(1);
+        return GetShadow();
+    }
+
     void Move(int index) {
+        //teleport logic
         Vector3 position = player.position;
+        Vector3 lastPosition = position;
         position.z = this.positions[index];
         player.position = position;
+        currentPosition = index;
         UpdateTargets();
+
+        //sfx
+        audioSource.clip = Sounds[0];
+        audioSource.time = SoundStartTimes[0];
+        audioSource.Play();
+
+        //vfx
+        for (int i = 0; i < shadowCount; i++) {
+            StartCoroutine(ShadowMove(GetShadow(), lastPosition, position, (shadowCount - i) + 3));
+        }
+    }
+
+    IEnumerator ShadowMove(GameObject shadow, Vector3 lastPosition, Vector3 position, float speed) {
+        float t = 0f;
+        shadow.SetActive(true);
+        while (t <= 1f) {
+            t += speed * Time.deltaTime;
+            shadow.transform.position = Vector3.Lerp(lastPosition, position, t);
+            yield return null;
+        }
+
+        shadow.SetActive(false);
+        shadows.Enqueue(shadow);
     }
 
 }
