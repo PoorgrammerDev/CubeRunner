@@ -36,14 +36,11 @@ public class PowerUpSpawner : MonoBehaviour
                 position.z = (((lanes) / 2f) - slot - 0.5f) * gameValues.WidthScale;
                 powerUpObject.transform.localPosition = position;
 
-                //colorblind indicator
-                if (PlayerPrefs.GetInt(TagHolder.PREF_COLORBLIND_MODE) == 1) {
-                    TypeDisplayImage.sprite = powerUpObjects[(int) powerUpType].PUPMechanism.Sprite;
-                    
-                    PUPTypeDisplay.gameObject.SetActive(true);
-                    PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
-                    StartCoroutine(RemoveTypeGUI());
-                }
+                //power-up indicator
+                TypeDisplayImage.sprite = powerUpObjects[(int) powerUpType].PUPMechanism.Sprite;
+                PUPTypeDisplay.gameObject.SetActive(true);
+                PUPTypeDisplay.ResetTrigger(TagHolder.HUD_EXIT_TRIGGER);
+                StartCoroutine(RemoveTypeGUI());
                 
                 powerUpObject.gameObject.SetActive(true);
 

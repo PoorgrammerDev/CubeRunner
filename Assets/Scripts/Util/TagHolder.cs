@@ -39,7 +39,6 @@ public class TagHolder
     public const string PREF_DIFFICULTY = "Difficulty";
     public const string PREF_SFX_VOLUME = "SFX_VOLUME";
     public const string PREF_MUSIC_VOLUME = "MUSIC_VOLUME";
-    public const string PREF_COLORBLIND_MODE = "COLORBLIND_MODE";
     public const string PREF_GRAPHICS = "Graphics";
     public const string PREF_SKIP_ANIM = "SkipAnimations";
     public const string PREF_TOTAL_BITS = "TotalBits";
