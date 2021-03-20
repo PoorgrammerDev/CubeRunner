@@ -2311,7 +2311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.6784314, g: 0.94509804, b: 1, a: 1}
-  sprite: {fileID: 21300000, guid: 69fc1857c3fd35242ad17646a8e91145, type: 3}
+  sprite: {fileID: 21300000, guid: f967ce3748c279f4aa948f581b17cc8a, type: 3}
   sounds:
   - {fileID: 8300000, guid: 7387dbd5cb7a1344db519bae272ac6a1, type: 3}
   soundStartTimes:
@@ -6170,7 +6170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.83137256, g: 0.16078432, b: 0.99607843, a: 0}
-  sprite: {fileID: 21300000, guid: 6ada25ca1d78cc84fa89ab9b4a77e932, type: 3}
+  sprite: {fileID: 21300000, guid: 7c0a12471aac91944b370de7699cf801, type: 3}
   sounds:
   - {fileID: 8300000, guid: a4cec70e711704343ac2aba3844b5c83, type: 3}
   soundStartTimes:
