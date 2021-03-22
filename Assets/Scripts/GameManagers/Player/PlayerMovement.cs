@@ -40,7 +40,16 @@ public class PlayerMovement : MonoBehaviour
             #endif
 
             #if UNITY_ANDROID || UNITY_IOS
-                //TODO: figure out mobile movement logic
+                switch (mobileAxis) {
+                    case -1:
+                        align.MoveLeft();
+                        mobileRelease();
+                        break;
+                    case 1:
+                        align.MoveRight();
+                        mobileRelease();
+                        break;
+                }
             #endif
 
             return;

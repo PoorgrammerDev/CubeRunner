@@ -273,7 +273,6 @@ public class PlayerPowerUp : MonoBehaviour
                     break;
                 case PowerUpType.Align:
                     StartCoroutine(align.RunAlign());
-                    //TODO: add sound?
 
                     //disable power up button if mobile
                     #if UNITY_ANDROID || UNITY_IOS

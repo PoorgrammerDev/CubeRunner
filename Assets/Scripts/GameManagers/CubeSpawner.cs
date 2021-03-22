@@ -70,7 +70,7 @@ public class CubeSpawner : MonoBehaviour
         Row row = new GameObject("Row", typeof(Row)).GetComponent<Row>();
         row.transform.SetParent(transform);
 
-        InitiateRow(row, xCoordSpawn, initialSpawnNum, -1, false /*TODO: set this back to true*/, false);
+        InitiateRow(row, xCoordSpawn, initialSpawnNum, -1, true, false);
         return row;
     }
 
@@ -127,7 +127,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Decimate); //TODO: remove
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
         }
 
         //Bits
