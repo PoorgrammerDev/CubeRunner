@@ -21,7 +21,7 @@ public class Row : MonoBehaviour {
         Vector3 position = cube.position;
         float initialY = position.y;
 
-        Color color = renderer.material.color;
+        Color color = renderer.material.GetColor("_Color");
         color.a = 0;
         while (t <= 1) {
             t += (1.5f / (initialSpawn + 1)) * Time.deltaTime;
@@ -30,7 +30,7 @@ public class Row : MonoBehaviour {
             cube.position = position;
 
             color.a = Mathf.Lerp(0, 1, t);
-            renderer.material.color = color;
+            renderer.material.SetColor("_Color", color);
 
             yield return null;
         }

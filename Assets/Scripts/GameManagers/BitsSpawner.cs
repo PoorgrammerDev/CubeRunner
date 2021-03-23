@@ -115,12 +115,12 @@ public class BitsSpawner : MonoBehaviour
         Renderer renderer = bit.GetComponent<Renderer>();
         renderer.material = transparentMat;
 
-        Color color = renderer.material.color;
+        Color color = renderer.material.GetColor("_Color");
 
         while (t <= 1) {
             t += 3f * Time.deltaTime;
             color.a = Mathf.Lerp(0, 1, t);
-            renderer.material.color = color;
+            renderer.material.SetColor("_Color", color);
 
             yield return null;
         }

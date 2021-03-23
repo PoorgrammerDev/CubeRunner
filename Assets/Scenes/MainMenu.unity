@@ -9568,7 +9568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afaeb96f2df02244e8e53d4fdcac3386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowingMaterial: {fileID: 2100000, guid: 19c45dcf0fbb5184ea5c7282b6dc0d18, type: 2}
+  glowingMaterial: {fileID: 2100000, guid: 28cd13a5771547c488637c0c4060ad7a, type: 2}
   platform: {fileID: 1798224151}
   panels:
   - {fileID: 600306657}
@@ -9598,7 +9598,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08c5746a8064ae345b0b840a10893207, type: 2}
+  - {fileID: 2100000, guid: 02856723ebacc0d4ba6f60529e6fcaa1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

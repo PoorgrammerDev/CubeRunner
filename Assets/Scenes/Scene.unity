@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -155,8 +155,11 @@ MonoBehaviour:
   powerUpSpawner: {fileID: 1774738379}
   gameValues: {fileID: 573723474}
   groundPlane: {fileID: 355389867}
-  transparentMaterial: {fileID: 2100000, guid: 4cfcc3ad423b4dc42855fe33c56e0021, type: 2}
-  opaqueMaterial: {fileID: 2100000, guid: e37bc486efdaf594a8919c2eb491586d, type: 2}
+  transparentMaterialSimple: {fileID: 2100000, guid: 25d63c3f33ab9f543a9f1266b7c7c25f,
+    type: 2}
+  transparentMaterialUnlit: {fileID: 2100000, guid: a883e9a1b069bb64b80e243cbbe2a9b4,
+    type: 2}
+  opaqueMaterial: {fileID: 2100000, guid: ecaece90b68453a409dc4ded3b29f723, type: 2}
   bitsSpawner: {fileID: 314905985}
   decimate: {fileID: 1581458097}
   rowCount: 10
@@ -2772,7 +2775,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 19c45dcf0fbb5184ea5c7282b6dc0d18, type: 2}
+  - {fileID: 2100000, guid: 28cd13a5771547c488637c0c4060ad7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
