@@ -72,6 +72,13 @@ public class PlayerCollision : MonoBehaviour
         }
     }
 
+    //Prevent bits physical collision
+    void OnControllerColliderHit(ControllerColliderHit hit) {
+        if (hit.collider.CompareTag(TagHolder.BITS_TAG)) {
+            Physics.IgnoreCollision(hit.controller, hit.collider, true);
+        }
+    }
+
     private void CollideWithObstacle() {
         //HARDENED POWER-UP OVERRIDE OBSTACLE HITTING
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.Hardened) {
