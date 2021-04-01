@@ -6,7 +6,7 @@ using TMPro;
 /// </summary>
 public class HighScoreDisplay : MonoBehaviour
 {
-    [SerializeField] private HighScoreManager highScore;
+    [SerializeField] private SaveManager saveManager;
 
     private TextMeshProUGUI numDisplay;
 
@@ -17,6 +17,6 @@ public class HighScoreDisplay : MonoBehaviour
     }
 
     public void UpdateScore() {
-        numDisplay.text = highScore.HighScore + "m";
+        numDisplay.text = saveManager.HighScore + "m";
     }
 }

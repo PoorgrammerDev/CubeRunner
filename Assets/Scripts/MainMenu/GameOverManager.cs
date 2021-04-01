@@ -9,6 +9,7 @@ public class GameOverManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverScreen;
 
+    [SerializeField] private GameObject eulaScreen;
     [SerializeField] private GameObject mainMenuScreen;
 
     [SerializeField] private TextMeshProUGUI scoreNumber;
@@ -25,8 +26,7 @@ public class GameOverManager : MonoBehaviour
 
     [SerializeField] private CubeGibsUtil cubeGibs;
 
-    [SerializeField] private HighScoreManager highScoreManager;
-    [SerializeField] private BitsManager bitsManager;
+    [SerializeField] private SaveManager saveManager;
 
     private EndGameDataExport endGameDataExport;
 
@@ -34,7 +34,7 @@ public class GameOverManager : MonoBehaviour
 
     private float spawnYPos = -2;
 
-    void Awake() {
+    void Start() {
         endGameDataExport = FindObjectOfType<EndGameDataExport>();
         if (endGameDataExport != null) {            
             gameOverScreen.SetActive(true);
@@ -42,16 +42,19 @@ public class GameOverManager : MonoBehaviour
             //display score
             scoreNumber.text = endGameDataExport.FinalScore + "m";
 
-            //check high score and play effect if new score is higher
-            if (highScoreManager.ContestHighScore(endGameDataExport.FinalScore)) {
-                scoreAnim.SetTrigger(TagHolder.ANIM_HIGH_SCORE_SUCCESS);
-            }
-
             //display bits
             bitsNumber.text = endGameDataExport.BitsCollected.ToString();
 
+            //check high score and play effect if new score is higher
+            if (saveManager.ContestHighScore(endGameDataExport.FinalScore)) {
+                scoreAnim.SetTrigger(TagHolder.ANIM_HIGH_SCORE_SUCCESS);
+            }
+
             //increment bits
-            bitsManager.AddBits(endGameDataExport.BitsCollected);
+            saveManager.AddBits(endGameDataExport.BitsCollected);
+
+            //save highscore & total bits data to file
+            saveManager.Save();
 
             //dont call anims and immediately enable delayed objects
             if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
@@ -69,7 +72,7 @@ public class GameOverManager : MonoBehaviour
 
         }
         else {
-            mainMenuScreen.SetActive(true);
+            if (!eulaScreen.activeInHierarchy) mainMenuScreen.SetActive(true);
         }
     }
 

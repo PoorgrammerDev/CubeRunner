@@ -6,7 +6,7 @@ using TMPro;
 /// </summary>
 public class BitsDisplay : MonoBehaviour
 {
-    [SerializeField] private BitsManager bitsManager;
+    [SerializeField] private SaveManager saveManager;
 
     private TextMeshProUGUI numDisplay;
 
@@ -17,6 +17,6 @@ public class BitsDisplay : MonoBehaviour
     }
 
     public void UpdateDisplay() {
-        numDisplay.text = bitsManager.TotalBits.ToString();
+        numDisplay.text = saveManager.TotalBits.ToString();
     }
 }

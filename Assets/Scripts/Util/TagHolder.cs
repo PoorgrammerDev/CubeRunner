@@ -35,13 +35,11 @@ public class TagHolder
     
     //PlayerPref Keys
     public const string PREF_HAS_ACCEPTED_EULA = "HasAcceptedEULA";
-    public const string PREF_HIGH_SCORE = "HighScore";
     public const string PREF_DIFFICULTY = "Difficulty";
     public const string PREF_SFX_VOLUME = "SFX_VOLUME";
     public const string PREF_MUSIC_VOLUME = "MUSIC_VOLUME";
     public const string PREF_GRAPHICS = "Graphics";
     public const string PREF_SKIP_ANIM = "SkipAnimations";
-    public const string PREF_TOTAL_BITS = "TotalBits";
 
     //Other
     public const string HORIZONTAL_AXIS = "Horizontal";
