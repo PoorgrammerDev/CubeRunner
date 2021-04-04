@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Guidelines
+  m_Name: UpgradeLaser
   m_Shader: {fileID: -6465566751694194690, guid: 2ea757f0fe1e54f4f9b0f01ef24dc192,
     type: 3}
   m_ShaderKeywords: 
@@ -37,5 +37,5 @@ Material:
     - Vector1_A346F171: 0.0075
     - Vector1_ADD57449: 0.45
     m_Colors:
-    - Color_F2CF71CB: {r: 7.999999, g: 0, b: 0, a: 1}
+    - Color_F2CF71CB: {r: 2.9078128, g: 0, b: 21.361254, a: 1}
   m_BuildTextureStacks: []
