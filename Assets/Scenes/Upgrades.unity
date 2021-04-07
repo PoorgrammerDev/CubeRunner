@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ammo
+  m_text: StatTitle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
   m_sharedMaterial: {fileID: -3624085312846377416, guid: cf2639f0ed7e8c540a0dc08d3ffb1787,
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3s >> 2s
+  m_text: StatChange
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
   m_sharedMaterial: {fileID: -3624085312846377416, guid: cf2639f0ed7e8c540a0dc08d3ffb1787,
@@ -634,7 +634,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &160347631
 RectTransform:
   m_ObjectHideFlags: 0
@@ -799,7 +799,7 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &270726078
 GameObject:
@@ -3939,7 +3939,7 @@ RectTransform:
   m_Children:
   - {fileID: 181443583}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4078,7 +4078,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3 >> 4
+  m_text: StatChange
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
   m_sharedMaterial: {fileID: -3624085312846377416, guid: cf2639f0ed7e8c540a0dc08d3ffb1787,
@@ -4896,6 +4896,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415496601}
   m_CullTransparentMesh: 0
+--- !u!1 &1425901148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1425901149}
+  - component: {fileID: 1425901150}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1425901149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425901148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1425901150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425901148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff6285042b178d44b91c75de994205cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1465250411
 GameObject:
   m_ObjectHideFlags: 0
@@ -4986,7 +5029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1498418396
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5142,7 +5185,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cooldown
+  m_text: StatTitle
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
   m_sharedMaterial: {fileID: -3624085312846377416, guid: cf2639f0ed7e8c540a0dc08d3ffb1787,
@@ -5429,7 +5472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 999999
+  m_text: Price
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0fdb0a935588d604c8522208ddcba515, type: 2}
   m_sharedMaterial: {fileID: -4591344981529213195, guid: 0fdb0a935588d604c8522208ddcba515,
@@ -5942,8 +5985,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Something something description of the upgrade tree or something. You read
-    I write very yes.
+  m_text: Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
   m_sharedMaterial: {fileID: -3624085312846377416, guid: cf2639f0ed7e8c540a0dc08d3ffb1787,
@@ -5971,7 +6013,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.2
+  m_fontSize: 40
   m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6674,7 +6716,7 @@ Transform:
   m_Children:
   - {fileID: 1968288622}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6802686289653688871
 PrefabInstance:
