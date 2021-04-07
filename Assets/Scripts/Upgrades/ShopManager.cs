@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,8 +11,11 @@ public class ShopManager : MonoBehaviour
     [Header("UI References - Skill View")]
     [SerializeField] private GameObject skillViewScreen; 
     [SerializeField] private Image powerUpIconDisp; 
+    [SerializeField] private BuyMenuDataHolder leftBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVLeftField; 
+    [SerializeField] private BuyMenuDataHolder rightBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVRightField; 
+    [SerializeField] private TextMeshProUGUI PUPName; 
 
     [Header("UI References - Buy Screen")]
     [SerializeField] private GameObject buyScreen; 
@@ -24,14 +26,16 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statChange0; 
     [SerializeField] private TextMeshProUGUI statChange1; 
     [SerializeField] private TextMeshProUGUI buyCost; 
+    private bool skillViewBypassed = true;
 
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
 
 
     [Header("Input Data")]
-    [SerializeField] private Dictionary<PowerUpType, Sprite> powerUpSprites;
+    [SerializeField] private Sprite[] powerUpSprites;
     [SerializeField] private Sprite[] levelSprites;
+
 
 
     /**************************
@@ -48,17 +52,24 @@ public class ShopManager : MonoBehaviour
     public bool OpenSkillView (SkillViewData skillViewData) {
         if (!skillViewScreen.activeInHierarchy) {
             //change central sprite to correct power-up sprite 
-            Sprite tempSprite;
-            if (powerUpSprites.TryGetValue(skillViewData.powerUpType, out tempSprite)) {
-                powerUpIconDisp.sprite = tempSprite;
+            if ((int) skillViewData.powerUpType >= 0 && (int) skillViewData.powerUpType < powerUpSprites.Length) {
+                powerUpIconDisp.sprite = powerUpSprites[(int) skillViewData.powerUpType];
 
-                //change descriptions to suit
+                //NOTE: A check for if RIGHT exists isn't needed
+                //      because if RIGHT doesn't exist, this menu
+                //      is skipped entirely.
+
+                //load in BMD
+                leftBMDHolder.data = skillViewData.leftBuyMenuData;
+                rightBMDHolder.data = skillViewData.rightBuyMenuData;
+
+                //set names
                 SVLeftField.text = skillViewData.leftFieldName;
                 SVRightField.text = skillViewData.rightFieldName;
+                PUPName.text = skillViewData.powerUpType.ToString();
 
 
                 //TODO: get existing data from SaveManager to find what levels the two tiers are
-
 
                 //close all other submenus and activate this menu
                 buyScreen.SetActive(false);
@@ -71,11 +82,11 @@ public class ShopManager : MonoBehaviour
     }
 
 
-    public bool OpenBuyScreen (BuyMenuDataHolder dataHolder) {
+    public bool OpenBuyScreen (BuyMenuData menuData) {
         if (!buyScreen.activeInHierarchy) {
-            BuyMenuData buyMenuData;
+            BuyMenuEntry dataEntry;
             try {
-                buyMenuData = dataHolder.GetBuyMenuData(0); //TODO: GET PROPER LEVEL LATER
+                dataEntry = menuData.GetDataEntry(0); //TODO: GET PROPER LEVEL LATER
             }
             catch (System.Exception) {
                 Debug.LogError("Buy Menu Index out of bounds");
@@ -83,21 +94,21 @@ public class ShopManager : MonoBehaviour
             }
 
             //change description
-            buyDescription.text = dataHolder.Description;
+            buyDescription.text = menuData.Description;
 
             //TODO: change level sprite based on level
 
             //fill in first stat
-            statName0.text = buyMenuData.statName0;
-            statChange0.text = buyMenuData.statChange0;
+            statName0.text = dataEntry.statName0;
+            statChange0.text = dataEntry.statChange0;
             
             //if present, fill in second stat
-            if (buyMenuData.statName1 != null && buyMenuData.statName1.Length > 0) {
+            if (dataEntry.statName1 != null && dataEntry.statName1.Length > 0) {
                 statName1.gameObject.SetActive(true);
                 statChange1.gameObject.SetActive(true);
 
-                statName1.text = buyMenuData.statName1;
-                statChange1.text = buyMenuData.statChange1;
+                statName1.text = dataEntry.statName1;
+                statChange1.text = dataEntry.statChange1;
             }
             else {
                 statName1.gameObject.SetActive(false);
@@ -105,15 +116,31 @@ public class ShopManager : MonoBehaviour
             }
 
             //set buy price
-            buyCost.text = buyMenuData.cost.ToString();
+            buyCost.text = dataEntry.cost.ToString();
 
+            skillViewBypassed = baseStoreScreen.activeInHierarchy;
+
+            //close all other submenus and activate this menu
+            baseStoreScreen.SetActive(false);
+            skillViewScreen.SetActive(false);
+            buyScreen.SetActive(true);
             return true;
         }
         return false;
     }
 
-
-
+    public void BuyMenuReturn() {
+        if (buyScreen.activeInHierarchy) {
+            if (skillViewBypassed) {
+                OpenBaseStore();
+            }
+            else {
+                buyScreen.SetActive(false);
+                baseStoreScreen.SetActive(false);
+                skillViewScreen.SetActive(true);
+            }
+        }
+    }
 
 }
 

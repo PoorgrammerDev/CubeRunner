@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e6554750f6c426448c2efa719db9560, type: 3}
+  m_Name: BlasterSV
+  m_EditorClassIdentifier: 
+  powerUpType: 0
+  leftFieldName: Rapid Fire
+  leftBuyMenuData: {fileID: 11400000, guid: a730c67aef68fa746879d9756b423f2e, type: 2}
+  rightFieldName: Range Piercing
+  rightBuyMenuData: {fileID: 11400000, guid: a39a1b53a574f994787dd1cb87c2776e, type: 2}
