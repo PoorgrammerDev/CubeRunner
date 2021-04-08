@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CompressionSV
   m_EditorClassIdentifier: 
   powerUpType: 2
-  leftFieldName: 
-  leftBuyMenuData: {fileID: 0}
-  rightFieldName: 
-  rightBuyMenuData: {fileID: 0}
+  leftFieldName: Duration
+  leftBuyMenuData: {fileID: 11400000, guid: aaed9b421eab5a04f933c3e13482567e, type: 2}
+  rightFieldName: Size
+  rightBuyMenuData: {fileID: 11400000, guid: 6821f4fa61532d74f9eb83c8b41b33bd, type: 2}

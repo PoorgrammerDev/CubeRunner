@@ -2440,6 +2440,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8cb2443cf1df44f8ef74d3ddf68569, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  saveObject:
+    highScore: 0
+    totalBits: 0
+    upgrades: []
 --- !u!4 &736045089
 Transform:
   m_ObjectHideFlags: 0

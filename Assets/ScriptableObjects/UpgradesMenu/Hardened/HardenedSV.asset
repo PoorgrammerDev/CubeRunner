@@ -15,5 +15,5 @@ MonoBehaviour:
   powerUpType: 3
   leftFieldName: Duration
   leftBuyMenuData: {fileID: 11400000, guid: eee1acbb8a924e549b39daf18f6300d7, type: 2}
-  rightFieldName: Hardened
+  rightFieldName: Strength
   rightBuyMenuData: {fileID: 11400000, guid: 771e9032fb9b85e4ea14923b6297509a, type: 2}
