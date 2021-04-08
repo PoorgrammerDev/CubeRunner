@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: DurationBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 4
+  pathName: Duration
+  description: This upgrade path extends the duration of effect.
   data:
   - cost: 0
     statName0: Duration

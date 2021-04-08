@@ -12,25 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: RangeBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 4
+  pathName: Range
+  description: This upgrade path extends Guidelines' range.
   data:
   - cost: 0
     statName0: Range
-    statChange0: 15s >> 20s
+    statChange0: 15m >> 20m
     statName1: 
     statChange1: 
   - cost: 0
     statName0: Range
-    statChange0: 20s >> 25s
+    statChange0: 20m >> 25m
     statName1: 
     statChange1: 
   - cost: 0
     statName0: Range
-    statChange0: 25s >> 30s
+    statChange0: 25m >> 30m
     statName1: 
     statChange1: 
   - cost: 0
     statName0: Range
-    statChange0: 30s >> 45s
+    statChange0: 30m >> 45m
     statName1: 
     statChange1: 

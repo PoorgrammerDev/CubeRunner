@@ -1,7 +1,7 @@
 public enum PowerUpType {
     Blaster,
     TimeDilation,
-    Compress,
+    Compression,
     Hardened,
     Guidelines,
     Decimate,

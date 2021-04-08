@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: RangePiercingBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 0
+  pathName: Range Piercing
+  description: This upgrade path extends the Blaster's Range and allows it to destroy
+    multiple obstacles.
   data:
   - cost: 0
     statName0: Range

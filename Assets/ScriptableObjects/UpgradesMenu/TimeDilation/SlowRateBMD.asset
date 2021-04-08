@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
-  m_Name: SlownessBMD
+  m_Name: SlowRateBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 1
+  pathName: Slow Rate
+  description: This upgrade path amplifies Time Dilation's effect, slowing the flow
+    of time down even more.
   data:
   - cost: 0
     statName0: Slow Rate

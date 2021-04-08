@@ -13,13 +13,17 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Image powerUpIconDisp; 
     [SerializeField] private BuyMenuDataHolder leftBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVLeftField; 
+    [SerializeField] private Image leftLevelIcon; 
     [SerializeField] private BuyMenuDataHolder rightBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVRightField; 
+    [SerializeField] private Image rightLevelIcon; 
     [SerializeField] private TextMeshProUGUI PUPName; 
 
     [Header("UI References - Buy Screen")]
     [SerializeField] private GameObject buyScreen; 
     [SerializeField] private Image buyLevelIcon; 
+    [SerializeField] private TextMeshProUGUI buyScreenPUPName; 
+    [SerializeField] private TextMeshProUGUI pathName; 
     [SerializeField] private TextMeshProUGUI buyDescription; 
     [SerializeField] private TextMeshProUGUI statName0; 
     [SerializeField] private TextMeshProUGUI statName1; 
@@ -55,9 +59,11 @@ public class ShopManager : MonoBehaviour
             if ((int) skillViewData.powerUpType >= 0 && (int) skillViewData.powerUpType < powerUpSprites.Length) {
                 powerUpIconDisp.sprite = powerUpSprites[(int) skillViewData.powerUpType];
 
-                //NOTE: A check for if RIGHT exists isn't needed
-                //      because if RIGHT doesn't exist, this menu
-                //      is skipped entirely.
+                // NOTE: -----------------------------------
+                // A check for if RIGHT exists isn't needed
+                // because if RIGHT doesn't exist, this menu
+                // is skipped entirely.
+                // -----------------------------------------
 
                 //load in BMD
                 leftBMDHolder.data = skillViewData.leftBuyMenuData;
@@ -68,8 +74,9 @@ public class ShopManager : MonoBehaviour
                 SVRightField.text = skillViewData.rightFieldName;
                 PUPName.text = skillViewData.powerUpType.ToString();
 
-
-                //TODO: get existing data from SaveManager to find what levels the two tiers are
+                //set sprites to correct levels
+                leftLevelIcon.sprite = levelSprites[saveManager.GetUpgradeLevel(skillViewData.powerUpType, 0)];
+                rightLevelIcon.sprite = levelSprites[saveManager.GetUpgradeLevel(skillViewData.powerUpType, 1)];
 
                 //close all other submenus and activate this menu
                 buyScreen.SetActive(false);
@@ -84,19 +91,25 @@ public class ShopManager : MonoBehaviour
 
     public bool OpenBuyScreen (BuyMenuData menuData) {
         if (!buyScreen.activeInHierarchy) {
+            int nextLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1;
             BuyMenuEntry dataEntry;
             try {
-                dataEntry = menuData.GetDataEntry(0); //TODO: GET PROPER LEVEL LATER
+                dataEntry = menuData.GetDataEntry(nextLevel);
             }
             catch (System.Exception) {
                 Debug.LogError("Buy Menu Index out of bounds");
                 return false;
             }
 
+            //change names
+            buyScreenPUPName.text = menuData.PowerUpType.ToString();
+            pathName.text = (menuData.PathName != null && menuData.PathName.Length > 0) ? menuData.PathName : "";
+
             //change description
             buyDescription.text = menuData.Description;
 
-            //TODO: change level sprite based on level
+            //change level sprite
+            buyLevelIcon.sprite = levelSprites[nextLevel];
 
             //fill in first stat
             statName0.text = dataEntry.statName0;

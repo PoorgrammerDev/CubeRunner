@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: DecimateBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 5
+  pathName: 
+  description: This upgrade extends Decimate's range, allowing it to act upon more
+    rows.
   data:
   - cost: 0
     statName0: Rows

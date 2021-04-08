@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: StrengthBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 3
+  pathName: Strength
+  description: This upgrade path allows Hardened to survive more impacts.
   data:
   - cost: 0
     statName0: Health

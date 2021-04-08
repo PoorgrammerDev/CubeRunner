@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
   m_Name: RapidFireBMD
   m_EditorClassIdentifier: 
-  description: 
+  powerUpType: 0
+  pathName: Rapid Fire
+  description: This upgrade path allows the Blaster to shoot faster and gives it
+    more ammo.
   data:
   - cost: 0
     statName0: Cooldown
