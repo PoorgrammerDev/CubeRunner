@@ -9,6 +9,9 @@ public class BuyMenuData : ScriptableObject
     [SerializeField] private string pathName;
     public string PathName => pathName;
 
+    [SerializeField] private Sprite pathSymbol;
+    public Sprite PathSymbol => pathSymbol;
+
     [SerializeField] private int pathIndex;
     public int PathIndex => pathIndex;
 
@@ -18,6 +21,7 @@ public class BuyMenuData : ScriptableObject
     [SerializeField] private BuyMenuEntry[] data;
 
     public BuyMenuEntry GetDataEntry(int level) {
+        level--;
         if (level >= 0 && level < data.Length) {
             return data[level];
         }

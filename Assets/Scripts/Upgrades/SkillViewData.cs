@@ -7,7 +7,9 @@ public class SkillViewData : ScriptableObject
 
     public string leftFieldName;
     public BuyMenuData leftBuyMenuData;
+    public Sprite leftSymbol;
 
     public string rightFieldName;
     public BuyMenuData rightBuyMenuData;
+    public Sprite rightSymbol;
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,15 +12,18 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Image powerUpIconDisp; 
     [SerializeField] private BuyMenuDataHolder leftBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVLeftField; 
-    [SerializeField] private Image leftLevelIcon; 
+    [SerializeField] private Image leftPathIcon; 
+    [SerializeField] private Image[] leftLevelDots; 
     [SerializeField] private BuyMenuDataHolder rightBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVRightField; 
-    [SerializeField] private Image rightLevelIcon; 
+    [SerializeField] private Image rightPathIcon; 
+    [SerializeField] private Image[] rightLevelDots; 
     [SerializeField] private TextMeshProUGUI PUPName; 
 
     [Header("UI References - Buy Screen")]
     [SerializeField] private GameObject buyScreen; 
-    [SerializeField] private Image buyLevelIcon; 
+    [SerializeField] private Image upgradePathIcon; 
+    [SerializeField] private Image[] buyLevelDots; 
     [SerializeField] private TextMeshProUGUI buyScreenPUPName; 
     [SerializeField] private TextMeshProUGUI pathName; 
     [SerializeField] private TextMeshProUGUI buyDescription; 
@@ -38,9 +40,8 @@ public class ShopManager : MonoBehaviour
 
     [Header("Input Data")]
     [SerializeField] private Sprite[] powerUpSprites;
-    [SerializeField] private Sprite[] levelSprites;
 
-
+    [SerializeField] private Color levelIndicatorHighlight;
 
     /**************************
     SCREEN NAVIGATION FUNCTIONS
@@ -53,11 +54,11 @@ public class ShopManager : MonoBehaviour
         baseStoreScreen.SetActive(true);
     }
 
-    public bool OpenSkillView (SkillViewData skillViewData) {
+    public bool OpenSkillView (SkillViewData menuData) {
         if (!skillViewScreen.activeInHierarchy) {
             //change central sprite to correct power-up sprite 
-            if ((int) skillViewData.powerUpType >= 0 && (int) skillViewData.powerUpType < powerUpSprites.Length) {
-                powerUpIconDisp.sprite = powerUpSprites[(int) skillViewData.powerUpType];
+            if ((int) menuData.powerUpType >= 0 && (int) menuData.powerUpType < powerUpSprites.Length) {
+                powerUpIconDisp.sprite = powerUpSprites[(int) menuData.powerUpType];
 
                 // NOTE: -----------------------------------
                 // A check for if RIGHT exists isn't needed
@@ -66,17 +67,22 @@ public class ShopManager : MonoBehaviour
                 // -----------------------------------------
 
                 //load in BMD
-                leftBMDHolder.data = skillViewData.leftBuyMenuData;
-                rightBMDHolder.data = skillViewData.rightBuyMenuData;
+                leftBMDHolder.data = menuData.leftBuyMenuData;
+                rightBMDHolder.data = menuData.rightBuyMenuData;
 
                 //set names
-                SVLeftField.text = skillViewData.leftFieldName;
-                SVRightField.text = skillViewData.rightFieldName;
-                PUPName.text = skillViewData.powerUpType.ToString();
+                SVLeftField.text = menuData.leftFieldName;
+                SVRightField.text = menuData.rightFieldName;
+                PUPName.text = menuData.powerUpType.ToString();
 
-                //set sprites to correct levels
-                leftLevelIcon.sprite = levelSprites[saveManager.GetUpgradeLevel(skillViewData.powerUpType, 0)];
-                rightLevelIcon.sprite = levelSprites[saveManager.GetUpgradeLevel(skillViewData.powerUpType, 1)];
+                //set sprites to correct path symbols
+                leftPathIcon.sprite = menuData.leftSymbol;
+                rightPathIcon.sprite = menuData.rightSymbol;
+
+
+                //set level dots
+                SetLevelDots(leftLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 0), false);
+                SetLevelDots(rightLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 1), false);
 
                 //close all other submenus and activate this menu
                 buyScreen.SetActive(false);
@@ -91,10 +97,10 @@ public class ShopManager : MonoBehaviour
 
     public bool OpenBuyScreen (BuyMenuData menuData) {
         if (!buyScreen.activeInHierarchy) {
-            int nextLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1;
+            int level = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1;
             BuyMenuEntry dataEntry;
             try {
-                dataEntry = menuData.GetDataEntry(nextLevel);
+                dataEntry = menuData.GetDataEntry(level);
             }
             catch (System.Exception) {
                 Debug.LogError("Buy Menu Index out of bounds");
@@ -108,8 +114,11 @@ public class ShopManager : MonoBehaviour
             //change description
             buyDescription.text = menuData.Description;
 
-            //change level sprite
-            buyLevelIcon.sprite = levelSprites[nextLevel];
+            //change path sprite
+            upgradePathIcon.sprite = menuData.PathSymbol;
+            
+            //change level dots
+            SetLevelDots(buyLevelDots, level, true);
 
             //fill in first stat
             statName0.text = dataEntry.statName0;
@@ -155,6 +164,19 @@ public class ShopManager : MonoBehaviour
         }
     }
 
+    private bool SetLevelDots(Image[] dots, int level, bool highlightCurrent) {
+        if (level >= 0 && level <= dots.Length) {
+            for (int i = 0; i < level; i++) {
+                dots[i].color = Color.white;
+            }
+            for (int i = level; i < dots.Length; i++) {
+                dots[i].color = Color.gray;
+            }
+
+            if (highlightCurrent) dots[--level].color = levelIndicatorHighlight;
+            return true;
+        }
+        return false;
+    }
+
 }
-
-

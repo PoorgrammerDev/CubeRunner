@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 5
   pathName: 
-  description: This upgrade extends Decimate's range, allowing it to act upon more
-    rows.
+  pathSymbol: {fileID: 21300000, guid: 7c0a12471aac91944b370de7699cf801, type: 3}
+  pathIndex: 0
+  description: This upgrade path extends Decimate's range, allowing it to act upon
+    more rows.
   data:
   - cost: 0
     statName0: Rows
