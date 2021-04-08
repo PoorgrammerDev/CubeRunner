@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 2
   pathName: Size
+  pathIndex: 1
   description: This upgrade path amplifies Compression's effect, shrinking the Player
     even smaller.
   data:

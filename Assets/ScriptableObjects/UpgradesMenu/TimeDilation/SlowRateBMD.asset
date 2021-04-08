@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 1
   pathName: Slow Rate
+  pathIndex: 1
   description: This upgrade path amplifies Time Dilation's effect, slowing the flow
     of time down even more.
   data:
