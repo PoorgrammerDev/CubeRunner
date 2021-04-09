@@ -15,5 +15,7 @@ MonoBehaviour:
   powerUpType: 0
   leftFieldName: Rapid Fire
   leftBuyMenuData: {fileID: 11400000, guid: a730c67aef68fa746879d9756b423f2e, type: 2}
+  leftSymbol: {fileID: 21300000, guid: e75ebafc1c55fde40b8da8a0d9507c39, type: 3}
   rightFieldName: Range Piercing
   rightBuyMenuData: {fileID: 11400000, guid: a39a1b53a574f994787dd1cb87c2776e, type: 2}
+  rightSymbol: {fileID: 21300000, guid: dbb1d22dc40780f409317c78d8f45a8c, type: 3}

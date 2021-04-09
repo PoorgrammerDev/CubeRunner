@@ -15,5 +15,7 @@ MonoBehaviour:
   powerUpType: 4
   leftFieldName: Duration
   leftBuyMenuData: {fileID: 11400000, guid: 665d96927240b6e489113a323222f05e, type: 2}
+  leftSymbol: {fileID: 21300000, guid: 4888eae7ac5c68642a40e02f135f24d3, type: 3}
   rightFieldName: Range
   rightBuyMenuData: {fileID: 11400000, guid: 01256869cad6b424e89b9138839d2240, type: 2}
+  rightSymbol: {fileID: 21300000, guid: df9a4a7236ce4de4188ae2947d0fd47b, type: 3}

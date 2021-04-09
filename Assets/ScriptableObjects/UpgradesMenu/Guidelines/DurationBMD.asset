@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 4
   pathName: Duration
+  pathSymbol: {fileID: 21300000, guid: 4888eae7ac5c68642a40e02f135f24d3, type: 3}
+  pathIndex: 0
   description: This upgrade path extends the duration of effect.
   data:
   - cost: 0

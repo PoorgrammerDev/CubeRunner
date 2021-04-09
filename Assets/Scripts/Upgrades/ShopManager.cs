@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -177,6 +178,10 @@ public class ShopManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void ExitShop() {
+        SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
     }
 
 }

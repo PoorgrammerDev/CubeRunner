@@ -15,5 +15,7 @@ MonoBehaviour:
   powerUpType: 1
   leftFieldName: Duration
   leftBuyMenuData: {fileID: 11400000, guid: b2babd581308ca243968a3420e42ac24, type: 2}
+  leftSymbol: {fileID: 21300000, guid: 4888eae7ac5c68642a40e02f135f24d3, type: 3}
   rightFieldName: Slow Rate
   rightBuyMenuData: {fileID: 11400000, guid: 9a58fcbeed3e8ef49855946e8642576c, type: 2}
+  rightSymbol: {fileID: 21300000, guid: d97cb77e02c04434fafcb615a6d8ce85, type: 3}

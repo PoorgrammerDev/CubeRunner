@@ -25,6 +25,7 @@ public class TagHolder
     //Scenes
     public const string GAME_SCENE = "Scene";
     public const string MAIN_MENU_SCENE = "MainMenu";
+    public const string UPGRADES_SCENE = "Upgrades";
 
     //Object Tags
     public const string OBSTACLE_TAG = "Obstacle";

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerUpType: 3
   pathName: Strength
+  pathSymbol: {fileID: 21300000, guid: 93c9d28fd37216f42a19df6f437d8b44, type: 3}
   pathIndex: 1
   description: This upgrade path allows Hardened to survive more impacts.
   data:

@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Audio\ButtonSounds.cs" />
      <Compile Include="Assets\Scripts\Util\DifficultyValuesHolder.cs" />
      <Compile Include="Assets\Scripts\GameManagers\GameStartAnimations.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\EnterUpgrades.cs" />
      <Compile Include="Assets\Scripts\GameManagers\EndGame.cs" />
      <Compile Include="Assets\Scripts\Util\PowerUpType.cs" />
      <Compile Include="Assets\Scripts\MainMenu\TutorialMenu.cs" />
