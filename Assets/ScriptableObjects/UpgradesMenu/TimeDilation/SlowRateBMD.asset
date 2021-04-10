@@ -19,22 +19,22 @@ MonoBehaviour:
   description: This upgrade path amplifies Time Dilation's effect, slowing the flow
     of time down even more.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Slow Rate
     statChange0: 2x >> 2.5x
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Slow Rate
     statChange0: 2.5x >> 3x
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: Slow Rate
     statChange0: 3x >> 4x
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Slow Rate
     statChange0: 4x >> 5x
     statName1: 

@@ -7,6 +7,7 @@ public class ShopManager : MonoBehaviour
 {
     [Header("UI References")]
     [SerializeField] private GameObject baseStoreScreen; 
+    [SerializeField] private BitsDisplay bitsDisplay;
 
     [Header("UI References - Skill View")]
     [SerializeField] private GameObject skillViewScreen; 
@@ -20,6 +21,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Image rightPathIcon; 
     [SerializeField] private Image[] rightLevelDots; 
     [SerializeField] private TextMeshProUGUI PUPName; 
+    private SkillViewData activeSVData;
 
     [Header("UI References - Buy Screen")]
     [SerializeField] private GameObject buyScreen; 
@@ -33,7 +35,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI statChange0; 
     [SerializeField] private TextMeshProUGUI statChange1; 
     [SerializeField] private TextMeshProUGUI buyCost; 
-    private bool skillViewBypassed = true;
+    [SerializeField] private Image buyBitIcon0; 
+    [SerializeField] private Image buyBitIcon1; 
+    [SerializeField] private Button buyButton; 
+    private ActiveBuyData? activeBuyData; 
 
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
@@ -43,6 +48,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Sprite[] powerUpSprites;
 
     [SerializeField] private Color levelIndicatorHighlight;
+    [SerializeField] private Color bitsColor;
 
     /**************************
     SCREEN NAVIGATION FUNCTIONS
@@ -67,6 +73,9 @@ public class ShopManager : MonoBehaviour
                 // is skipped entirely.
                 // -----------------------------------------
 
+                //set active data
+                activeSVData = menuData;
+
                 //load in BMD
                 leftBMDHolder.data = menuData.leftBuyMenuData;
                 rightBMDHolder.data = menuData.rightBuyMenuData;
@@ -82,8 +91,8 @@ public class ShopManager : MonoBehaviour
 
 
                 //set level dots
-                SetLevelDots(leftLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 0), false);
-                SetLevelDots(rightLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 1), false);
+                SetLevelDots(leftLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 0), -1);
+                SetLevelDots(rightLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 1), -1);
 
                 //close all other submenus and activate this menu
                 buyScreen.SetActive(false);
@@ -95,10 +104,17 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
-
     public bool OpenBuyScreen (BuyMenuData menuData) {
+        int currentLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex);
+        if (currentLevel < 4) currentLevel++;
+
+        return OpenBuyScreen(menuData, currentLevel);
+    }
+
+    public bool OpenBuyScreen (BuyMenuData menuData, int level) {
         if (!buyScreen.activeInHierarchy) {
-            int level = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1;
+            int currentLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex);
+
             BuyMenuEntry dataEntry;
             try {
                 dataEntry = menuData.GetDataEntry(level);
@@ -107,6 +123,9 @@ public class ShopManager : MonoBehaviour
                 Debug.LogError("Buy Menu Index out of bounds");
                 return false;
             }
+
+            //set active data
+            activeBuyData = new ActiveBuyData(menuData, level);
 
             //change names
             buyScreenPUPName.text = menuData.PowerUpType.ToString();
@@ -119,7 +138,7 @@ public class ShopManager : MonoBehaviour
             upgradePathIcon.sprite = menuData.PathSymbol;
             
             //change level dots
-            SetLevelDots(buyLevelDots, level, true);
+            SetLevelDots(buyLevelDots, Mathf.Min(currentLevel + 1, 4), level);
 
             //fill in first stat
             statName0.text = dataEntry.statName0;
@@ -141,7 +160,29 @@ public class ShopManager : MonoBehaviour
             //set buy price
             buyCost.text = dataEntry.cost.ToString();
 
-            skillViewBypassed = baseStoreScreen.activeInHierarchy;
+            //check if upgrade is not already owned
+            if (level <= currentLevel) {
+                SetBuyButtonActive(false, false);
+                buyCost.text = "OWNED";
+            }
+            //check if upgrade is not locked
+            else if (level > currentLevel + 1) {
+                SetBuyButtonActive(false, false);
+                buyCost.text = "LOCKED";
+            }
+            //check if upgrade can be afforded
+            else if (dataEntry.cost <= saveManager.TotalBits) {
+                SetBuyButtonActive(true, true);
+            }
+            //if if can't be afforded
+            else {
+                SetBuyButtonActive(false, true);
+            }
+
+            //if skillview is skipped, then clear sv data (so when returning, it returns to base store)
+            if (baseStoreScreen.activeInHierarchy) {
+                activeSVData = null;
+            }
 
             //close all other submenus and activate this menu
             baseStoreScreen.SetActive(false);
@@ -152,29 +193,67 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
-    public void BuyMenuReturn() {
-        if (buyScreen.activeInHierarchy) {
-            if (skillViewBypassed) {
-                OpenBaseStore();
-            }
-            else {
-                buyScreen.SetActive(false);
-                baseStoreScreen.SetActive(false);
-                skillViewScreen.SetActive(true);
+    private void SetBuyButtonActive (bool active, bool bitsIconActive) {
+        buyButton.interactable = active;
+        buyCost.color = active ? bitsColor : Color.gray;
+        buyBitIcon0.gameObject.SetActive(bitsIconActive);
+        buyBitIcon1.gameObject.SetActive(bitsIconActive);
+
+        if (bitsIconActive) {
+            buyBitIcon0.color = active ? bitsColor : Color.gray;
+            buyBitIcon1.color = active ? bitsColor : Color.gray;
+        }
+    }
+
+    public void BuyUpgrade() {
+        //check buy screen active and data is present
+        if (buyScreen.activeInHierarchy && activeBuyData != null) {
+            BuyMenuData menuData = activeBuyData.Value.menuData;
+            int level = activeBuyData.Value.level;
+
+            //check if the level trying to upgrade to is correct (is the next level)
+            if (saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1 == level) {
+                //subtract cost (also acts as a check for if affordable)
+                if (saveManager.SubtractBits(menuData.GetDataEntry(level).cost)) {
+                    //upgrades
+                    saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level);
+
+                    //TODO: sfx
+                    
+                    //TODO: cube animation
+
+                    bitsDisplay.UpdateDisplay();
+
+                    //exits menu
+                    BuyMenuReturn();
+                }
             }
         }
     }
 
-    private bool SetLevelDots(Image[] dots, int level, bool highlightCurrent) {
-        if (level >= 0 && level <= dots.Length) {
-            for (int i = 0; i < level; i++) {
+    public void BuyMenuReturn() {
+        if (buyScreen.activeInHierarchy) {
+            if (activeSVData != null) {
+                OpenSkillView(activeSVData);
+            }
+            else {
+                OpenBaseStore();
+            }
+        }
+    }
+
+    private bool SetLevelDots(Image[] dots, int fillLevel, int highlightLevel) {
+        if (fillLevel >= 0 && fillLevel <= dots.Length) {
+            for (int i = 0; i < fillLevel; i++) {
                 dots[i].color = Color.white;
             }
-            for (int i = level; i < dots.Length; i++) {
+            for (int i = fillLevel; i < dots.Length; i++) {
                 dots[i].color = Color.gray;
             }
 
-            if (highlightCurrent) dots[--level].color = levelIndicatorHighlight;
+            if (highlightLevel != -1) {
+                dots[--highlightLevel].color = levelIndicatorHighlight;
+            }
             return true;
         }
         return false;
@@ -182,6 +261,17 @@ public class ShopManager : MonoBehaviour
 
     public void ExitShop() {
         SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
+    }
+
+    [System.Serializable]
+    private struct ActiveBuyData {
+        public BuyMenuData menuData;
+        public int level;
+
+        public ActiveBuyData(BuyMenuData menuData, int level) {
+            this.menuData = menuData;
+            this.level = level;
+        }
     }
 
 }

@@ -19,22 +19,22 @@ MonoBehaviour:
   description: This upgrade path amplifies Compression's effect, shrinking the Player
     even smaller.
   data:
-  - cost: 0
+  - cost: 250
     statName0: 
     statChange0: 
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: 
     statChange0: 
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: 
     statChange0: 
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: 
     statChange0: 
     statName1: 

@@ -35,6 +35,11 @@ public class SaveManager : MonoBehaviour
         FileManager.Save(saveObject);
     }
 
+    //autosave function
+    void OnApplicationQuit() {
+        Save();
+    }
+
 
     /*******************
     High Score Functions
@@ -55,7 +60,7 @@ public class SaveManager : MonoBehaviour
     }
 
     public bool SubtractBits(int value) {
-        if (value >= saveObject.totalBits) {
+        if (value <= saveObject.totalBits) {
             saveObject.totalBits -= value;
             return true;
         }

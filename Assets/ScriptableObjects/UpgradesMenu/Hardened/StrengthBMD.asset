@@ -18,22 +18,22 @@ MonoBehaviour:
   pathIndex: 1
   description: This upgrade path allows Hardened to survive more impacts.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Health
     statChange0: 1 >> 2
     statName1: Impact Cost
     statChange1: 100% >> 25%
-  - cost: 0
+  - cost: 500
     statName0: Health
     statChange0: 2 >> 3
     statName1: Impact Cost
     statChange1: 25% >> 15%
-  - cost: 0
+  - cost: 1000
     statName0: Health
     statChange0: 3 >> 4
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Health
     statChange0: 4 >> 5
     statName1: Impact Cost

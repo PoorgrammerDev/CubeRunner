@@ -18,22 +18,22 @@ MonoBehaviour:
   pathIndex: 1
   description: This upgrade path extends Guidelines' range.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Range
     statChange0: 15m >> 20m
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Range
     statChange0: 20m >> 25m
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: Range
     statChange0: 25m >> 30m
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Range
     statChange0: 30m >> 45m
     statName1: 

@@ -19,22 +19,22 @@ MonoBehaviour:
   description: This upgrade path allows the Blaster to shoot faster and gives it
     more ammo.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Cooldown
     statChange0: 3s >> 2.5s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Cooldown
     statChange0: 2.5s >> 2.25s
     statName1: Ammo
     statChange1: 3 >> 4
-  - cost: 0
+  - cost: 1000
     statName0: Cooldown
     statChange0: 2.25s >> 2s
     statName1: Ammo
     statChange1: 4 >> 6
-  - cost: 0
+  - cost: 1500
     statName0: Cooldown
     statChange0: 2s >> 1.5s
     statName1: Ammo

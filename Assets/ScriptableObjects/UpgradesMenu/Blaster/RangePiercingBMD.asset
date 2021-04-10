@@ -19,22 +19,22 @@ MonoBehaviour:
   description: This upgrade path extends the Blaster's Range and allows it to destroy
     multiple obstacles.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Range
     statChange0: 10m >> 15m
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Range
     statChange0: 15m >> 17.5m
     statName1: Piercing
     statChange1: 0 >> 1
-  - cost: 0
+  - cost: 1000
     statName0: Range
     statChange0: 17.5m >> 20m
     statName1: Piercing
     statChange1: 1 >> 3
-  - cost: 0
+  - cost: 1500
     statName0: Range
     statChange0: 20m >> 25m
     statName1: Piercing

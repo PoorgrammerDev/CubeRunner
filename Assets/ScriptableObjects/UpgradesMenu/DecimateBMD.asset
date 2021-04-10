@@ -19,22 +19,22 @@ MonoBehaviour:
   description: This upgrade path extends Decimate's range, allowing it to act upon
     more rows.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Rows
     statChange0: 3 >> 4
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Rows
     statChange0: 4 >> 6
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: Rows
     statChange0: 6 >> 8
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Rows
     statChange0: 8 >> 10
     statName1: 

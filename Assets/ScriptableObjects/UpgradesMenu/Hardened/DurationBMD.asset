@@ -18,22 +18,22 @@ MonoBehaviour:
   pathIndex: 0
   description: This upgrade path extends the duration before Hardened expires.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Duration
     statChange0: 25s >> 35s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Duration
     statChange0: 35s >> 40s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: Duration
     statChange0: 40s >> 45s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Duration
     statChange0: 45s >> 50s
     statName1: 

@@ -18,22 +18,22 @@ MonoBehaviour:
   pathIndex: 0
   description: This upgrade path extends the duration of effect.
   data:
-  - cost: 0
+  - cost: 250
     statName0: Duration
     statChange0: 10s >> 12.5s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 500
     statName0: Duration
     statChange0: 12.5s >> 15s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1000
     statName0: Duration
     statChange0: 15s >> 17.5s
     statName1: 
     statChange1: 
-  - cost: 0
+  - cost: 1500
     statName0: Duration
     statChange0: 17.5s >> 20s
     statName1: 
