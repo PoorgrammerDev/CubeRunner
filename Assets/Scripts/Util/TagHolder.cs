@@ -21,6 +21,7 @@ public class TagHolder
     public const string PUP_HUD_CLOSE_TRIGGER = "Close";
     public const string HUD_ENTER_TRIGGER = "Enter";
     public const string HUD_EXIT_TRIGGER = "Exit";
+    public const string UPG_CUBE_TRIGGER = "Upgrade";
 
     //Scenes
     public const string GAME_SCENE = "Scene";

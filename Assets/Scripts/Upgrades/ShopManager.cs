@@ -42,6 +42,7 @@ public class ShopManager : MonoBehaviour
 
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
+    [SerializeField] private Animator cubeAnimator;
 
 
     [Header("Input Data")]
@@ -104,93 +105,95 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
-    public bool OpenBuyScreen (BuyMenuData menuData) {
+    public void OpenBuyScreen (BuyMenuData menuData) {
         int currentLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex);
         if (currentLevel < 4) currentLevel++;
 
-        return OpenBuyScreen(menuData, currentLevel);
+        OpenBuyScreen(menuData, currentLevel);
     }
 
-    public bool OpenBuyScreen (BuyMenuData menuData, int level) {
-        if (!buyScreen.activeInHierarchy) {
-            int currentLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex);
-
-            BuyMenuEntry dataEntry;
-            try {
-                dataEntry = menuData.GetDataEntry(level);
-            }
-            catch (System.Exception) {
-                Debug.LogError("Buy Menu Index out of bounds");
-                return false;
-            }
-
-            //set active data
-            activeBuyData = new ActiveBuyData(menuData, level);
-
-            //change names
-            buyScreenPUPName.text = menuData.PowerUpType.ToString();
-            pathName.text = (menuData.PathName != null && menuData.PathName.Length > 0) ? menuData.PathName : "";
-
-            //change description
-            buyDescription.text = menuData.Description;
-
-            //change path sprite
-            upgradePathIcon.sprite = menuData.PathSymbol;
-            
-            //change level dots
-            SetLevelDots(buyLevelDots, Mathf.Min(currentLevel + 1, 4), level);
-
-            //fill in first stat
-            statName0.text = dataEntry.statName0;
-            statChange0.text = dataEntry.statChange0;
-            
-            //if present, fill in second stat
-            if (dataEntry.statName1 != null && dataEntry.statName1.Length > 0) {
-                statName1.gameObject.SetActive(true);
-                statChange1.gameObject.SetActive(true);
-
-                statName1.text = dataEntry.statName1;
-                statChange1.text = dataEntry.statChange1;
-            }
-            else {
-                statName1.gameObject.SetActive(false);
-                statChange1.gameObject.SetActive(false);
-            }
-
-            //set buy price
-            buyCost.text = dataEntry.cost.ToString();
-
-            //check if upgrade is not already owned
-            if (level <= currentLevel) {
-                SetBuyButtonActive(false, false);
-                buyCost.text = "OWNED";
-            }
-            //check if upgrade is not locked
-            else if (level > currentLevel + 1) {
-                SetBuyButtonActive(false, false);
-                buyCost.text = "LOCKED";
-            }
-            //check if upgrade can be afforded
-            else if (dataEntry.cost <= saveManager.TotalBits) {
-                SetBuyButtonActive(true, true);
-            }
-            //if if can't be afforded
-            else {
-                SetBuyButtonActive(false, true);
-            }
-
-            //if skillview is skipped, then clear sv data (so when returning, it returns to base store)
-            if (baseStoreScreen.activeInHierarchy) {
-                activeSVData = null;
-            }
-
-            //close all other submenus and activate this menu
-            baseStoreScreen.SetActive(false);
-            skillViewScreen.SetActive(false);
-            buyScreen.SetActive(true);
-            return true;
+    public void OpenBuyScreen (int level) {
+        if (activeBuyData != null && activeBuyData.HasValue && activeBuyData.Value.menuData != null) {
+            OpenBuyScreen(activeBuyData.Value.menuData, level);
         }
-        return false;
+    }
+
+    public void OpenBuyScreen (BuyMenuData menuData, int level) {
+        int currentLevel = saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex);
+
+        BuyMenuEntry dataEntry;
+        try {
+            dataEntry = menuData.GetDataEntry(level);
+        }
+        catch (System.Exception) {
+            Debug.LogError("Buy Menu Index out of bounds");
+            return;
+        }
+
+        //set active data
+        activeBuyData = new ActiveBuyData(menuData, level);
+
+        //change names
+        buyScreenPUPName.text = menuData.PowerUpType.ToString();
+        pathName.text = (menuData.PathName != null && menuData.PathName.Length > 0) ? menuData.PathName : "";
+
+        //change description
+        buyDescription.text = menuData.Description;
+
+        //change path sprite
+        upgradePathIcon.sprite = menuData.PathSymbol;
+        
+        //change level dots
+        SetLevelDots(buyLevelDots, currentLevel, level);
+
+        //fill in first stat
+        statName0.text = dataEntry.statName0;
+        statChange0.text = dataEntry.statChange0;
+            
+        //if present, fill in second stat
+        if (dataEntry.statName1 != null && dataEntry.statName1.Length > 0) {
+            statName1.gameObject.SetActive(true);
+            statChange1.gameObject.SetActive(true);
+
+            statName1.text = dataEntry.statName1;
+            statChange1.text = dataEntry.statChange1;
+        }
+        else {
+            statName1.gameObject.SetActive(false);
+            statChange1.gameObject.SetActive(false);
+        }
+
+        //set buy price
+        buyCost.text = dataEntry.cost.ToString();
+
+        //check if upgrade is not already owned
+        if (level <= currentLevel) {
+            SetBuyButtonActive(false, false);
+            buyCost.text = "OWNED";
+        }
+        //check if upgrade is not locked
+        else if (level > currentLevel + 1) {
+            SetBuyButtonActive(false, false);
+            buyCost.text = "LOCKED";
+        }
+        //check if upgrade can be afforded
+        else if (dataEntry.cost <= saveManager.TotalBits) {
+            SetBuyButtonActive(true, true);
+        }
+        //if if can't be afforded
+        else {
+            SetBuyButtonActive(false, true);
+        }
+
+        //if skillview is skipped, then clear sv data (so when returning, it returns to base store)
+        if (baseStoreScreen.activeInHierarchy) {
+            activeSVData = null;
+        }
+
+        //close all other submenus and activate this menu
+        baseStoreScreen.SetActive(false);
+        skillViewScreen.SetActive(false);
+        buyScreen.SetActive(true);
     }
 
     private void SetBuyButtonActive (bool active, bool bitsIconActive) {
@@ -220,7 +223,8 @@ public class ShopManager : MonoBehaviour
 
                     //TODO: sfx
                     
-                    //TODO: cube animation
+                    //cube animation
+                    cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
 
                     bitsDisplay.UpdateDisplay();
 
