@@ -44,7 +44,6 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private SaveManager saveManager;
     [SerializeField] private Animator cubeAnimator;
 
-
     [Header("Input Data")]
     [SerializeField] private Sprite[] powerUpSprites;
 
@@ -220,12 +219,9 @@ public class ShopManager : MonoBehaviour
                 if (saveManager.SubtractBits(menuData.GetDataEntry(level).cost)) {
                     //upgrades
                     saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level);
-
-                    //TODO: sfx
                     
-                    //cube animation
+                    //effects and update display (particles and sfx are handled by animation)
                     cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
-
                     bitsDisplay.UpdateDisplay();
 
                     //exits menu
