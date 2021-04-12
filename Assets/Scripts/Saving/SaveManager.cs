@@ -70,6 +70,22 @@ public class SaveManager : MonoBehaviour
     /*************
     Upgrades Functions
     *************/
+    public int GetUpgradeLevel(PowerUpType powerUpType, int upgIndex) {
+        return saveObject.upgrades[(int) powerUpType].levels[upgIndex];
+    }
+
+    public void SetUpgradeLevel(PowerUpType powerUpType, int upgIndex, int level) {
+        saveObject.upgrades[(int) powerUpType].levels[upgIndex] = level;
+    }
+
+    public void SetActivePath(PowerUpType powerUpType, int upgIndex) {
+        saveObject.upgrades[(int) powerUpType].activePath = upgIndex;
+    }
+
+    public int GetActivePath(PowerUpType powerUpType) {
+        return saveObject.upgrades[(int) powerUpType].activePath;
+    }
+
     private List<UpgradeEntry> GetNewUpgradesArray() {
         List<UpgradeEntry> upgradesArray = new List<UpgradeEntry>();
 
@@ -97,15 +113,6 @@ public class SaveManager : MonoBehaviour
             }
         }
     }
-
-    public int GetUpgradeLevel(PowerUpType powerUpType, int upgIndex) {
-        return saveObject.upgrades[(int) powerUpType].levels[upgIndex];
-    }
-
-    public void SetUpgradeLevel(PowerUpType powerUpType, int upgIndex, int level) {
-        saveObject.upgrades[(int) powerUpType].levels[upgIndex] = level;
-    }
-
 }
 
 [System.Serializable]
@@ -120,7 +127,10 @@ public class UpgradeEntry {
     public UpgradeEntry(int listSize) {
         levels = new List<int>();
         levels.AddRange(new int[listSize]);
+
+        activePath = 0;
     }
 
     public List<int> levels;
+    public int activePath;
 }

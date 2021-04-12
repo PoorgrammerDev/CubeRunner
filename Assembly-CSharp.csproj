@@ -79,6 +79,7 @@
      <Compile Include="Assets\Scripts\Util\CubeGibsUtil.cs" />
      <Compile Include="Assets\Scripts\MainMenu\DifficultyManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\PlayerPowerUp.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\UpgradeEffects.cs" />
      <Compile Include="Assets\Scripts\MainMenu\BitsDisplay.cs" />
      <Compile Include="Assets\Scripts\MainMenu\SettingsMenu\About.cs" />
      <Compile Include="Assets\Scripts\Upgrades\BuyMenuDataHolder.cs" />
@@ -99,7 +100,6 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\MainMenu\HighScoreDisplay.cs" />
      <Compile Include="Assets\Scripts\Util\BGObject.cs" />
-     <Compile Include="Assets\Scripts\Upgrades\UpgradeEffects.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

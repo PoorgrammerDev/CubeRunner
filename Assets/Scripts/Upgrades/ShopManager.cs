@@ -16,10 +16,12 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SVLeftField; 
     [SerializeField] private Image leftPathIcon; 
     [SerializeField] private Image[] leftLevelDots; 
+    [SerializeField] private Image[] leftPath; 
     [SerializeField] private BuyMenuDataHolder rightBMDHolder; 
     [SerializeField] private TextMeshProUGUI SVRightField; 
     [SerializeField] private Image rightPathIcon; 
     [SerializeField] private Image[] rightLevelDots; 
+    [SerializeField] private Image[] rightPath; 
     [SerializeField] private TextMeshProUGUI PUPName; 
     private SkillViewData activeSVData;
 
@@ -89,10 +91,12 @@ public class ShopManager : MonoBehaviour
                 leftPathIcon.sprite = menuData.leftSymbol;
                 rightPathIcon.sprite = menuData.rightSymbol;
 
-
                 //set level dots
                 SetLevelDots(leftLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 0), -1);
                 SetLevelDots(rightLevelDots, saveManager.GetUpgradeLevel(menuData.powerUpType, 1), -1);
+
+                //set active path
+                UpdatePathDisplay(menuData.powerUpType, saveManager.GetActivePath(menuData.powerUpType) == 1);
 
                 //close all other submenus and activate this menu
                 buyScreen.SetActive(false);
@@ -102,6 +106,48 @@ public class ShopManager : MonoBehaviour
             }
         }
         return false;
+    }
+
+    //TODO: this function and this entire L/R system is pretty messy, cleanup is needed
+    public void ChangeActivePath(bool right) {
+        if (!skillViewScreen.activeInHierarchy || activeSVData == null) return;
+        if (saveManager.GetUpgradeLevel(activeSVData.powerUpType, right ? 1 : 0) <= 0) return;
+
+        saveManager.SetActivePath(activeSVData.powerUpType, right ? 1 : 0);
+        UpdatePathDisplay(activeSVData.powerUpType, right);
+    }
+
+    //TODO: this function and this entire L/R system is pretty messy, cleanup is needed
+    private void UpdatePathDisplay(PowerUpType powerUpType, bool right) {
+        Color leftColor = Color.white;
+        Color rightColor = Color.white;
+        if (saveManager.GetUpgradeLevel(powerUpType, right ? 1 : 0) > 0) {
+            leftColor = right ? Color.white : levelIndicatorHighlight;
+            rightColor = right ? levelIndicatorHighlight : Color.white;
+        }
+
+        SVLeftField.color = leftColor;
+        SVRightField.color = rightColor;
+
+        foreach (Image pathObject in leftPath) {
+            pathObject.color = leftColor;
+        }
+
+        foreach (Image pathObject in rightPath) {
+            pathObject.color = rightColor;
+        }
+
+        foreach (Image levelDot in leftLevelDots) {
+            if (!levelDot.color.CompareRGB(Color.gray)) {
+                levelDot.color = leftColor;
+            }
+        }
+
+        foreach (Image levelDot in rightLevelDots) {
+            if (!levelDot.color.CompareRGB(Color.gray)) {
+                levelDot.color = rightColor;
+            }
+        }
     }
 
     public void OpenBuyScreen (BuyMenuData menuData) {
@@ -222,7 +268,7 @@ public class ShopManager : MonoBehaviour
                     
                     //effects and update display (particles and sfx are handled by animation)
                     cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
-                    bitsDisplay.UpdateDisplay();
+                    StartCoroutine(bitsDisplay.TransitionDisplay(2.5f));
 
                     //exits menu
                     BuyMenuReturn();
