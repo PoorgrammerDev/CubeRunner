@@ -45,6 +45,7 @@ public class ShopManager : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
     [SerializeField] private Animator cubeAnimator;
+    [SerializeField] private MusicManager musicManager;
 
     [Header("Input Data")]
     [SerializeField] private Sprite[] powerUpSprites;
@@ -305,6 +306,7 @@ public class ShopManager : MonoBehaviour
         return false;
     }
 
+    //TODO: This scene management stuff should be separated into a different script
     public void ExitShop() {
         if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
             ChangeSceneToMM();
@@ -312,6 +314,8 @@ public class ShopManager : MonoBehaviour
         else {
             Animator mainCamAnim = Camera.main.GetComponent<Animator>();
             mainCamAnim.Play(TagHolder.CAM_UPGRADES_EXIT);
+
+            StartCoroutine(musicManager.FadeOutAndStop(1f));
         }
     }
 

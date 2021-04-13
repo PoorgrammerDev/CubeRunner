@@ -3681,7 +3681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &745310535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4346,7 +4346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b62d09bd279fd344a080748c013959c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 745310538}
   musicManager: {fileID: 1067481667}
 --- !u!114 &831284303
 MonoBehaviour:
@@ -8552,6 +8551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startGame: {fileID: 2119642132}
   upgrades: {fileID: 831284302}
+  shopManager: {fileID: 0}
 --- !u!1 &1771987469
 GameObject:
   m_ObjectHideFlags: 0

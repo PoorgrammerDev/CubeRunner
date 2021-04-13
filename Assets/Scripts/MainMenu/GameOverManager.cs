@@ -79,7 +79,7 @@ public class GameOverManager : MonoBehaviour
 
                     Animator mainCamAnim = Camera.main.GetComponent<Animator>();
                     mainCamAnim.Play(TagHolder.CAM_MM_RETURN_FROM_UPG);
-                    Destroy(returnMarker);
+                    Destroy(returnMarker.gameObject);
                 }
                 else {
                     mainMenuScreen.SetActive(true);

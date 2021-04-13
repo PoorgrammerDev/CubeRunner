@@ -73,6 +73,7 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Align.cs" />
      <Compile Include="Assets\Scripts\Util\PanelObjectHolder.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Decimate.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\ReturnFromUpg.cs" />
      <Compile Include="Assets\Scripts\Audio\SFXVolumeManager.cs" />
      <Compile Include="Assets\Scripts\GameManagers\Player\PowerUps\Blaster.cs" />
      <Compile Include="Assets\Scripts\Credits.cs" />
@@ -100,7 +101,7 @@
      <Compile Include="Assets\Scripts\GameManagers\Player\Score.cs" />
      <Compile Include="Assets\Scripts\MainMenu\HighScoreDisplay.cs" />
      <Compile Include="Assets\Scripts\Util\BGObject.cs" />
-     <Compile Include="Assets\Scripts\Upgrades\ReturnFromUpg.cs" />
+     <Compile Include="Assets\Scripts\Upgrades\EnterUpgradeScene.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

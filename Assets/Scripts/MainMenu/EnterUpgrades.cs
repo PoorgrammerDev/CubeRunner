@@ -12,7 +12,7 @@ public class EnterUpgrades : MonoBehaviour
         }
         else {
             //music fades out
-            StartCoroutine(musicManager.FadeOutAndStop(0.5f));
+            StartCoroutine(musicManager.FadeOutAndStop(1f));
 
             Animator mainCamAnim = Camera.main.GetComponent<Animator>();
             mainCamAnim.Play(TagHolder.CAM_UPGRADES_ENTER);
