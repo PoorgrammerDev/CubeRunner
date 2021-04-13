@@ -306,6 +306,16 @@ public class ShopManager : MonoBehaviour
     }
 
     public void ExitShop() {
+        if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
+            ChangeSceneToMM();
+        }
+        else {
+            Animator mainCamAnim = Camera.main.GetComponent<Animator>();
+            mainCamAnim.Play(TagHolder.CAM_UPGRADES_EXIT);
+        }
+    }
+
+    public void ChangeSceneToMM() {
         SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
     }
 

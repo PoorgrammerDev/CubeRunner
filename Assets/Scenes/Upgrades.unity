@@ -1131,11 +1131,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 211472033}
   m_LocalRotation: {x: -0.0000000018626451, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.5, y: -0.7242898, z: 5.6949196}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalPosition: {x: 2.5, y: -0.7242898, z: 1.4449196}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &246614164
 GameObject:
@@ -2539,7 +2539,7 @@ Transform:
   - {fileID: 1608051153}
   - {fileID: 707993114}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599976957
 MonoBehaviour:
@@ -11676,6 +11676,7 @@ GameObject:
   - component: {fileID: 1189654070}
   - component: {fileID: 1189654069}
   - component: {fileID: 1189654068}
+  - component: {fileID: 1189654072}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -11758,14 +11759,26 @@ RectTransform:
   - {fileID: 960781170}
   - {fileID: 752996214}
   - {fileID: 623026028}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1770320304}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!225 &1189654072
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189654067}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1202264367
 GameObject:
   m_ObjectHideFlags: 0
@@ -14683,8 +14696,8 @@ GameObject:
   - component: {fileID: 1770320303}
   - component: {fileID: 1770320302}
   - component: {fileID: 1770320305}
-  - component: {fileID: 1770320306}
   - component: {fileID: 1770320307}
+  - component: {fileID: 1770320306}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -14757,6 +14770,7 @@ Transform:
   - {fileID: 1067481666}
   - {fileID: 176962721}
   - {fileID: 1087674882595919901}
+  - {fileID: 1189654071}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 2.5, y: 0, z: 0}
@@ -14802,7 +14816,7 @@ Animator:
   m_GameObject: {fileID: 1770320301}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: db2078d6ea386a848a5491831205ca9e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9d7dd6b93977ae041ae8e153bee1d365, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -14824,6 +14838,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 0}
+  upgrades: {fileID: 0}
+  shopManager: {fileID: 1425901150}
 --- !u!1 &1786711149
 GameObject:
   m_ObjectHideFlags: 0

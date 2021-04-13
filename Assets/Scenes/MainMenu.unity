@@ -3681,7 +3681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &745310535
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4346,6 +4346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b62d09bd279fd344a080748c013959c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 745310538}
+  musicManager: {fileID: 1067481667}
 --- !u!114 &831284303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5662,7 +5664,7 @@ PrefabInstance:
     - target: {fileID: 1813294428010020591, guid: a8c73ef77b07a9e49a195ecf1c02d26f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1813294428010020591, guid: a8c73ef77b07a9e49a195ecf1c02d26f,
         type: 3}
@@ -5856,8 +5858,8 @@ RectTransform:
   - {fileID: 745310535}
   - {fileID: 620931137}
   - {fileID: 684864204}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 1770320304}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -8481,6 +8483,7 @@ Transform:
   m_Children:
   - {fileID: 1067481666}
   - {fileID: 176962721}
+  - {fileID: 1189654071}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8548,6 +8551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGame: {fileID: 2119642132}
+  upgrades: {fileID: 831284302}
 --- !u!1 &1771987469
 GameObject:
   m_ObjectHideFlags: 0
