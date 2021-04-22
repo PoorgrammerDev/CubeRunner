@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Align : AbstractPowerUp {
+    [Header("References")]
     [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameValues gameValues;
@@ -13,21 +14,23 @@ public class Align : AbstractPowerUp {
     [SerializeField] private GameObject[] targets;
     public GameObject leftMoveArrow;
     public GameObject rightMoveArrow;
-
     [SerializeField] private Transform playerShadowsParent;
     [SerializeField] private GameObject shadowPrefab;
-    private Queue<GameObject> shadows;
+    [SerializeField] private AlignUPGData upgradeData;
+    [SerializeField] private SaveManager saveManager;
+    
 
     [Header("Options")]
     [SerializeField] private float duration;
     [SerializeField] private bool beginningAlign;
     [SerializeField] private int shadowCount;
 
-
+    private Queue<GameObject> shadows;
     private float[] positions;
     private int currentPosition;
 
     void Start() {
+        SetupUpgradeData();
         StartCoroutine(DelayStart());
         MakeShadows(shadowCount * 2);
     }
@@ -56,6 +59,13 @@ public class Align : AbstractPowerUp {
         
         position.z = -gameValues.WidthScale;
         rightMoveArrow.transform.position = position;
+    }
+
+    void SetupUpgradeData() {
+        int upgLevel = saveManager.GetUpgradeLevel(PowerUpType.Align, 0);
+    
+        AlignUPGEntry upgradeEntry = upgradeData.leftPath[upgLevel];
+        this.duration = upgradeEntry.duration;
     }
 
     void FindCurrentPosition() {

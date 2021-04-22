@@ -273,6 +273,15 @@ public class ShopManager : MonoBehaviour
 
                     //exits menu
                     BuyMenuReturn();
+                    
+                    //If the other path does not have any upgrades, set the active path as this one.
+                    //TODO: This code isn't particularly clean (neither is the entire left/right upg system)
+                    if (menuData.PathIndex == 1 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 0) == 0) {
+                        ChangeActivePath(true);
+                    }
+                    else if (menuData.PathIndex == 0 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 1) == 0) {
+                        ChangeActivePath(false);
+                    }
                 }
             }
         }

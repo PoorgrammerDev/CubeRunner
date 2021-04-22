@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b420ab8d8148f7d4db4b343343b8773c, type: 3}
+  m_Name: CompressionUPGData
+  m_EditorClassIdentifier: 
+  leftPath:
+  - duration: 5
+    shrinkRate: 2
+  - duration: 10
+    shrinkRate: 2
+  - duration: 15
+    shrinkRate: 2
+  - duration: 20
+    shrinkRate: 2
+  - duration: 25
+    shrinkRate: 2
+  rightPath:
+  - duration: 5
+    shrinkRate: 2
+  - duration: 5
+    shrinkRate: 2.5
+  - duration: 5
+    shrinkRate: 3
+  - duration: 5
+    shrinkRate: 4
+  - duration: 5
+    shrinkRate: 5

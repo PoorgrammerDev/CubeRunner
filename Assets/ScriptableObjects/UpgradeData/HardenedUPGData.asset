@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332675b8e57ea864b886ff7398b86bc0, type: 3}
+  m_Name: HardenedUPGData
+  m_EditorClassIdentifier: 
+  leftPath:
+  - duration: 25
+    health: 1
+    impactCost: 100
+  - duration: 35
+    health: 1
+    impactCost: 100
+  - duration: 40
+    health: 1
+    impactCost: 100
+  - duration: 45
+    health: 1
+    impactCost: 100
+  - duration: 50
+    health: 1
+    impactCost: 100
+  rightPath:
+  - duration: 25
+    health: 1
+    impactCost: 100
+  - duration: 25
+    health: 2
+    impactCost: 25
+  - duration: 25
+    health: 3
+    impactCost: 15
+  - duration: 25
+    health: 4
+    impactCost: 15
+  - duration: 25
+    health: 5
+    impactCost: 10

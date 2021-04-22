@@ -10,16 +10,27 @@ public class Decimate : AbstractPowerUp
     [SerializeField] private CubeSpawner cubeSpawner;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform poolObject;
-    private Stack<GameObject> pool = new Stack<GameObject>();
-    private Quaternion quaternion = new Quaternion();
+    [SerializeField] private DecimateUPGData upgradeData;
+    [SerializeField] private SaveManager saveManager;
+    
 
     [Header("Options")]
     [SerializeField] private int poolSize;
     [SerializeField] private int rowCount;
     
+    private Stack<GameObject> pool = new Stack<GameObject>();
+    private Quaternion quaternion = new Quaternion();
 
     void Start() {
+        SetupUpgradeData();
         AddPartsToPool(poolSize);
+    }
+
+    void SetupUpgradeData() {
+        int upgLevel = saveManager.GetUpgradeLevel(PowerUpType.Decimate, 0);
+    
+        DecimateUPGEntry upgradeEntry = upgradeData.leftPath[upgLevel];
+        this.rowCount = upgradeEntry.rows;
     }
     
     void AddPartsToPool (int num) {

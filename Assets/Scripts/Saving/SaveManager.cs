@@ -40,6 +40,10 @@ public class SaveManager : MonoBehaviour
         Save();
     }
 
+    void OnDisable() {
+        Save();
+    }
+
 
     /*******************
     High Score Functions

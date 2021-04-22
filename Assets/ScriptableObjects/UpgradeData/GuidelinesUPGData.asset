@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf1b664f7ae2f54439b8fcdc7ca25c26, type: 3}
+  m_Name: GuidelinesUPGData
+  m_EditorClassIdentifier: 
+  leftPath:
+  - duration: 10
+    range: 15
+  - duration: 12.5
+    range: 15
+  - duration: 15
+    range: 15
+  - duration: 17.5
+    range: 15
+  - duration: 20
+    range: 15
+  rightPath:
+  - duration: 10
+    range: 15
+  - duration: 10
+    range: 20
+  - duration: 10
+    range: 25
+  - duration: 10
+    range: 30
+  - duration: 10
+    range: 45
