@@ -10,16 +10,11 @@ public class PlayerCollision : MonoBehaviour
     [SerializeField] private GameValues gameValues;
     [SerializeField] private EndGame gameEndManager;
     [SerializeField] private PowerUpSpawner powerUpSpawner;
-    [SerializeField] private GibManager obstacleGibManager;
-    [SerializeField] private GameObject obstaclePrefab;
-
     [SerializeField] private TextMeshProUGUI bitsText;
     [SerializeField] private AudioSource bitsSound;
     [SerializeField] private Hardened hardenedPUP;
     private PlayerPowerUp playerPowerUp;    
     private new Collider collider;
-
-    public LayerMask obstacleLayer;
 
     void Start() {
         playerPowerUp = GetComponent<PlayerPowerUp>();
@@ -82,19 +77,7 @@ public class PlayerCollision : MonoBehaviour
     private void CollideWithObstacle() {
         //HARDENED POWER-UP OVERRIDE OBSTACLE HITTING
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.Hardened) {
-            Collider[] allObstacles = Physics.OverlapBox(transform.position, transform.localScale / 2f, Quaternion.identity, obstacleLayer, QueryTriggerInteraction.Collide);
-
-            foreach (Collider obstacle in allObstacles) {
-                //smashing obstacle
-                if (gameValues.Divide != 0) {
-                    obstacleGibManager.Activate(obstacle.transform.position, obstacle.transform.localScale, true, true);
-                }
-
-                obstacle.gameObject.SetActive(false);
-            }
-
-            hardenedPUP.PlaySound();
-            playerPowerUp.RemovePowerUp();
+            hardenedPUP.Impact(this.transform);
             return;
         }
 

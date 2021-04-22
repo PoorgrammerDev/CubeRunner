@@ -33,7 +33,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
-     public float ticker = 0;
+    public float ticker = 0;
 
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;
@@ -63,7 +63,7 @@ public class PlayerPowerUp : MonoBehaviour
         PowerUpTypeToClass = new Dictionary<PowerUpType, AbstractPowerUp>();
         PowerUpTypeToClass.Add(PowerUpType.Blaster, blaster);
         PowerUpTypeToClass.Add(PowerUpType.TimeDilation, timeDilation);
-        PowerUpTypeToClass.Add(PowerUpType.Compress, compression);
+        PowerUpTypeToClass.Add(PowerUpType.Compression, compression);
         PowerUpTypeToClass.Add(PowerUpType.Hardened, hardened);
         PowerUpTypeToClass.Add(PowerUpType.Guidelines, guidelines);
         PowerUpTypeToClass.Add(PowerUpType.Decimate, decimate);
@@ -244,7 +244,7 @@ public class PlayerPowerUp : MonoBehaviour
                         disableButton = true;
                     #endif
                     break;
-                case PowerUpType.Compress:
+                case PowerUpType.Compression:
                     StartCoroutine(compression.RunCompression());
                     playSound = compression;
 

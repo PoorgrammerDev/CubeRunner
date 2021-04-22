@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
+  m_Name: ShrinkRateBMD
+  m_EditorClassIdentifier: 
+  powerUpType: 2
+  pathName: Shrink Rate
+  pathSymbol: {fileID: 21300000, guid: 7300cff8fae84bc4b82c4a7afd6b0069, type: 3}
+  pathIndex: 1
+  description: This upgrade path amplifies Compression's effect, shrinking the Player
+    even smaller.
+  data:
+  - cost: 250
+    statName0: Shrink Rate
+    statChange0: 2x >> 2.5x
+    statName1: 
+    statChange1: 
+  - cost: 500
+    statName0: Shrink Rate
+    statChange0: 2.5x >> 3x
+    statName1: 
+    statChange1: 
+  - cost: 1000
+    statName0: Shrink Rate
+    statChange0: 3x >> 4x
+    statName1: 
+    statChange1: 
+  - cost: 1500
+    statName0: Shrink Rate
+    statChange0: 4x >> 5x
+    statName1: 
+    statChange1: 

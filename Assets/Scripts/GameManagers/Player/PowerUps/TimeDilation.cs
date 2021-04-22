@@ -5,23 +5,50 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class TimeDilation : AbstractPowerUp {
+    [Header("References")]
     [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private Volume volume;
-    [SerializeField] private float timeDilationDuration;
-    [SerializeField] private float timeDilationScale;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioSource droning;
-
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private PauseManager pauseManager;
-    ChromaticAberration chromAb;
-    ColorAdjustments colorAdj;
+    [SerializeField] private TimeDilationUPGData upgradeData;
+    [SerializeField] private SaveManager saveManager;
+
+    [Header("Stats")]
+    [SerializeField] private float duration;
+    [SerializeField] private float timeScale;
+
+    private ChromaticAberration chromAb;
+    private ColorAdjustments colorAdj;
 
     // Start is called before the first frame update
     void Start() {
+        SetupUpgradeData();
         volume.sharedProfile.TryGet<ChromaticAberration>(out chromAb);
         volume.sharedProfile.TryGet<ColorAdjustments>(out colorAdj);
         ResetTDEffects(false);
+    }
+
+    void SetupUpgradeData() {
+        int activePath = saveManager.GetActivePath(PowerUpType.TimeDilation);
+        int upgLevel = saveManager.GetUpgradeLevel(PowerUpType.TimeDilation, activePath);
+    
+        TimeDilationUPGEntry upgradeEntry;
+        switch (activePath) {
+            case 0:
+                upgradeEntry = upgradeData.leftPath[upgLevel];
+                break;
+            case 1:
+                upgradeEntry = upgradeData.rightPath[upgLevel];
+                break;
+            default:
+                Debug.LogError("Active Path for Upgrade TIMEDILATION returned incorrect value: " + activePath);
+                return;
+        }
+
+        this.duration = upgradeEntry.duration;
+        this.timeScale = 1.0f / upgradeEntry.slowRate;
     }
 
     public IEnumerator RunTimeDilation() {
@@ -37,7 +64,7 @@ public class TimeDilation : AbstractPowerUp {
         droning.Play();
 
         //slowing down
-        Time.timeScale = timeDilationScale;
+        Time.timeScale = this.timeScale;
 
         //postprocessing effects
         chromAb.active = true;
@@ -54,9 +81,9 @@ public class TimeDilation : AbstractPowerUp {
         t = 0;
 
         //wait
-        powerUpManager.ticker = timeDilationDuration;
+        powerUpManager.ticker = duration;
         while (powerUpManager.ticker > 0) {
-            powerUpManager.TopBar.value = (powerUpManager.ticker / timeDilationDuration);
+            powerUpManager.TopBar.value = (powerUpManager.ticker / duration);
             yield return null;
         }
 
@@ -71,7 +98,7 @@ public class TimeDilation : AbstractPowerUp {
                 chromAb.intensity.SetValue(new NoInterpClampedFloatParameter(Mathf.Lerp(1, 0, t), 0, 1, true));
                 colorAdj.saturation.SetValue(new ClampedFloatParameter(Mathf.Lerp(-45, 0, t), -100, 100, true));
                 colorAdj.colorFilter.Override(Color.Lerp(finalColor, Color.white, t));
-                Time.timeScale = Mathf.Lerp(timeDilationScale, 1, t);
+                Time.timeScale = Mathf.Lerp(this.timeScale, 1, t);
             }
             yield return null;
         }

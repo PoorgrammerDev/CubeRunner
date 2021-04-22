@@ -3,11 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Compression : AbstractPowerUp {
+    [Header("References")]
     [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private Transform playerObject;
-    [SerializeField] private float compressionDuration;
-    [SerializeField] private float compressionSize;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private CompressionUPGData upgradeData;
+    [SerializeField] private SaveManager saveManager;
+
+    [Header("Stats")]
+    [SerializeField] private float duration;
+    [SerializeField] private float size;
+
+    void Start() {
+        int activePath = saveManager.GetActivePath(PowerUpType.Compression);
+        int upgLevel = saveManager.GetUpgradeLevel(PowerUpType.Compression, activePath);
+
+        CompressionUPGEntry upgradeEntry;
+        switch (activePath) {
+            case 0:
+                upgradeEntry = upgradeData.leftPath[upgLevel];
+                break;
+            case 1:
+                upgradeEntry = upgradeData.rightPath[upgLevel];
+                break;
+            default:
+                Debug.LogError("Active Path for Upgrade COMPRESSION returned incorrect value: " + activePath);
+                return;
+        }
+
+        this.duration = upgradeEntry.duration;
+        this.size = 1.0f / upgradeEntry.shrinkRate;
+    }
 
     public IEnumerator RunCompression() {
         powerUpManager.State = PowerUpState.Active;
@@ -17,13 +43,13 @@ public class Compression : AbstractPowerUp {
         //save original scale
         float originalScale = scale.z;
         float originalY = position.y;
-        float newY = (compressionSize / 2f) + 0.1f;
+        float newY = (this.size / 2f) + 0.1f;
 
         //shrink scale to shrunk size
         float t = 0f;
         while (t <= 1) {
             t += 4 * Time.deltaTime;
-            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
+            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, this.size, t);
             playerObject.localScale = scale;
 
             position = playerObject.position;
@@ -33,9 +59,9 @@ public class Compression : AbstractPowerUp {
         }
 
         //wait
-        powerUpManager.ticker = compressionDuration;
+        powerUpManager.ticker = this.duration;
         while (powerUpManager.ticker > 0) {
-            powerUpManager.TopBar.value = (powerUpManager.ticker / compressionDuration);
+            powerUpManager.TopBar.value = (powerUpManager.ticker / this.duration);
             yield return null;
         }
         
@@ -47,7 +73,7 @@ public class Compression : AbstractPowerUp {
         //return to original size
         while (t >= 0) {
             t -= 2 * Time.deltaTime;
-            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, compressionSize, t);
+            scale.x = scale.y = scale.z = Mathf.Lerp(originalScale, this.size, t);
             playerObject.localScale = scale;
 
             position = playerObject.position;

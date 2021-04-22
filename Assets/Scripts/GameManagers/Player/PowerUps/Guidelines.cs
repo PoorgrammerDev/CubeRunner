@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Guidelines : AbstractPowerUp
 {
+    [Header("References")]
     [SerializeField] private PlayerPowerUp powerUpManager;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private GameObject guidelinesObject;
+    [SerializeField] private GuidelinesUPGData upgradeData;
+    [SerializeField] private SaveManager saveManager;
 
     [Header("Settings")]
     [SerializeField] private float duration;
@@ -15,7 +18,29 @@ public class Guidelines : AbstractPowerUp
     float originalVolume;
 
     void Start () {
+        SetupUpgradeData();
         originalVolume = PlayerPrefs.GetFloat(TagHolder.PREF_SFX_VOLUME);
+    }
+
+    void SetupUpgradeData() {
+        int activePath = saveManager.GetActivePath(PowerUpType.Guidelines);
+        int upgLevel = saveManager.GetUpgradeLevel(PowerUpType.Guidelines, activePath);
+    
+        GuidelinesUPGEntry upgradeEntry;
+        switch (activePath) {
+            case 0:
+                upgradeEntry = upgradeData.leftPath[upgLevel];
+                break;
+            case 1:
+                upgradeEntry = upgradeData.rightPath[upgLevel];
+                break;
+            default:
+                Debug.LogError("Active Path for Upgrade GUIDELINES returned incorrect value: " + activePath);
+                return;
+        }
+
+        this.duration = upgradeEntry.duration;
+        this.length = upgradeEntry.range;
     }
 
     public IEnumerator RunGuidelines() {

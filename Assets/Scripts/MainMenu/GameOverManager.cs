@@ -72,7 +72,19 @@ public class GameOverManager : MonoBehaviour
 
         }
         else {
-            if (!eulaScreen.activeInHierarchy) mainMenuScreen.SetActive(true);
+            if (!eulaScreen.activeInHierarchy) {
+                ReturnFromUpg returnMarker = FindObjectOfType<ReturnFromUpg>();
+                if (returnMarker != null) {
+                    mainMenuScreen.SetActive(true);
+
+                    Animator mainCamAnim = Camera.main.GetComponent<Animator>();
+                    mainCamAnim.Play(TagHolder.CAM_MM_RETURN_FROM_UPG);
+                    Destroy(returnMarker.gameObject);
+                }
+                else {
+                    mainMenuScreen.SetActive(true);
+                }
+            }
         }
     }
 

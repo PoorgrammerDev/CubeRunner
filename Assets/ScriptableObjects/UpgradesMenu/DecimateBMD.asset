@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a31cc95b320f804c98c51874bda1c0c, type: 3}
+  m_Name: DecimateBMD
+  m_EditorClassIdentifier: 
+  powerUpType: 5
+  pathName: 
+  pathSymbol: {fileID: 21300000, guid: 7c0a12471aac91944b370de7699cf801, type: 3}
+  pathIndex: 0
+  description: This upgrade path extends Decimate's range, allowing it to act upon
+    more rows.
+  data:
+  - cost: 250
+    statName0: Rows
+    statChange0: 3 >> 4
+    statName1: 
+    statChange1: 
+  - cost: 500
+    statName0: Rows
+    statChange0: 4 >> 6
+    statName1: 
+    statChange1: 
+  - cost: 1000
+    statName0: Rows
+    statChange0: 6 >> 8
+    statName1: 
+    statChange1: 
+  - cost: 1500
+    statName0: Rows
+    statChange0: 8 >> 10
+    statName1: 
+    statChange1: 

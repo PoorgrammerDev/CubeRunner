@@ -5,6 +5,9 @@ public class TagHolder
 {
     //Animation States
     public const string CAM_ANIM_START_GAME = "StartGame";
+    public const string CAM_UPGRADES_ENTER = "EnterUpgrades";
+    public const string CAM_UPGRADES_EXIT = "ExitUpgrades";
+    public const string CAM_MM_RETURN_FROM_UPG = "ReturnFromUpgrades";
     public const string BEAM_ANIM_ENTER = "EnterStage";
     public const string BEAM_ANIM_MENU_ENTER = "EnterMenu";
     public const string BEAM_ANIM_MENU_EXIT = "ExitMenu";
@@ -21,10 +24,12 @@ public class TagHolder
     public const string PUP_HUD_CLOSE_TRIGGER = "Close";
     public const string HUD_ENTER_TRIGGER = "Enter";
     public const string HUD_EXIT_TRIGGER = "Exit";
+    public const string UPG_CUBE_TRIGGER = "Upgrade";
 
     //Scenes
     public const string GAME_SCENE = "Scene";
     public const string MAIN_MENU_SCENE = "MainMenu";
+    public const string UPGRADES_SCENE = "Upgrades";
 
     //Object Tags
     public const string OBSTACLE_TAG = "Obstacle";

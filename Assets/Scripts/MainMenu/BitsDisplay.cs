@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using TMPro;
 
 /// <summary>
@@ -18,5 +19,20 @@ public class BitsDisplay : MonoBehaviour
 
     public void UpdateDisplay() {
         numDisplay.text = saveManager.TotalBits.ToString();
+    }
+
+    public IEnumerator TransitionDisplay(float speed) {
+        int value;
+        if (int.TryParse(numDisplay.text, out value)) {
+            if (value != saveManager.TotalBits) {
+                float t = 0.0f;
+                while (t <= 1.0f) {
+                    t += speed * Time.deltaTime;
+                    numDisplay.text = ((int) Mathf.Lerp(value, saveManager.TotalBits, t)).ToString();
+
+                    yield return null;
+                }
+            }
+        }
     }
 }
