@@ -63,38 +63,21 @@ public class Blaster : AbstractPowerUp {
                 result = true;
                 powerUpManager.ticker = this.cooldown;
 
-                //front posiiton of cube
+                //front position of cube
                 Vector3 position = transform.position;
                 position.x += 0.51f;
 
-
-                float x = this.range;
                 //shoot out and break obstacle if hit
-                RaycastHit hit;
-                if (Physics.Raycast(position, blasterShootDirection, out hit, this.range)) {
-                    Transform hitObject = hit.transform;
-                    if (hitObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
-                        x = hitObject.position.x;
-                        hitObject.gameObject.SetActive(false);
-
-                        //sound
-                        obstacleHitSource.clip = Sounds[1];
-                        obstacleHitSource.time = SoundStartTimes[1];
-                        obstacleHitSource.Play();
-
-                        if (gameValues.Divide != 0) {
-                            gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
-                        }
-                    }
-                }
+                RecursivePiercingShot(position, this.range, this.piercing);
 
                 //visual effect
+                //TODO: this currently always draws the line the entire range, not counting if it hits obstacles and stops there
                 Vector3 tracerPos = blasterTracer.GetPosition(0);
                 tracerPos.z = transform.position.z;
                 blasterTracer.SetPosition(0, tracerPos);
 
                 tracerPos = blasterTracer.GetPosition(1);
-                tracerPos.x = x;
+                tracerPos.x = this.range;
                 tracerPos.z = transform.position.z;
                 blasterTracer.SetPosition(1, tracerPos);
 
@@ -113,6 +96,33 @@ public class Blaster : AbstractPowerUp {
             return result;
         }
         return false;
+    }
+
+    void RecursivePiercingShot(Vector3 startingPosition, float remainingRange, float remainingPierces) {
+        RaycastHit hit;
+
+        if (Physics.Raycast(startingPosition, blasterShootDirection, out hit, remainingRange)) {
+            Transform hitObject = hit.transform;
+            if (hitObject.CompareTag(TagHolder.OBSTACLE_TAG)) {
+                //obstacle break sfx
+                obstacleHitSource.clip = Sounds[1];
+                obstacleHitSource.time = SoundStartTimes[1];
+                obstacleHitSource.Play();
+
+                //obstacle break vfx
+                hitObject.gameObject.SetActive(false);
+                if (gameValues.Divide != 0) {
+                    gibManager.Activate(hitObject.position, hitObject.localScale, true, true);
+                }
+
+                remainingPierces--;
+                remainingRange -= (hitObject.position.x - startingPosition.x);
+
+                if (remainingRange > 0 && remainingPierces > 0) {
+                    RecursivePiercingShot(hitObject.position, remainingRange, remainingPierces);
+                }
+            }
+        }
     }
 
     public IEnumerator CooldownBar() {

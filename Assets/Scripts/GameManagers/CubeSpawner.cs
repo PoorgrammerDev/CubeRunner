@@ -128,7 +128,7 @@ public class CubeSpawner : MonoBehaviour
                 slot = Random.Range(0, lanes);
             } while (!row.structures[slot]);
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes, PowerUpType.Align); //TODO: FIXME: revert after testing
+            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
         }
 
         //Bits

@@ -33,7 +33,7 @@ public class PlayerPowerUp : MonoBehaviour
 
     [Header("Ticking")]
     [SerializeField] private float tickRate;
-     public float ticker = 0;
+    public float ticker = 0;
 
     [Header("UI")]
     [SerializeField] private Animator PowerUpHUDAnimator;

@@ -2881,15 +2881,9 @@ MonoBehaviour:
   gameValues: {fileID: 573723474}
   gameEndManager: {fileID: 602921035}
   powerUpSpawner: {fileID: 1774738379}
-  obstacleGibManager: {fileID: 47766900}
-  obstaclePrefab: {fileID: 7961269666094133384, guid: c8f685ecaf37386448a977482c23d346,
-    type: 3}
   bitsText: {fileID: 189748468}
   bitsSound: {fileID: 1321570882}
   hardenedPUP: {fileID: 1677163266}
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!114 &686139434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6778,14 +6772,19 @@ MonoBehaviour:
   soundStartTimes:
   - 0.64
   powerUpManager: {fileID: 686139434}
+  gameValues: {fileID: 573723474}
   audioSource: {fileID: 1768795403}
   barMove: {fileID: 620621771}
   upgradeData: {fileID: 11400000, guid: a7835dbd5618f374bb9e3eda1c10240d, type: 2}
   saveManager: {fileID: 1478679876}
+  obstacleGibManager: {fileID: 47766900}
   shieldObject: {fileID: 1604880397}
   duration: 0
-  health: 0
+  maxHealth: 0
   impactCost: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &1685618695
 GameObject:
   m_ObjectHideFlags: 0
