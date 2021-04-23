@@ -1827,7 +1827,7 @@ MonoBehaviour:
   gapIncreaseChance: 0.5
   widthScale: 1.65
   bitsMultiplier: 3
-  powerUpSpawnChance: 0.05
+  powerUpSpawnChance: 0.875
   bitsSpawnChance: 0.75
   songs:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
@@ -3564,15 +3564,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   difficulty: 3
-  maxForwardSpeed: 50
-  forwardSpeed: 10
-  strafingSpeed: 10
-  rowDistMultLowerBound: 1.2
-  rowDistMultUpperBound: 1.4
+  maxForwardSpeed: 30
+  forwardSpeed: 8.75
+  strafingSpeed: 8.75
+  rowDistMultLowerBound: 1.05
+  rowDistMultUpperBound: 1.15
   gapIncreaseChance: 0.375
   widthScale: 1.6
   bitsMultiplier: 4
-  powerUpSpawnChance: 0.025
+  powerUpSpawnChance: 0.75
   bitsSpawnChance: 0.875
   songs:
   - {fileID: 8300000, guid: 1af3173faf706cb4bb9005cb615f4a37, type: 3}
@@ -7355,7 +7355,7 @@ MonoBehaviour:
   gapIncreaseChance: 0.75
   widthScale: 2
   bitsMultiplier: 1
-  powerUpSpawnChance: 0.15
+  powerUpSpawnChance: 0.125
   bitsSpawnChance: 0.5
   songs:
   - {fileID: 8300000, guid: 99d2f5b47754780418ebf7a5c3153dd9, type: 3}
