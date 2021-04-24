@@ -28,12 +28,12 @@ MonoBehaviour:
     statChange0: 2 >> 3
     statName1: Impact Cost
     statChange1: 25% >> 15%
-  - cost: 1000
+  - cost: 750
     statName0: Health
     statChange0: 3 >> 4
     statName1: 
     statChange1: 
-  - cost: 1500
+  - cost: 1000
     statName0: Health
     statChange0: 4 >> 5
     statName1: Impact Cost

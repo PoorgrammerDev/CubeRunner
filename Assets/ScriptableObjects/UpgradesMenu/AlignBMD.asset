@@ -28,12 +28,12 @@ MonoBehaviour:
     statChange0: 12.5s >> 15s
     statName1: 
     statChange1: 
-  - cost: 1000
+  - cost: 750
     statName0: Duration
     statChange0: 15s >> 17.5s
     statName1: 
     statChange1: 
-  - cost: 1500
+  - cost: 1000
     statName0: Duration
     statChange0: 17.5s >> 20s
     statName1: 

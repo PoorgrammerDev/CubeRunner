@@ -29,12 +29,12 @@ MonoBehaviour:
     statChange0: 2.5x >> 3x
     statName1: 
     statChange1: 
-  - cost: 1000
+  - cost: 750
     statName0: Shrink Rate
     statChange0: 3x >> 4x
     statName1: 
     statChange1: 
-  - cost: 1500
+  - cost: 1000
     statName0: Shrink Rate
     statChange0: 4x >> 5x
     statName1: 

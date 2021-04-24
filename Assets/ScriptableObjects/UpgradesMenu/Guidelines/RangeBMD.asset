@@ -28,12 +28,12 @@ MonoBehaviour:
     statChange0: 20m >> 25m
     statName1: 
     statChange1: 
-  - cost: 1000
+  - cost: 750
     statName0: Range
     statChange0: 25m >> 30m
     statName1: 
     statChange1: 
-  - cost: 1500
+  - cost: 1000
     statName0: Range
     statChange0: 30m >> 45m
     statName1: 
