@@ -285,6 +285,8 @@ public class ShopManager : MonoBehaviour
         else if (level == (currentLevel + 1)) {
             BuyUpgrade();
         }
+
+        saveManager.Save();
     }
 
     private void BuyUpgrade() {
@@ -365,6 +367,11 @@ public class ShopManager : MonoBehaviour
             ChangeSceneToMM();
         }
         else {
+            //disables all buttons
+            foreach (Button button in FindObjectsOfType<Button>()) {
+                button.interactable = false;
+            }
+
             Animator mainCamAnim = Camera.main.GetComponent<Animator>();
             mainCamAnim.Play(TagHolder.CAM_UPGRADES_EXIT);
 
