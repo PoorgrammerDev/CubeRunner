@@ -8044,7 +8044,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1425901150}
         m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
-        m_MethodName: BuyUpgrade
+        m_MethodName: PressBuyButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13305,6 +13305,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f967ce3748c279f4aa948f581b17cc8a, type: 3}
   levelIndicatorHighlight: {r: 1, g: 0.77905405, b: 0, a: 1}
   bitsColor: {r: 0.3882353, g: 0.87058824, b: 0.99607843, a: 1}
+  refundColor: {r: 0.34117648, g: 0.52156866, b: 1, a: 1}
+  refundPenaltyPercent: 0.25
 --- !u!1 &1459271088
 GameObject:
   m_ObjectHideFlags: 0

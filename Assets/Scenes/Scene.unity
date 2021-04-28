@@ -3577,7 +3577,7 @@ MonoBehaviour:
   maxForwardSpeed: 30
   forwardSpeed: 8.75
   strafingSpeed: 8.75
-  rowDistMultLowerBound: 1.05
+  rowDistMultLowerBound: 1.075
   rowDistMultUpperBound: 1.15
   gapIncreaseChance: 0.375
   widthScale: 1.6

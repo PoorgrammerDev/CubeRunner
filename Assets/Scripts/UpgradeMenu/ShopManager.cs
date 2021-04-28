@@ -52,6 +52,8 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private Color levelIndicatorHighlight;
     [SerializeField] private Color bitsColor;
+    [SerializeField] private Color refundColor;
+    [SerializeField] private float refundPenaltyPercent;
 
     /**************************
     SCREEN NAVIGATION FUNCTIONS
@@ -209,26 +211,31 @@ public class ShopManager : MonoBehaviour
             statChange1.gameObject.SetActive(false);
         }
 
-        //set buy price
-        buyCost.text = dataEntry.cost.ToString();
-
-        //check if upgrade is not already owned
-        if (level <= currentLevel) {
-            SetBuyButtonActive(false, false);
+        //if upgrade is already owned and is less than current level, it cannot be refunded
+        if (level < currentLevel) {
+            SetBuyButtonActive(false, false, Color.gray);
             buyCost.text = "OWNED";
         }
-        //check if upgrade is not locked
+        //if upgrade is owned and is the current level, it can be refunded
+        else if (level == currentLevel) {
+            SetBuyButtonActive(true, false, refundColor);
+            buyCost.text = "REFUND   " + ((int) (dataEntry.cost * (1f - refundPenaltyPercent))).ToString();
+        }
+        //if upgrade is higher than the next level, it is locked
         else if (level > currentLevel + 1) {
-            SetBuyButtonActive(false, false);
+            SetBuyButtonActive(false, false, Color.gray);
             buyCost.text = "LOCKED";
         }
+        //otherwise, continue buying process as normal
         //check if upgrade can be afforded
         else if (dataEntry.cost <= saveManager.TotalBits) {
-            SetBuyButtonActive(true, true);
+            SetBuyButtonActive(true, true, bitsColor);
+            buyCost.text = dataEntry.cost.ToString();
         }
-        //if if can't be afforded
+        //if it can't be afforded
         else {
-            SetBuyButtonActive(false, true);
+            SetBuyButtonActive(false, true, Color.gray);
+            buyCost.text = dataEntry.cost.ToString();
         }
 
         //if skillview is skipped, then clear sv data (so when returning, it returns to base store)
@@ -242,48 +249,85 @@ public class ShopManager : MonoBehaviour
         buyScreen.SetActive(true);
     }
 
-    private void SetBuyButtonActive (bool active, bool bitsIconActive) {
+    private void SetBuyButtonActive (bool active, bool bitsIconActive, Color color) {
+        if (active) {
+            ColorBlock buyButtonColorBlock = buyButton.colors;
+            buyButtonColorBlock.normalColor = color;
+            buyButtonColorBlock.highlightedColor = color * 1.25f;
+            buyButtonColorBlock.pressedColor = Color.Lerp(color, Color.black, 0.2f); 
+            buyButtonColorBlock.selectedColor = buyButtonColorBlock.highlightedColor;
+            buyButton.colors = buyButtonColorBlock;
+        }
         buyButton.interactable = active;
-        buyCost.color = active ? bitsColor : Color.gray;
+        
+        buyCost.color = color;
         buyBitIcon0.gameObject.SetActive(bitsIconActive);
         buyBitIcon1.gameObject.SetActive(bitsIconActive);
 
         if (bitsIconActive) {
-            buyBitIcon0.color = active ? bitsColor : Color.gray;
-            buyBitIcon1.color = active ? bitsColor : Color.gray;
+            buyBitIcon0.color = color;
+            buyBitIcon1.color = color;
         }
     }
 
-    public void BuyUpgrade() {
+    public void PressBuyButton() {
         //check buy screen active and data is present
-        if (buyScreen.activeInHierarchy && activeBuyData != null) {
-            BuyMenuData menuData = activeBuyData.Value.menuData;
-            int level = activeBuyData.Value.level;
+        if (!buyScreen.activeInHierarchy || activeBuyData == null) return;
 
-            //check if the level trying to upgrade to is correct (is the next level)
-            if (saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1 == level) {
-                //subtract cost (also acts as a check for if affordable)
-                if (saveManager.SubtractBits(menuData.GetDataEntry(level).cost)) {
-                    //upgrades
-                    saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level);
-                    
-                    //effects and update display (particles and sfx are handled by animation)
-                    cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
-                    StartCoroutine(bitsDisplay.TransitionDisplay(2.5f));
+        int level = activeBuyData.Value.level;
+        int currentLevel = saveManager.GetUpgradeLevel(activeBuyData.Value.menuData.PowerUpType, activeBuyData.Value.menuData.PathIndex);
 
-                    //exits menu
-                    BuyMenuReturn();
-                    
-                    //If the other path does not have any upgrades, set the active path as this one.
-                    //TODO: This code isn't particularly clean (neither is the entire left/right upg system)
-                    if (menuData.PathIndex == 1 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 0) == 0) {
-                        ChangeActivePath(true);
-                    }
-                    else if (menuData.PathIndex == 0 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 1) == 0) {
-                        ChangeActivePath(false);
-                    }
+        //current level - REFUND
+        if (level == currentLevel) {
+            RefundUpgrade();
+        }
+        //next level - BUY
+        else if (level == (currentLevel + 1)) {
+            BuyUpgrade();
+        }
+    }
+
+    private void BuyUpgrade() {
+        BuyMenuData menuData = activeBuyData.Value.menuData;
+        int level = activeBuyData.Value.level;
+        //check if the level trying to upgrade to is correct (is the next level)
+        if (saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) + 1 == level) {
+            //subtract cost (also acts as a check for if affordable)
+            if (saveManager.SubtractBits(menuData.GetDataEntry(level).cost)) {
+                //upgrades
+                saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level);
+                
+                //effects and update display (particles and sfx are handled by animation)
+                cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
+                StartCoroutine(bitsDisplay.TransitionDisplay(2.5f));
+
+                //exits menu
+                BuyMenuReturn();
+                
+                //If the other path does not have any upgrades, set the active path as this one.
+                //TODO: This code isn't particularly clean (neither is the entire left/right upg system)
+                if (menuData.PathIndex == 1 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 0) == 0) {
+                    ChangeActivePath(true);
+                }
+                else if (menuData.PathIndex == 0 && saveManager.GetUpgradeLevel(menuData.PowerUpType, 1) == 0) {
+                    ChangeActivePath(false);
                 }
             }
+        }
+    }
+
+    private void RefundUpgrade() {
+        BuyMenuData menuData = activeBuyData.Value.menuData;
+        int level = activeBuyData.Value.level;
+
+        if (saveManager.GetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex) == level) {
+            int refundAmount = (int) (menuData.GetDataEntry(level).cost * (1f - refundPenaltyPercent));
+            saveManager.AddBits(refundAmount);
+
+            saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level - 1);
+            StartCoroutine(bitsDisplay.TransitionDisplay(2.5f));
+
+            BuyMenuReturn();
         }
     }
 
