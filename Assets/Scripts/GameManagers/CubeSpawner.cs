@@ -30,12 +30,21 @@ public class CubeSpawner : MonoBehaviour
     private Vector3 spawnPosition = new Vector3(0, 0.5f, 0);
     private Quaternion quaternion = new Quaternion();
 
+    private float distanceBaseValue;
+
     // Start is called before the first frame update
     void Start() {
         cubePoolObject = transform.GetChild(0);
         lanes = (int) ((groundPlane.localScale.z * 10f) / gameValues.WidthScale);
         rows = new LinkedList<Row>();
         firstRowDistance = 15 + (1.5f * gameValues.ForwardSpeed);
+
+        //NOTE: Even at the time of putting this code in here, I have little to no idea what it does.
+        // This code was taken from the old GetNextXCoord method and derived the arbitrary value that drove row distances (usually 8)
+        // If I had to guess, it is finding the distance between the two extremes (furthest left and furthest right) of the stage
+        float lowExtrema = (((lanes) / 2f) - 0.5f) * gameValues.WidthScale;
+        float highExtrema = (((lanes) / 2f) - (lanes - 1) - 0.5f) * gameValues.WidthScale;
+        distanceBaseValue = Mathf.Abs(lowExtrema - highExtrema);
 
         InstantiateObstacles();
     }
@@ -239,17 +248,21 @@ public class CubeSpawner : MonoBehaviour
     }
 
     float GetNextXCoord (Row row) {
-        float minTriangleZSide = float.MinValue;
+        float minTriangleZSide = float.MaxValue;
         
         Row previous = rows.Last.Value;
         //finding the shortest possible Z gap dist
         for (int i = 0; i < previous.structures.Length; i++) {
+            if (!previous.structures[i]) continue;
+
             for (int j = 0; j < row.structures.Length; j++) {
+                if (!row.structures[j]) continue;
+
                 float previousStructureZ = (((lanes) / 2f) - i - 0.5f) * gameValues.WidthScale;
                 float currentStructureZ = (((lanes) / 2f) - j - 0.5f) * gameValues.WidthScale;
 
                 float triangleZSide = Mathf.Abs(previousStructureZ - currentStructureZ);
-                if (triangleZSide > minTriangleZSide) {
+                if (triangleZSide < minTriangleZSide) {
                     minTriangleZSide = triangleZSide;
                 }
             }
@@ -257,9 +270,10 @@ public class CubeSpawner : MonoBehaviour
 
         if (minTriangleZSide == float.MaxValue) throw new System.Exception("Error in gap length calculation.");
         
-        float minDist = Mathf.Max((gameValues.ForwardSpeed * minTriangleZSide) / gameValues.StrafingSpeed, 2f);
-        float distance = minDist * Random.Range(gameValues.RowDistMultLowerBound, gameValues.RowDistMultUpperBound);
-
+        //NOTE: The constant value in this statement below accounts for the thickness of the obstacles
+        float minimumPossibleDistance = ((gameValues.ForwardSpeed * minTriangleZSide) / gameValues.StrafingSpeed) + 1.25f;
+        float distance = Mathf.Max(distanceBaseValue * Random.Range(gameValues.RowDistMultLowerBound, gameValues.RowDistMultUpperBound), minimumPossibleDistance * gameValues.RowDistMultLowerBound);
+        
         return (previous.transform.position.x + distance);
     }
 
