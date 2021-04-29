@@ -75,7 +75,14 @@ public static class FileManager
     }
 
     private static string GetDirectoryPath() {
-        return Path.Combine(Application.persistentDataPath, directory);
+        string path = Path.Combine(Application.persistentDataPath, directory);
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        //Manual override for WebGL for cross-version compatibility
+        path = Path.Combine("/idbfs/Poorgrammer/CubeRunner", directory);
+    #endif
+
+        return path;
     }
 
     private static string GetFullPath() {
