@@ -14,19 +14,38 @@ public class SaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake() {
         saveObject = FileManager.Load();
+        loaded = true;
 
         //if array doesn't exist, initialize a new one
         if (saveObject.upgrades == null || saveObject.upgrades.Count == 0) {
             saveObject.upgrades = GetNewUpgradesArray();
-            Save();
         }
         //else, ensure the size is conformed
         else {
             SizeMatchUpgrades();
-            Save();
         }
         
-        loaded = true;
+        LoadLegacyStats();
+        Save();
+    }
+
+    // If the player has legacy-style stats of High Score and Total Bits from the old PlayerPref-based save-system,
+    // load them into the new save system and remove the old PlayerPref keys
+    void LoadLegacyStats() {
+        int legacyHighScore = PlayerPrefs.GetInt(TagHolder.PREF_LEGACY_HIGH_SCORE, -1);
+        int legacyTotalBits = PlayerPrefs.GetInt(TagHolder.PREF_LEGACY_TOTAL_BITS, -1);
+
+        if (legacyHighScore != -1) {
+            PlayerPrefs.DeleteKey(TagHolder.PREF_LEGACY_HIGH_SCORE);
+            ContestHighScore(legacyHighScore);
+        }
+
+        if (legacyTotalBits != -1) {
+            PlayerPrefs.DeleteKey(TagHolder.PREF_LEGACY_TOTAL_BITS);
+            if (legacyTotalBits > TotalBits) {
+                saveObject.totalBits = legacyTotalBits;
+            }
+        }
     }
 
     [ContextMenu("Save")]

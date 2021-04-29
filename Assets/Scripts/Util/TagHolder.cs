@@ -46,6 +46,10 @@ public class TagHolder
     public const string PREF_GRAPHICS = "Graphics";
     public const string PREF_SKIP_ANIM = "SkipAnimations";
 
+    //Legacy PlayerPref Keys
+    public const string PREF_LEGACY_HIGH_SCORE = "HighScore";
+    public const string PREF_LEGACY_TOTAL_BITS = "TotalBits";
+
     //Other
     public const string HORIZONTAL_AXIS = "Horizontal";
     
