@@ -7,7 +7,7 @@ public class GameValues : MonoBehaviour {
 
     [SerializeField] private DifficultyValuesHolder[] difficultyValuesHolders;
     void Awake() {
-        difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY);
+        difficulty = (Difficulty) PlayerPrefs.GetInt(TagHolder.PREF_DIFFICULTY, 1);
 
         //divide value
         divide = divideValues[PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 2)];

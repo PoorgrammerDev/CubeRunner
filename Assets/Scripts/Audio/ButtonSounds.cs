@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class ButtonSounds : MonoBehaviour
 {
     [SerializeField] private AudioClip clickSound;
@@ -13,11 +14,13 @@ public class ButtonSounds : MonoBehaviour
     }
     
     public void PlayClickSound() {
+        if (clickSound == null) return;
         audioSource.clip = clickSound;
         audioSource.Play();
     }
     
     public void PlayHoverSound() {
+        if (hoverSound == null) return;
         audioSource.clip = hoverSound;
         audioSource.Play();
     }
