@@ -10,6 +10,7 @@ public class SaveManager : MonoBehaviour
     private bool loaded = false;
     public int HighScore => saveObject.highScore;
     public int TotalBits => saveObject.totalBits;
+    public string GameVersion => saveObject.gameVersion;
 
     // Start is called before the first frame update
     void Awake() {
@@ -26,6 +27,7 @@ public class SaveManager : MonoBehaviour
         }
         
         LoadLegacyStats();
+        CheckVersion();
         Save();
     }
 
@@ -46,6 +48,14 @@ public class SaveManager : MonoBehaviour
                 saveObject.totalBits = legacyTotalBits;
             }
         }
+    }
+
+    void CheckVersion() {
+        if (saveObject.gameVersion != null && saveObject.gameVersion != Application.version) {
+            //check versions and do stuff here...
+        }
+
+        saveObject.gameVersion = Application.version;
     }
 
     [ContextMenu("Save")]
@@ -135,6 +145,7 @@ public class SaveManager : MonoBehaviour
 
 [System.Serializable]
 public class SaveObject {
+    public string gameVersion;
     public int highScore;
     public int totalBits;
     public List<UpgradeEntry> upgrades;
