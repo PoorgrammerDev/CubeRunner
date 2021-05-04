@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -45,7 +44,6 @@ public class ShopManager : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
     [SerializeField] private Animator cubeAnimator;
-    [SerializeField] private MusicManager musicManager;
 
     [Header("Input Data")]
     [SerializeField] private Sprite[] powerUpSprites;
@@ -359,28 +357,6 @@ public class ShopManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    //TODO: This scene management stuff should be separated into a different script
-    public void ExitShop() {
-        if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
-            ChangeSceneToMM();
-        }
-        else {
-            //disables all buttons
-            foreach (Button button in FindObjectsOfType<Button>()) {
-                button.interactable = false;
-            }
-
-            Animator mainCamAnim = Camera.main.GetComponent<Animator>();
-            mainCamAnim.Play(TagHolder.CAM_UPGRADES_EXIT);
-
-            StartCoroutine(musicManager.FadeOutAndStop(1f));
-        }
-    }
-
-    public void ChangeSceneToMM() {
-        SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
     }
 
     [System.Serializable]

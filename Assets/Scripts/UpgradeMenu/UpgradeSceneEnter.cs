@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnterUpgradeScene : MonoBehaviour
+public class UpgradeSceneEnter : MonoBehaviour
 {
     void Start() {
         if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) return;

@@ -6,7 +6,6 @@ public class TagHolder
     //Animation States
     public const string CAM_ANIM_START_GAME = "StartGame";
     public const string CAM_UPGRADES_ENTER = "EnterUpgrades";
-    public const string CAM_UPGRADES_EXIT = "ExitUpgrades";
     public const string CAM_MM_RETURN_FROM_UPG = "ReturnFromUpgrades";
     public const string BEAM_ANIM_ENTER = "EnterStage";
     public const string BEAM_ANIM_MENU_ENTER = "EnterMenu";

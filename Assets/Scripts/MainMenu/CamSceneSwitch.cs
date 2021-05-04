@@ -3,24 +3,24 @@
 public class CamSceneSwitch : MonoBehaviour
 {
     [SerializeField] private StartGame startGame;
-    [SerializeField] private EnterUpgrades upgrades;
-    [SerializeField] private ShopManager shopManager;
+    [SerializeField] private AsyncSceneLoader enterUpgrades;
+    [SerializeField] private AsyncSceneLoader exitUpgrades;
     void ChangeGameScene() {
         if (startGame != null) startGame.ReadyToSwitchScenes = true;
     }
 
     void ChangeUpgradeScene() {
-        if (upgrades != null) upgrades.SwitchScenes();
+        if (enterUpgrades != null) enterUpgrades.ActivateScene();
     }
 
     void FromUpgradesToMM() {
-        if (shopManager == null) return; 
+        if (exitUpgrades == null) return; 
 
         GameObject gameObject = new GameObject("RETURN_FROM_UPG");
         gameObject.AddComponent<ReturnFromUpg>();
 
         DontDestroyOnLoad(gameObject);
-        shopManager.ChangeSceneToMM();
+        exitUpgrades.ActivateScene();
     }
     
 }
