@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -44,6 +45,7 @@ public class ShopManager : MonoBehaviour
     [Header("Other References")]
     [SerializeField] private SaveManager saveManager;
     [SerializeField] private Animator cubeAnimator;
+    [SerializeField] private UpgradeEffects upgradeEffects;
 
     [Header("Input Data")]
     [SerializeField] private Sprite[] powerUpSprites;
@@ -297,8 +299,15 @@ public class ShopManager : MonoBehaviour
                 //upgrades
                 saveManager.SetUpgradeLevel(menuData.PowerUpType, menuData.PathIndex, level);
                 
-                //effects and update display (particles and sfx are handled by animation)
+                //effects
                 cubeAnimator.SetTrigger(TagHolder.UPG_CUBE_TRIGGER);
+                upgradeEffects.PlayPoweringUp();
+
+                if (PlayerPrefs.GetInt(TagHolder.PREF_GRAPHICS, 2) > 0) {
+                    StartCoroutine(upgradeEffects.PlayUpgradedEffect());
+                }
+
+                //update bits display
                 StartCoroutine(bitsDisplay.TransitionDisplay(2.5f));
 
                 //exits menu

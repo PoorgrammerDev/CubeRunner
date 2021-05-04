@@ -8,14 +8,17 @@ public class UpgradeEffects : MonoBehaviour
     [SerializeField] private AudioClip poweringUpSFX;
     [SerializeField] private AudioClip impactSFX;
     [SerializeField] private ParticleSystem upgradeParticle;
+    private WaitForSeconds upgFinalEffectWait = new WaitForSeconds(0.5f);
 
-    void PlayPoweringUp() {
+    public void PlayPoweringUp() {
         upgradeSFX.clip = poweringUpSFX;
         upgradeSFX.time = 0.25f;
         upgradeSFX.Play();
     }
 
-    void PlayUpgradedEffect() {
+    public IEnumerator PlayUpgradedEffect() {
+        yield return upgFinalEffectWait;
+        
         if (upgradeSFX.isPlaying) upgradeSFX.Stop();
 
         //plays second sfx

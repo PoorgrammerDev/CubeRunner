@@ -6246,6 +6246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveObject:
+    gameVersion: 
     highScore: 0
     totalBits: 0
     upgrades: []
