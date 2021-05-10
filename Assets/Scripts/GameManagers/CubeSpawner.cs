@@ -32,6 +32,8 @@ public class CubeSpawner : MonoBehaviour
 
     private float distanceBaseValue;
 
+    private bool powerUpSpawnGuarantee = false;
+
     // Start is called before the first frame update
     void Start() {
         cubePoolObject = transform.GetChild(0);
@@ -131,13 +133,25 @@ public class CubeSpawner : MonoBehaviour
         }
 
         //Power ups
-        if (!ignorePUP && powerUpSpawner.IsReady() && Random.value < gameValues.PowerUpSpawnChance) {
-            int slot = -1;
-            do {
-                slot = Random.Range(0, lanes);
-            } while (!row.structures[slot]);
+        if (!ignorePUP && powerUpSpawner.IsReady() && (powerUpSpawnGuarantee || Random.value < gameValues.PowerUpSpawnChance)) {
+            if (row.gapCount > 1) {
+                if (powerUpSpawnGuarantee) {
+                    powerUpSpawnGuarantee = false;
+                }
 
-            powerUpSpawner.SpawnPowerUp(row, slot, lanes);
+                //spawn power-up
+                int slot = -1;
+                do {
+                    slot = Random.Range(0, lanes);
+                } while (!row.structures[slot]);
+
+                powerUpSpawner.SpawnPowerUp(row, slot, lanes);
+            }
+
+            //if it fails due to not having enough gaps, the spawn chance afterward is ignored until it can spawn one
+            else {
+                powerUpSpawnGuarantee = true;
+            }
         }
 
         //Bits
