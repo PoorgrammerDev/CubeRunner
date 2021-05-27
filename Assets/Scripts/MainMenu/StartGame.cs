@@ -14,6 +14,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private PanelObjectHolder[] panels;
     [SerializeField] private Button[] buttons;
     [SerializeField] private MusicManager musicManager;
+    [SerializeField] private GameObject postProcessing;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
@@ -36,6 +37,7 @@ public class StartGame : MonoBehaviour
         }
 
         Time.timeScale = 1f;
+        postProcessing.SetActive(true);
         renderer.material = glowingMaterial;
         menuScale.Active = false;
 
