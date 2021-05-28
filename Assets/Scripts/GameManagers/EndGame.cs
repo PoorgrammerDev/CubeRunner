@@ -19,6 +19,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GameObject[] invisibleWalls;
 
     [SerializeField] private GibManager playerGibManager;
+    [SerializeField] private GibManager obstacleGibManager;
     [SerializeField] private PlayerPowerUp playerPowerUp;
     [SerializeField] private TimeDilation timeDilation;
     [SerializeField] private Animator HUD;
@@ -26,6 +27,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private AudioSource genericSFX;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private LayerMask obstacleLayer;
 
     private GameObject[] cubeParts;
     public void endGame(bool effects) {
@@ -53,6 +55,8 @@ public class EndGame : MonoBehaviour
         musicManager.Pause();
 
         if (effects) {
+            Transform playerTransform = activePlayer.transform;
+
             //sfx
             genericSFX.clip = deathSound;
             genericSFX.Play();
@@ -62,6 +66,18 @@ public class EndGame : MonoBehaviour
                 invisibleWall.SetActive(false);
             }
 
+            //Gibs and pushes forward all obstacles the player collides with
+            Collider[] allObstacles = Physics.OverlapBox(playerTransform.position, playerTransform.localScale / 2f, Quaternion.identity, obstacleLayer, QueryTriggerInteraction.Collide);
+            foreach (Collider obstacle in allObstacles) {
+                obstacle.gameObject.SetActive(false);
+                
+                GameObject[] gibs = obstacleGibManager.Activate(obstacle.transform.position, obstacle.transform.localScale, false, true);
+                foreach (GameObject gib in gibs) {
+                    gib.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.right * (gameValues.ForwardSpeed / 10.0f), playerTransform.position, ForceMode.Impulse);
+                }
+            }
+
+
             //Slow-mo effect
             Time.timeScale = 0.125f;
 
@@ -69,10 +85,10 @@ public class EndGame : MonoBehaviour
             StartCoroutine(TimeResume(0.25f));
 
             //smashing cube
-            cubeParts = playerGibManager.Activate(activePlayer.transform.position, activePlayer.transform.localScale, false, true);
+            cubeParts = playerGibManager.Activate(playerTransform.position, playerTransform.localScale, false, true);
 
             //Activate beam
-            StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, activePlayer.transform.localScale.z / (float) gameValues.Divide, true));
+            StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, playerTransform.localScale.z / (float) gameValues.Divide, true));
         }
         else {
             StartCoroutine(LoadNewScene());

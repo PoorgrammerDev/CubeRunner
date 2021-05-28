@@ -2672,6 +2672,7 @@ MonoBehaviour:
   - {fileID: 434842547}
   - {fileID: 367493392}
   playerGibManager: {fileID: 767751333}
+  obstacleGibManager: {fileID: 47766900}
   playerPowerUp: {fileID: 686139434}
   timeDilation: {fileID: 2076366833}
   HUD: {fileID: 258100189}
@@ -2679,6 +2680,9 @@ MonoBehaviour:
   musicManager: {fileID: 999835071}
   genericSFX: {fileID: 1691803736}
   deathSound: {fileID: 8300000, guid: 080fcc91b7f10824db6f6e83a248fc98, type: 3}
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!4 &602921036
 Transform:
   m_ObjectHideFlags: 0
