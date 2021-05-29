@@ -70,6 +70,8 @@ public class GameOverManager : MonoBehaviour
                 StartCoroutine(CubeFormingAnimation());
             }
 
+            //Destroy the data object
+            Destroy(endGameDataExport.gameObject);
         }
         else {
             if (!eulaScreen.activeInHierarchy) {
@@ -168,7 +170,6 @@ public class GameOverManager : MonoBehaviour
     }
 
     public void BackToMainMenu() {
-        Destroy(endGameDataExport.gameObject);
         gameOverScreen.SetActive(false);
         mainMenuScreen.SetActive(true);
     }

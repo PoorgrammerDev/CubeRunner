@@ -11,22 +11,30 @@ public class AsyncSceneLoader : MonoBehaviour
     private bool readyToSwitchScenes = false;
 
     public void BeginAsyncProcess() {
+        BeginAsyncProcess(true);
+    }
+
+    public void BeginAsyncProcess(bool disableButtons) {
         if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
             SceneManager.LoadScene(sceneBuildIndex, LoadSceneMode.Single);
         }
         else {
             //disables all buttons
-            foreach (Button button in FindObjectsOfType<Button>()) {
-                button.interactable = false;
+            if (disableButtons) {
+                foreach (Button button in FindObjectsOfType<Button>()) {
+                    button.interactable = false;
+                }
             }
 
-            StartCoroutine(LoadScene());
-
-            //music fades out
+            //camera animation for transition
+            if (animationClip != null) {
+                Animator mainCamAnim = Camera.main.GetComponent<Animator>();
+                mainCamAnim.Play(animationClip.name);
+            }
+            
+            //fade out music and begin loading
             StartCoroutine(musicManager.FadeOutAndStop(1f));
-
-            Animator mainCamAnim = Camera.main.GetComponent<Animator>();
-            mainCamAnim.Play(animationClip.name);
+            StartCoroutine(LoadScene());
         }
     }
 

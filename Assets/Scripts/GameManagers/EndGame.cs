@@ -15,6 +15,7 @@ public class EndGame : MonoBehaviour
     [SerializeField] private GameValues gameValues;
 
     [SerializeField] private EndGameDataExport dataExport;
+    [SerializeField] private AsyncSceneLoader sceneLoader;
 
     [SerializeField] private GameObject[] invisibleWalls;
 
@@ -28,8 +29,10 @@ public class EndGame : MonoBehaviour
     [SerializeField] private AudioSource genericSFX;
     [SerializeField] private AudioClip deathSound;
     [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private GameObject skipButton;
 
     private GameObject[] cubeParts;
+    private bool calledSceneLoad = false;
     public void endGame(bool effects) {
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.TimeDilation) {
             timeDilation.ResetTDEffects(true);
@@ -43,6 +46,7 @@ public class EndGame : MonoBehaviour
         dataExport.FinalScore = gameValues.Score;
         dataExport.CubePartDivide = gameValues.Divide;
         dataExport.BitsCollected = gameValues.Bits;
+        DontDestroyOnLoad(dataExport.gameObject);
 
         //remove hud
         HUD.SetTrigger(TagHolder.HUD_EXIT_TRIGGER);
@@ -66,7 +70,11 @@ public class EndGame : MonoBehaviour
                 invisibleWall.SetActive(false);
             }
 
-            //Gibs and pushes forward all obstacles the player collides with
+            //Slow-mo effect
+            Time.timeScale = 0.125f;
+            StartCoroutine(TimeResume(0.25f));
+
+            //Hit Obstacle Gibbing
             Collider[] allObstacles = Physics.OverlapBox(playerTransform.position, playerTransform.localScale / 2f, Quaternion.identity, obstacleLayer, QueryTriggerInteraction.Collide);
             foreach (Collider obstacle in allObstacles) {
                 obstacle.gameObject.SetActive(false);
@@ -76,36 +84,28 @@ public class EndGame : MonoBehaviour
                     gib.GetComponent<Rigidbody>().AddForceAtPosition(Vector3.right * (gameValues.ForwardSpeed / 10.0f), playerTransform.position, ForceMode.Impulse);
                 }
             }
+            
+            //Skip button appears
+            skipButton.SetActive(true);
 
-
-            //Slow-mo effect
-            Time.timeScale = 0.125f;
-
-            //End slow-mo effect
-            StartCoroutine(TimeResume(0.25f));
-
-            //smashing cube
+            //Player Gibbing
             cubeParts = playerGibManager.Activate(playerTransform.position, playerTransform.localScale, false, true);
 
             //Activate beam
             StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, playerTransform.localScale.z / (float) gameValues.Divide, true));
         }
-        else {
-            StartCoroutine(LoadNewScene());
-        }
+
+        //Begin loading new scene
+        sceneLoader.BeginAsyncProcess(false);
     }
 
-    public IEnumerator LoadNewScene() {
-        Camera.main.GetComponent<AudioListener>().enabled = false;
-        SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Additive);
-        Scene gameOver = SceneManager.GetSceneByName(TagHolder.MAIN_MENU_SCENE);
-        SceneManager.MoveGameObjectToScene(dataExport.gameObject, gameOver);
-        yield return null;
-
-        foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects()) {
-            obj.SetActive(false);
+    public void SkipButton() {
+        if (Time.timeScale != 1) {
+            Time.timeScale = 1;
+            StopCoroutine(TimeResume(0));
         }
-        SceneManager.UnloadSceneAsync(TagHolder.GAME_SCENE);
+
+        sceneLoader.ActivateScene();
     }
 
     IEnumerator TimeResume(float delay) {

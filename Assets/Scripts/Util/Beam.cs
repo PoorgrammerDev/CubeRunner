@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class Beam : MonoBehaviour
 {
-    [SerializeField] private EndGame endGame;
+    [SerializeField] private AsyncSceneLoader endGameSceneLoader;
 
     private Transform ZAligner;
     private Animator animator;
@@ -56,7 +56,7 @@ public class Beam : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine(endGame.LoadNewScene());
+        endGameSceneLoader.ActivateScene();
     }
 
     IEnumerator SuckUpCube(GameObject cube, float timeToCenter, float timetoTop, float partScale, int i) {

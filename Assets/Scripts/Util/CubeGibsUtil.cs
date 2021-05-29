@@ -11,7 +11,7 @@ public class CubeGibsUtil : MonoBehaviour
 
     public GameObject[] SmashCube(Stack<GameObject> parts, Vector3 originalPosition, Vector3 originalScale, Transform parent, uint divide) {
         //ensure divide value is valid
-        if (!IsPowerOfTwo(divide)) divide = DEFAULT_DIVIDE;
+        if (divide < 2) divide = DEFAULT_DIVIDE;
 
         //ensure enough parts to build
         uint partsAmt = divide * divide * divide;
@@ -56,9 +56,5 @@ public class CubeGibsUtil : MonoBehaviour
         part.transform.position = position;
 
         return part;
-    }
-
-    bool IsPowerOfTwo(uint x) {
-        return (x != 0) && ((x & (x - 1)) == 0);
     }
 }

@@ -81,7 +81,7 @@ public class PlayerCollision : MonoBehaviour
             return;
         }
 
-        gameEndManager.endGame((PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 0) && gameValues.Divide != 0);
+        gameEndManager.endGame(PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 0);
         GetComponent<BoxCollider>().enabled = false;
         GetComponent<CharacterController>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
