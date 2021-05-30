@@ -13,4 +13,7 @@ public class EndGameDataExport : MonoBehaviour {
     [SerializeField] private int bitsCollected;
     public int BitsCollected { get => bitsCollected; set => bitsCollected = value; }
 
+    [SerializeField] private bool cutsceneSkipped;
+    public bool CutsceneSkipped { get => cutsceneSkipped; set => cutsceneSkipped = value; }
+
 }

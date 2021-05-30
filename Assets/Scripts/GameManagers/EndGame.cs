@@ -33,7 +33,7 @@ public class EndGame : MonoBehaviour
 
     private GameObject[] cubeParts;
     private bool calledSceneLoad = false;
-    public void endGame(bool effects) {
+    public void endGame(bool playCutscene) {
         if (playerPowerUp.GetActivePowerUp() == PowerUpType.TimeDilation) {
             timeDilation.ResetTDEffects(true);
         }
@@ -46,6 +46,7 @@ public class EndGame : MonoBehaviour
         dataExport.FinalScore = gameValues.Score;
         dataExport.CubePartDivide = gameValues.Divide;
         dataExport.BitsCollected = gameValues.Bits;
+        dataExport.CutsceneSkipped = !playCutscene;
         DontDestroyOnLoad(dataExport.gameObject);
 
         //remove hud
@@ -58,7 +59,7 @@ public class EndGame : MonoBehaviour
         //stop music
         musicManager.Pause();
 
-        if (effects) {
+        if (playCutscene) {
             Transform playerTransform = activePlayer.transform;
 
             //sfx
@@ -93,10 +94,13 @@ public class EndGame : MonoBehaviour
 
             //Activate beam
             StartCoroutine(beam.ActivateBeam(activePlayer, cubeParts, 0.225f, playerTransform.localScale.z / (float) gameValues.Divide, true));
-        }
 
-        //Begin loading new scene
-        sceneLoader.BeginAsyncProcess(false);
+            //Begin loading new scene
+            sceneLoader.BeginAsyncProcess(false);
+        }
+        else {
+            SceneManager.LoadScene(TagHolder.MAIN_MENU_SCENE, LoadSceneMode.Single);
+        }
     }
 
     public void SkipButton() {
@@ -105,6 +109,7 @@ public class EndGame : MonoBehaviour
             StopCoroutine(TimeResume(0));
         }
 
+        dataExport.CutsceneSkipped = true;
         sceneLoader.ActivateScene();
     }
 

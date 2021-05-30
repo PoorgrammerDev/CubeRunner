@@ -57,7 +57,7 @@ public class GameOverManager : MonoBehaviour
             saveManager.Save();
 
             //dont call anims and immediately enable delayed objects
-            if (PlayerPrefs.GetInt(TagHolder.PREF_SKIP_ANIM) == 1) {
+            if (endGameDataExport.CutsceneSkipped) {
                 //enable the delayed objects
                 foreach (GameObject delayed in delayedEnable) {
                     delayed.SetActive(true);
@@ -102,13 +102,19 @@ public class GameOverManager : MonoBehaviour
         float partScale = 1f / (float) endGameDataExport.CubePartDivide;
         int parts = (int) (endGameDataExport.CubePartDivide * endGameDataExport.CubePartDivide * endGameDataExport.CubePartDivide);
         cubeParts = new GameObject[parts];
+
+        Vector3 spawnPosition;
         for (int i = 0; i < parts; i++) {
-            cubeParts[i] = cubeGibs.DeployGib(playerPropPrefab, new Vector3(0, spawnYPos - (2f * i), cubeGibs.transform.position.z), cubeGibs.transform, partScale, partScale, partScale, true);
+            spawnPosition = new Vector3(Random.Range(-0.1f, 0.1f), spawnYPos - ((partScale * 1.5f) * i), cubeGibs.transform.position.z);
+
+            cubeParts[i] = cubeGibs.DeployGib(playerPropPrefab, spawnPosition, cubeGibs.transform, partScale, partScale, partScale, true);
+            cubeParts[i].transform.rotation = Quaternion.Euler(Random.Range(-90, 90), Random.Range(-90, 90), Random.Range(-90, 90));
+
             cubeParts[i].GetComponent<Rigidbody>().isKinematic = true;
         }
 
         //cube begins forming
-        StartCoroutine(NewPlayerCubeForm(2));
+        StartCoroutine(NewPlayerCubeForm(2f));
 
         //make cube bits flow into base
         for (int i = 0; i < cubeParts.Length; i++) {
