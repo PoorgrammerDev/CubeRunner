@@ -3204,6 +3204,7 @@ GameObject:
   - component: {fileID: 716676322}
   - component: {fileID: 716676326}
   - component: {fileID: 716676327}
+  - component: {fileID: 716676328}
   m_Layer: 5
   m_Name: SkipCutscene
   m_TagString: Untagged
@@ -3402,6 +3403,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &716676328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716676320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ae1894176f38de499699c7791c89f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &726419336
 GameObject:
   m_ObjectHideFlags: 0
@@ -8302,6 +8315,7 @@ MonoBehaviour:
   finalScore: 0
   cubePartDivide: 0
   bitsCollected: 0
+  cutsceneSkipped: 0
 --- !u!1001 &1829837662
 PrefabInstance:
   m_ObjectHideFlags: 0

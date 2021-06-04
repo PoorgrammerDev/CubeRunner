@@ -44,6 +44,7 @@ public class TagHolder
     public const string PREF_MUSIC_VOLUME = "MUSIC_VOLUME";
     public const string PREF_GRAPHICS = "Graphics";
     public const string PREF_SKIP_ANIM = "SkipAnimations";
+    public const string PREF_SEEN_TUTORIAL_PROMPT = "SeenTutorialPrompt";
 
     //Legacy PlayerPref Keys
     public const string PREF_LEGACY_HIGH_SCORE = "HighScore";
@@ -54,6 +55,7 @@ public class TagHolder
     
     //EXTERNAL LINKS
     public const string LINK_INSTAGRAM = "https://www.instagram.com/cuberunner_/";
+    public const string LINK_WEBSITE = "https://slappypotato.github.io/"; //FIXME: TODO: ADD NEW LINK FOR WEBSITE
 
     //public const string  = "";
     //public const string  = "";

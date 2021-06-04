@@ -15,6 +15,7 @@ public class StartGame : MonoBehaviour
     [SerializeField] private Button[] buttons;
     [SerializeField] private MusicManager musicManager;
     [SerializeField] private GameObject postProcessing;
+    [SerializeField] private GameObject tutorialPrompt;
 
     private CubeSpin spinManager;
     private PanelObjectHolder panel;
@@ -74,6 +75,13 @@ public class StartGame : MonoBehaviour
             //camera moves up
             Animator mainCamAnim = Camera.main.GetComponent<Animator>();
             mainCamAnim.Play(TagHolder.CAM_ANIM_START_GAME);
+
+            //show tutorial prompt if it hasnt been shown yet
+            if (PlayerPrefs.GetInt(TagHolder.PREF_SEEN_TUTORIAL_PROMPT, 0) == 0) {
+                PlayerPrefs.SetInt(TagHolder.PREF_SEEN_TUTORIAL_PROMPT, 1);
+                tutorialPrompt.SetActive(true);
+            }
+
 
             //scene switching is handled by the animation event on the camera
         }

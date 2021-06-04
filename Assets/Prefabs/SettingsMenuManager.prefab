@@ -10516,10 +10516,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Thank you for downloading and playing CubeRunner! This is the first game
-    I\u2019ve ever made, so I\u2019m really new to all of this. If you have any feedback
-    or comments, please feel free to leave a review on the Google Play store, or
-    a comment on the itch.io page! Below is the CubeRunner Instagram, which contains
+  m_text: "Thank you for downloading and playing CubeRunner! Being the first game
+    I\u2019ve ever made, this has been a great learning experience. If you have any
+    feedback or comments, please feel free to leave a review on the Google Play store,
+    or a comment on the itch.io page! Below is the CubeRunner Website, which contains
     links to both of these.\r\nI hope you enjoy the game!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cf2639f0ed7e8c540a0dc08d3ffb1787, type: 2}
@@ -10883,7 +10883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Instagram
+  m_text: Website
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0fdb0a935588d604c8522208ddcba515, type: 2}
   m_sharedMaterial: {fileID: -4591344981529213195, guid: 0fdb0a935588d604c8522208ddcba515,
@@ -12351,7 +12351,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OPTIONS
+  m_text: SETTINGS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0fdb0a935588d604c8522208ddcba515, type: 2}
   m_sharedMaterial: {fileID: -4591344981529213195, guid: 0fdb0a935588d604c8522208ddcba515,
@@ -13721,7 +13721,7 @@ GameObject:
   - component: {fileID: 4199007372878707422}
   - component: {fileID: 8402980904185727503}
   m_Layer: 0
-  m_Name: Instagram
+  m_Name: Website
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13876,8 +13876,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3979454347720418446}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: OpenInstagram
+        m_TargetAssemblyTypeName: About, Assembly-CSharp
+        m_MethodName: OpenWebsite
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14132,7 +14132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: OPTIONS
+  m_text: SETTINGS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0fdb0a935588d604c8522208ddcba515, type: 2}
   m_sharedMaterial: {fileID: -4591344981529213195, guid: 0fdb0a935588d604c8522208ddcba515,
