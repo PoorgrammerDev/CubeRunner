@@ -55,7 +55,7 @@ public class TagHolder
     
     //EXTERNAL LINKS
     public const string LINK_INSTAGRAM = "https://www.instagram.com/cuberunner_/";
-    public const string LINK_WEBSITE = "https://slappypotato.github.io/"; //FIXME: TODO: ADD NEW LINK FOR WEBSITE
+    public const string LINK_WEBSITE = "https://poorgrammerdev.github.io/";
 
     //public const string  = "";
     //public const string  = "";
