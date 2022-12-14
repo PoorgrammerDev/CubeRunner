@@ -396,6 +396,12 @@
     <Reference Include="Newtonsoft.Json">
         <HintPath>/Users/thomas/Documents/GitHub/CubeRunner/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Android.Types">
+        <HintPath>/Applications/Unity/Hub/Editor/2021.3.15f1/PlaybackEngines/AndroidPlayer/Unity.Android.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+        <HintPath>/Applications/Unity/Hub/Editor/2021.3.15f1/PlaybackEngines/AndroidPlayer/Unity.Android.Gradle.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib">
         <HintPath>/Applications/Unity/Hub/Editor/2021.3.15f1/Unity.app/Contents/UnityReferenceAssemblies/unity-4.8-api/mscorlib.dll</HintPath>
     </Reference>
