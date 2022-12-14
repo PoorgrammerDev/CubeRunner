@@ -7,6 +7,7 @@ Cuberunner is a 3D space/synthwave-themed endless runner game built in Unity. Ex
 
 ## Play Now!
 Web & Desktop → [itch.io](https://poorgrammer.itch.io/cuberunner)
+
 Android → [Google Play](https://play.google.com/store/apps/details?id=me.Poorgrammer.CubeRunner)
 
 ## Gallery
