@@ -1,7 +1,7 @@
-<center>
-<img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/rounded.png" width="25%" height="25%"></img>
-<h1>CubeRunner</h1>
-</center>
+<p align="center">
+<img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/rounded.png" width="25%" height="25%" />
+</p>
+<h1 align="center">CubeRunner</h1>
 
 Cuberunner is a 3D space/synthwave-themed endless runner game built in Unity. Experiment with 7 unique power-ups, vary the intensity with 4 difficulties, and collect Bits as you run to upgrade those power-ups for stronger abilities!
 
