@@ -1,3 +1,4 @@
+
 <p align="center">
 <img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/rounded.png" width="25%" height="25%" />
 </p>
@@ -11,7 +12,14 @@ Web & Desktop → [itch.io](https://poorgrammer.itch.io/cuberunner)
 Android → [Google Play](https://play.google.com/store/apps/details?id=me.Poorgrammer.CubeRunner)
 
 ## Gallery
-Coming soon!
+
+<table>
+<tr>
+<td><img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/1.gif"/></td>
+<td><img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/2.gif"/></td>
+<td><img src="https://github.com/PoorgrammerDev/CubeRunner/raw/media/3.gif"/></td>
+</tr>
+<table>
 
 <br>
 <hr>
